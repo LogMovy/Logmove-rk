@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { ArrowDownRight, ArrowUpRight, Check, ChevronDown, Menu, Plus, X } from 'lucide-react'
+import Squares from '@/components/Squares'
+import Header from '@/components/Header'
 
 const logoUrl = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-v1WLrHn4uN3E9Hk2lOEptFL1dL64rn.png'
 
@@ -19,24 +21,20 @@ function Brand({ light = false }: { light?: boolean }) {
 }
 
 export default function Page() {
-  const [menuOpen, setMenuOpen] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   return (
     <main>
-      <header className="nav-shell">
-        <Brand />
-        <nav className={`site-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Navegação principal">
-          <a href="#aplicativo" onClick={() => setMenuOpen(false)}>O aplicativo</a>
-          <a href="#como-funciona" onClick={() => setMenuOpen(false)}>Como funciona</a>
-          <a href="#beneficios" onClick={() => setMenuOpen(false)}>Benefícios</a>
-          <a className="nav-cta" href="#cadastro" onClick={() => setMenuOpen(false)}>Cadastre-se como motoboy <ArrowUpRight /></a>
-        </nav>
-        <button className="menu-button" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
-      </header>
+      <Header />
 
       <section id="inicio" className="hero section-dark">
-        <div className="hero-grid" />
+        <Squares
+          direction="diagonal"
+          speed={0.4}
+          squareSize={44}
+          borderColor="rgba(255, 255, 255, 0.08)"
+          hoverFillColor="rgba(140, 229, 27, 0.22)"
+        />
         <div className="hero-copy">
           <p className="eyebrow lime">CONEXÕES QUE MOVEM A CIDADE</p>
           <h1>Sua rotina.<br /><em>Sua moto.</em><br />Novas oportunidades.</h1>
