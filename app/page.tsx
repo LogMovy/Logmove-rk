@@ -55,9 +55,8 @@ export default function Page() {
           </div>
 
           <h1 className="hero-headline">
-            Sua rotina. <span className="headline-lime">Sua moto.</span>
-            <br />
-            <span className="headline-gradient">Novas oportunidades.</span>
+            <span className="headline-line">Sua rotina. <span className="headline-lime">Sua moto.</span></span>
+            <span className="headline-gradient headline-line">Novas oportunidades.</span>
           </h1>
 
           <p className="hero-text">
@@ -98,7 +97,7 @@ export default function Page() {
           <div className="hero-trust-bar">
             <span className="trust-indicator">⚡ Adesão gratuita</span>
             <span className="trust-dot">•</span>
-            <span>Sem vínculo de exclusividade</span>
+            <span>Sem exclusividade</span>
             <span className="trust-dot">•</span>
             <span>Validação simples</span>
           </div>
