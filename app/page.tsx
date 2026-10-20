@@ -1,11 +1,27 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowDownRight, ArrowUpRight, Check, ChevronDown, Menu, Plus, X } from 'lucide-react'
-import Squares from '@/components/Squares'
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  Check,
+  ChevronDown,
+  Menu,
+  Plus,
+  X,
+  Building2,
+  Bike,
+  ShieldCheck,
+  ArrowRight,
+  TrendingUp,
+  Clock,
+  CheckCircle2,
+  Sparkles,
+} from 'lucide-react'
+import DeliveryMotion from '@/components/DeliveryMotion'
 import Header from '@/components/Header'
 
-const logoUrl = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-v1WLrHn4uN3E9Hk2lOEptFL1dL64rn.png'
+const logoUrl = '/logmov-icon.png'
 
 const faqs = [
   ['Posso escolher os dias e horários em que vou trabalhar?', 'Sim. Você define sua disponibilidade no aplicativo, de acordo com a sua rotina.'],
@@ -28,25 +44,211 @@ export default function Page() {
       <Header />
 
       <section id="inicio" className="hero section-dark">
-        <Squares
-          direction="diagonal"
-          speed={0.4}
-          squareSize={44}
-          borderColor="rgba(255, 255, 255, 0.08)"
-          hoverFillColor="rgba(140, 229, 27, 0.22)"
-        />
+        <DeliveryMotion />
+        
+        {/* Left Column: Hero Content */}
         <div className="hero-copy">
-          <p className="eyebrow lime">CONEXÕES QUE MOVEM A CIDADE</p>
-          <h1>Sua rotina.<br /><em>Sua moto.</em><br />Novas oportunidades.</h1>
-          <p className="hero-text">Escolha os dias e horários em que deseja trabalhar, acompanhe suas corridas e consulte seu financeiro. Faça seu pré-cadastro para se conectar às oportunidades da LOGMov.</p>
-          <div className="hero-actions"><a className="button button-lime" href="#cadastro">Quero me cadastrar <ArrowUpRight /></a><a className="text-link light" href="#como-funciona">Veja como funciona <ArrowDownRight /></a></div>
+          <div className="hero-pill-badge">
+            <span className="live-dot" />
+            <span className="badge-text">Conexões que movem a cidade</span>
+            <Sparkles size={13} className="badge-sparkle" />
+          </div>
+
+          <h1 className="hero-headline">
+            Sua rotina. <span className="headline-lime">Sua moto.</span>
+            <br />
+            <span className="headline-gradient">Novas oportunidades.</span>
+          </h1>
+
+          <p className="hero-text">
+            Escolha os dias e horários em que deseja trabalhar, acompanhe suas corridas e consulte seu financeiro em tempo real com total autonomia.
+          </p>
+
+          <div className="hero-highlights">
+            <div className="highlight-item">
+              <CheckCircle2 size={15} className="highlight-icon" />
+              <span>Autonomia de agenda</span>
+            </div>
+            <div className="highlight-item">
+              <CheckCircle2 size={15} className="highlight-icon" />
+              <span>Controle financeiro</span>
+            </div>
+            <div className="highlight-item">
+              <CheckCircle2 size={15} className="highlight-icon" />
+              <span>Benefícios optativos</span>
+            </div>
+          </div>
+
+          <div className="hero-actions">
+            <a className="hero-btn-primary" href="#cadastro">
+              <span>Quero me cadastrar</span>
+              <span className="btn-icon-bubble">
+                <ArrowUpRight size={17} />
+              </span>
+              <span className="btn-shimmer" />
+            </a>
+            <a className="hero-btn-secondary" href="#como-funciona">
+              <span>Veja como funciona</span>
+              <span className="btn-icon-bubble secondary">
+                <ArrowDownRight size={17} />
+              </span>
+            </a>
+          </div>
+
+          <div className="hero-trust-bar">
+            <span className="trust-indicator">⚡ Adesão gratuita</span>
+            <span className="trust-dot">•</span>
+            <span>Sem vínculo de exclusividade</span>
+            <span className="trust-dot">•</span>
+            <span>Validação simples</span>
+          </div>
         </div>
-        <div className="hero-art">
-          <div className="route route-one" /><div className="route route-two" /><div className="route route-three" />
-          <div className="hero-logo-wrap"><img src={logoUrl} alt="Logo LOGMov com motociclista em movimento" /></div>
-          <div className="speed-label">MAIS<br /><strong>MOVIMENTO</strong> <ArrowUpRight /></div>
+
+        {/* Right Column: Hero Interactive Cockpit App Card */}
+        <div className="hero-cockpit-wrap">
+          {/* Ambient Glow Aura */}
+          <div className="cockpit-ambient-glow" />
+
+          {/* Floating Motoboy Emblem Badge with glow */}
+          <div className="cockpit-emblem-float">
+            <img src={logoUrl} alt="LOGMov Motociclista" className="cockpit-emblem-img" />
+          </div>
+
+          {/* Smartphone / Cockpit Glass Card */}
+          <div className="cockpit-card">
+            {/* Card Top: Live Mode Bar */}
+            <div className="cockpit-top-bar">
+              <div className="cockpit-status">
+                <span className="status-ping-wrap">
+                  <span className="status-dot-core" />
+                  <span className="status-dot-wave" />
+                </span>
+                <div>
+                  <div className="status-title">MODO ONLINE</div>
+                  <div className="status-sub">Disponível para corridas</div>
+                </div>
+              </div>
+              <div className="cockpit-signal-wrap">
+                <span className="signal-bars">
+                  <span className="s-bar s1" />
+                  <span className="s-bar s2" />
+                  <span className="s-bar s3" />
+                </span>
+                <span className="gps-pill">GPS 5G</span>
+              </div>
+            </div>
+
+            {/* Route In Progress Card */}
+            <div className="cockpit-route-card">
+              <div className="route-card-meta">
+                <span className="route-tag">CORRIDA DISPONÍVEL</span>
+                <span className="route-timer">Há 2 min</span>
+              </div>
+
+              <div className="route-flow">
+                <div className="flow-step">
+                  <div className="step-dot origin" />
+                  <div className="step-info">
+                    <span className="step-label">PONTO DE COLETA</span>
+                    <strong className="step-name">Centro Logístico · Galpão 04</strong>
+                  </div>
+                </div>
+
+                <div className="flow-connector">
+                  <div className="flow-line" />
+                  <div className="flow-bike-icon">
+                    <Bike size={13} />
+                  </div>
+                </div>
+
+                <div className="flow-step">
+                  <div className="step-dot dest" />
+                  <div className="step-info">
+                    <span className="step-label">ENTREGA FINAL</span>
+                    <strong className="step-name">Av. das Nações, 1420</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* Payout & Route Specs */}
+              <div className="route-specs-grid">
+                <div className="spec-col highlight">
+                  <span className="spec-label">VALOR ESTIMADO</span>
+                  <span className="spec-val-lime">R$ 38,50</span>
+                </div>
+                <div className="spec-sep" />
+                <div className="spec-col">
+                  <span className="spec-label">DISTÂNCIA</span>
+                  <span className="spec-val">4.2 km</span>
+                </div>
+                <div className="spec-sep" />
+                <div className="spec-col">
+                  <span className="spec-label">ESTIMATIVA</span>
+                  <span className="spec-val">~14 min</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Metrics inside Card */}
+            <div className="cockpit-metrics-row">
+              <div className="metric-chip">
+                <div className="metric-icon-wrap lime-bg">
+                  <TrendingUp size={14} />
+                </div>
+                <div>
+                  <div className="metric-val">R$ 284,00</div>
+                  <div className="metric-label">Ganhos de hoje</div>
+                </div>
+              </div>
+              <div className="metric-chip">
+                <div className="metric-icon-wrap blue-bg">
+                  <ShieldCheck size={14} />
+                </div>
+                <div>
+                  <div className="metric-val">Ativo</div>
+                  <div className="metric-label">Clube parceiro</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating Pill: Deliveries Counter */}
+          <div className="satellite-pill top-right">
+            <span className="sat-dot" />
+            <span><strong>+1.200</strong> entregas hoje</span>
+          </div>
+
+          {/* Floating Pill: Flexibility */}
+          <div className="satellite-pill bottom-left">
+            <Clock size={13} className="sat-icon" />
+            <span>Você define seus dias e horas</span>
+          </div>
         </div>
-        <div className="hero-bottom"><span>EMPRESAS</span><b>↔</b><span>MOTOBOYS</span><b>+</b><span>BENEFÍCIOS OPTATIVOS</span></div>
+
+        {/* Hero Bottom Bar: Connected Ecosystem */}
+        <div className="hero-bottom-ecosystem">
+          <div className="ecosystem-title">ECOSSISTEMA LOGMOV:</div>
+          <div className="ecosystem-badges">
+            <div className="eco-badge">
+              <Building2 size={14} className="eco-icon" />
+              <span>EMPRESAS COM DEMANDA</span>
+            </div>
+            <div className="eco-connector">
+              <ArrowRight size={13} />
+            </div>
+            <div className="eco-badge highlight">
+              <Bike size={15} className="eco-icon lime" />
+              <span>MOTOBOYS PARCEIROS</span>
+            </div>
+            <div className="eco-connector plus">
+              <Plus size={13} />
+            </div>
+            <div className="eco-badge">
+              <ShieldCheck size={14} className="eco-icon" />
+              <span>BENEFÍCIOS OPTATIVOS</span>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="aplicativo" className="intro section-light section-pad">
