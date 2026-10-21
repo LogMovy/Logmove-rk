@@ -684,10 +684,6 @@ export default function Page() {
         {/* Section Heading & Top Action */}
         <div className="steps-heading">
           <div className="steps-heading-main">
-            <div className="steps-subbadge">
-              <Sparkles size={13} className="subbadge-icon" />
-              <span>Jornada simples, rápida e 100% digital</span>
-            </div>
             <h2 className="steps-title">
               Do cadastro<br />
               <span className="title-lime-accent">ao compromisso.</span>
@@ -800,10 +796,6 @@ export default function Page() {
         {/* Section Heading */}
         <div className="benefit-heading">
           <div className="benefit-heading-main">
-            <div className="benefit-subbadge">
-              <ShieldCheck size={14} className="subbadge-icon dark" />
-              <span>Autonomia e flexibilidade para o parceiro</span>
-            </div>
             <h2 className="benefit-title">
               O movimento é seu.<br />
               <span className="title-navy-italic">A escolha também.</span>
@@ -966,10 +958,6 @@ export default function Page() {
         <div className="faq-grid">
           {/* Left Column: Heading & Support Helper Card */}
           <div className="faq-left-col">
-            <div className="faq-subbadge">
-              <HelpCircle size={13} className="subbadge-icon" />
-              <span>Transparência em cada detalhe</span>
-            </div>
             
             <h2 className="faq-title">
               Antes de seguir,<br />
@@ -992,7 +980,13 @@ export default function Page() {
               <p className="support-desc">
                 Nossa equipe de suporte e onboarding está pronta para esclarecer qualquer ponto sobre seu pré-cadastro.
               </p>
-              <a className="support-btn" href="mailto:cadastro@logmov.com.br">
+              <a
+                className="support-btn cursor-blocked"
+                href="#suporte"
+                onClick={(e) => e.preventDefault()}
+                title="Atendimento indisponível no momento"
+                aria-disabled="true"
+              >
                 <span>Falar com nosso time</span>
                 <ArrowUpRight size={15} />
               </a>
@@ -1044,11 +1038,6 @@ export default function Page() {
 
         <div className="final-cta-container">
           {/* Eyebrow Capsule */}
-          <div className="final-cta-badge">
-            <span className="cta-live-dot" />
-            <Sparkles size={13} className="badge-icon-lime" />
-            <span>LOGÍSTICA QUE CONECTA PESSOAS</span>
-          </div>
 
           {/* Heading */}
           <h2 className="final-cta-title">
@@ -1179,10 +1168,6 @@ export default function Page() {
               <p className="footer-contact-desc">
                 Precisa de ajuda ou quer tirar dúvidas sobre seu cadastro?
               </p>
-              <a className="footer-contact-chip" href="mailto:cadastro@logmov.com.br">
-                <Mail size={14} className="contact-icon" />
-                <span>cadastro@logmov.com.br</span>
-              </a>
               <div className="footer-security-note">
                 <Shield size={13} className="security-icon" />
                 <span>Dados protegidos com criptografia</span>
