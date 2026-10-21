@@ -542,6 +542,57 @@ main { overflow: hidden; }
   color: #ffffff;
 }
 
+/* =========================================================
+   BLOCKED / DISABLED CADASTRO BUTTONS STATE
+   ========================================================= */
+.cursor-blocked,
+a.cursor-blocked,
+button.cursor-blocked {
+  cursor: not-allowed !important;
+  opacity: 0.52 !important;
+  filter: grayscale(0.4) contrast(0.92) !important;
+  box-shadow: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  pointer-events: auto !important;
+}
+
+.cursor-blocked *,
+a.cursor-blocked *,
+button.cursor-blocked * {
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+.cursor-blocked:hover,
+a.cursor-blocked:hover,
+button.cursor-blocked:hover,
+.cursor-blocked:active,
+a.cursor-blocked:active,
+button.cursor-blocked:active {
+  transform: none !important;
+  box-shadow: none !important;
+  opacity: 0.52 !important;
+  filter: grayscale(0.4) contrast(0.92) !important;
+  cursor: not-allowed !important;
+}
+
+.cursor-blocked:hover .btn-icon-bubble,
+.cursor-blocked:hover .cta-icon,
+.cursor-blocked:hover .steps-cta-icon,
+.cursor-blocked .btn-icon-bubble,
+.cursor-blocked .cta-icon,
+.cursor-blocked .steps-cta-icon {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.cursor-blocked .btn-shimmer,
+.cursor-blocked .cta-shine {
+  display: none !important;
+  animation: none !important;
+}
+
 /* Hero Trust Bar */
 .hero-trust-bar {
   display: flex;

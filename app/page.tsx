@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'motion/react'
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -70,7 +71,7 @@ export default function Page() {
           </h1>
 
           <p className="hero-text">
-            Escolha os dias e horários em que deseja trabalhar, acompanhe suas corridas e consulte seu financeiro em tempo real com total autonomia.
+            Escolha os dias e horários em que deseja trabalhar, acompanhe suas corridas e consulte seu financeiro com total autonomia.
           </p>
 
           <div className="hero-highlights">
@@ -282,27 +283,41 @@ export default function Page() {
         <div className="intro-ambient-glow glow-2" />
 
         {/* Section Kicker */}
-        <div className="section-kicker">
+        <motion.div
+          className="section-kicker"
+          initial={{ opacity: 0, y: -16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
           <div className="kicker-pill">
             <span className="kicker-live-dot" />
             <span className="kicker-text-desktop">PLATAFORMA & TECNOLOGIA</span>
             <span className="kicker-text-mobile">PLATAFORMA</span>
           </div>
           <span className="kicker-index">01 / A LOGMOV</span>
-        </div>
+        </motion.div>
 
         {/* Main Grid: Headline & Value Proposition */}
         <div className="intro-grid">
-          <div className="intro-headline-col">
-
-            
+          <motion.div
+            className="intro-headline-col"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          >
             <h2 className="intro-title">
               Do encontro certo<br />
               à próxima <span className="title-lime-accent">oportunidade.</span>
             </h2>
 
             {/* Micro Live Network Status Card */}
-            <div className="intro-status-card">
+            <motion.div
+              className="intro-status-card"
+              whileHover={{ y: -3, scale: 1.01 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            >
               <div className="status-card-icon-wrap">
                 <Bike size={18} className="status-bike-icon" />
               </div>
@@ -310,10 +325,16 @@ export default function Page() {
                 <div className="status-card-title">Malha Urbana Integrada</div>
                 <div className="status-card-desc">Conexão inteligente entre demanda de empresas e a disponibilidade de motoboys parceiros.</div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="intro-copy-col">
+          <motion.div
+            className="intro-copy-col"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
             <p className="lead">
               A LOGMOV é uma plataforma de conexão entre empresas e profissionais de motofrete.
             </p>
@@ -322,21 +343,34 @@ export default function Page() {
             </p>
 
             <div className="intro-cta-row">
-              <a className="intro-btn-action" href="#como-funciona">
+              <motion.a
+                className="intro-btn-action"
+                href="#como-funciona"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+              >
                 <span>Entenda como funciona</span>
                 <span className="action-circle">
                   <ArrowUpRight size={16} />
                 </span>
-              </a>
+              </motion.a>
               <span className="intro-note">✓ Sem taxa oculta • Acesso direto</span>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* 3 Premium Interactive Motion Promise Cards */}
         <div className="intro-cards-grid">
           {/* Card 1: Mais Conexão */}
-          <div className="intro-card group">
+          <motion.div
+            className="intro-card group"
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -10, transition: { type: 'spring', stiffness: 350, damping: 20 } }}
+          >
             <div className="card-top-meta">
               <span className="card-number">01</span>
               <span className="card-chip">REDE EM TEMPO REAL</span>
@@ -357,10 +391,17 @@ export default function Page() {
                 <span>Demanda contínua</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 2: Mais Possibilidades */}
-          <div className="intro-card group highlight-card">
+          <motion.div
+            className="intro-card group highlight-card"
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -12, transition: { type: 'spring', stiffness: 350, damping: 20 } }}
+          >
             <div className="card-top-meta">
               <span className="card-number">02</span>
               <span className="card-chip highlight">AUTONOMIA TOTAL</span>
@@ -381,10 +422,17 @@ export default function Page() {
                 <span>Horários flexíveis</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 3: Mais Movimento */}
-          <div className="intro-card group">
+          <motion.div
+            className="intro-card group"
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -10, transition: { type: 'spring', stiffness: 350, damping: 20 } }}
+          >
             <div className="card-top-meta">
               <span className="card-number">03</span>
               <span className="card-chip">FLUXO ATIVO</span>
@@ -397,7 +445,7 @@ export default function Page() {
             </div>
             <h3 className="card-title">Mais Movimento</h3>
             <p className="card-text">
-              Acompanhe suas corridas e seus ganhos em tempo real pelo aplicativo, mantendo o controle total do seu planejamento financeiro.
+              Acompanhe suas corridas e seus ganhos pelo aplicativo, mantendo o controle total do seu planejamento financeiro.
             </p>
             <div className="card-bottom-bar">
               <div className="card-metric-tag">
@@ -405,7 +453,7 @@ export default function Page() {
                 <span>Controle financeiro</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -427,10 +475,6 @@ export default function Page() {
         {/* Section Header */}
         <div className="app-heading">
           <div className="app-heading-main">
-            <div className="app-subbadge">
-              <Smartphone size={13} className="subbadge-icon lime" />
-              <span>Experiência pensada para o motoboy</span>
-            </div>
             <h2 className="app-title">
               Sua agenda.<br />
               <span className="title-lime-glow">Suas corridas.</span><br />
@@ -530,7 +574,6 @@ export default function Page() {
             <div className="cockpit-widget finance-widget">
               <div className="widget-header">
                 <span className="widget-label">EXTRATO CONSOLIDADO</span>
-                <span className="widget-badge lime-pulse">Tempo Real</span>
               </div>
               <div className="finance-balance-wrap">
                 <div className="finance-amount-row">
@@ -641,10 +684,6 @@ export default function Page() {
         {/* Section Heading & Top Action */}
         <div className="steps-heading">
           <div className="steps-heading-main">
-            <div className="steps-subbadge">
-              <Sparkles size={13} className="subbadge-icon" />
-              <span>Jornada simples, rápida e 100% digital</span>
-            </div>
             <h2 className="steps-title">
               Do cadastro<br />
               <span className="title-lime-accent">ao compromisso.</span>
@@ -695,7 +734,7 @@ export default function Page() {
             {
               num: '04 /',
               title: 'Acompanhe pelo app',
-              text: 'Cumpra os compromissos aceitos, acompanhe suas corridas e consulte seu financeiro em tempo real.',
+              text: 'Cumpra os compromissos aceitos, acompanhe suas corridas e consulte seu financeiro.',
               chip: 'Controle total',
               icon: Smartphone,
             },
@@ -757,10 +796,6 @@ export default function Page() {
         {/* Section Heading */}
         <div className="benefit-heading">
           <div className="benefit-heading-main">
-            <div className="benefit-subbadge">
-              <ShieldCheck size={14} className="subbadge-icon dark" />
-              <span>Autonomia e flexibilidade para o parceiro</span>
-            </div>
             <h2 className="benefit-title">
               O movimento é seu.<br />
               <span className="title-navy-italic">A escolha também.</span>
@@ -923,10 +958,6 @@ export default function Page() {
         <div className="faq-grid">
           {/* Left Column: Heading & Support Helper Card */}
           <div className="faq-left-col">
-            <div className="faq-subbadge">
-              <HelpCircle size={13} className="subbadge-icon" />
-              <span>Transparência em cada detalhe</span>
-            </div>
             
             <h2 className="faq-title">
               Antes de seguir,<br />
@@ -949,7 +980,13 @@ export default function Page() {
               <p className="support-desc">
                 Nossa equipe de suporte e onboarding está pronta para esclarecer qualquer ponto sobre seu pré-cadastro.
               </p>
-              <a className="support-btn" href="mailto:cadastro@logmov.com.br">
+              <a
+                className="support-btn cursor-blocked"
+                href="#suporte"
+                onClick={(e) => e.preventDefault()}
+                title="Atendimento indisponível no momento"
+                aria-disabled="true"
+              >
                 <span>Falar com nosso time</span>
                 <ArrowUpRight size={15} />
               </a>
@@ -1001,11 +1038,6 @@ export default function Page() {
 
         <div className="final-cta-container">
           {/* Eyebrow Capsule */}
-          <div className="final-cta-badge">
-            <span className="cta-live-dot" />
-            <Sparkles size={13} className="badge-icon-lime" />
-            <span>LOGÍSTICA QUE CONECTA PESSOAS</span>
-          </div>
 
           {/* Heading */}
           <h2 className="final-cta-title">
@@ -1136,10 +1168,6 @@ export default function Page() {
               <p className="footer-contact-desc">
                 Precisa de ajuda ou quer tirar dúvidas sobre seu cadastro?
               </p>
-              <a className="footer-contact-chip" href="mailto:cadastro@logmov.com.br">
-                <Mail size={14} className="contact-icon" />
-                <span>cadastro@logmov.com.br</span>
-              </a>
               <div className="footer-security-note">
                 <Shield size={13} className="security-icon" />
                 <span>Dados protegidos com criptografia</span>
