@@ -89,7 +89,13 @@ export default function Page() {
           </div>
 
           <div className="hero-actions">
-            <a className="hero-btn-primary" href="#cadastro">
+            <a
+              className="hero-btn-primary cursor-blocked"
+              href="#cadastro"
+              onClick={(e) => e.preventDefault()}
+              title="Cadastro indisponível no momento"
+              aria-disabled="true"
+            >
               <span>Quero me cadastrar</span>
               <span className="btn-icon-bubble">
                 <ArrowUpRight size={17} />
@@ -646,7 +652,13 @@ export default function Page() {
           </div>
 
           <div className="steps-heading-action">
-            <a className="steps-cta-btn" href="mailto:cadastro@logmov.com.br">
+            <a
+              className="steps-cta-btn cursor-blocked"
+              href="#cadastro"
+              onClick={(e) => e.preventDefault()}
+              title="Cadastro indisponível no momento"
+              aria-disabled="true"
+            >
               <span>Cadastre-se como motoboy</span>
               <div className="steps-cta-icon">
                 <ArrowUpRight size={17} />
@@ -1023,7 +1035,13 @@ export default function Page() {
 
           {/* Action Buttons Row */}
           <div className="final-cta-actions">
-            <a className="final-cta-btn-primary group" href="#cadastro">
+            <a
+              className="final-cta-btn-primary group cursor-blocked"
+              href="#cadastro"
+              onClick={(e) => e.preventDefault()}
+              title="Cadastro indisponível no momento"
+              aria-disabled="true"
+            >
               <span>Fazer meu pré-cadastro</span>
               <span className="btn-icon-bubble">
                 <ArrowUpRight size={17} />
@@ -1095,7 +1113,17 @@ export default function Page() {
             <div className="footer-col-nav">
               <h4 className="footer-col-title">PARA O PARCEIRO</h4>
               <ul className="footer-links-list">
-                <li><a href="#cadastro" className="footer-link-highlight">Meu pré-cadastro ↗</a></li>
+                <li>
+                  <a
+                    href="#cadastro"
+                    className="footer-link-highlight cursor-blocked"
+                    onClick={(e) => e.preventDefault()}
+                    title="Cadastro indisponível no momento"
+                    aria-disabled="true"
+                  >
+                    Meu pré-cadastro ↗
+                  </a>
+                </li>
                 <li><a href="#">Área administrativa</a></li>
                 <li><a href="#beneficios">Clube de Benefícios</a></li>
                 <li><a href="#faq">Dúvidas Frequentes</a></li>

@@ -42,7 +42,13 @@ export default function Header() {
 
         {/* Header Right Actions */}
         <div className="header-actions">
-          <a href="#cadastro" className="premium-header-cta group">
+          <a
+            href="#cadastro"
+            className="premium-header-cta group cursor-blocked"
+            onClick={(e) => e.preventDefault()}
+            title="Cadastro indisponível no momento"
+            aria-disabled="true"
+          >
             <span className="cta-shine" />
             <span className="cta-content">
               Cadastre-se
@@ -98,8 +104,13 @@ export default function Header() {
 
           <a
             href="#cadastro"
-            className="mobile-cta-btn"
-            onClick={() => setMobileMenuOpen(false)}
+            className="mobile-cta-btn cursor-blocked"
+            onClick={(e) => {
+              e.preventDefault()
+              setMobileMenuOpen(false)
+            }}
+            title="Cadastro indisponível no momento"
+            aria-disabled="true"
           >
             Cadastre-se como motoboy
             <ArrowUpRight size={18} />
