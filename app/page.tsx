@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'motion/react'
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -282,27 +283,41 @@ export default function Page() {
         <div className="intro-ambient-glow glow-2" />
 
         {/* Section Kicker */}
-        <div className="section-kicker">
+        <motion.div
+          className="section-kicker"
+          initial={{ opacity: 0, y: -16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
           <div className="kicker-pill">
             <span className="kicker-live-dot" />
             <span className="kicker-text-desktop">PLATAFORMA & TECNOLOGIA</span>
             <span className="kicker-text-mobile">PLATAFORMA</span>
           </div>
           <span className="kicker-index">01 / A LOGMOV</span>
-        </div>
+        </motion.div>
 
         {/* Main Grid: Headline & Value Proposition */}
         <div className="intro-grid">
-          <div className="intro-headline-col">
-
-            
+          <motion.div
+            className="intro-headline-col"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          >
             <h2 className="intro-title">
               Do encontro certo<br />
               à próxima <span className="title-lime-accent">oportunidade.</span>
             </h2>
 
             {/* Micro Live Network Status Card */}
-            <div className="intro-status-card">
+            <motion.div
+              className="intro-status-card"
+              whileHover={{ y: -3, scale: 1.01 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            >
               <div className="status-card-icon-wrap">
                 <Bike size={18} className="status-bike-icon" />
               </div>
@@ -310,10 +325,16 @@ export default function Page() {
                 <div className="status-card-title">Malha Urbana Integrada</div>
                 <div className="status-card-desc">Conexão inteligente entre demanda de empresas e a disponibilidade de motoboys parceiros.</div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="intro-copy-col">
+          <motion.div
+            className="intro-copy-col"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
             <p className="lead">
               A LOGMOV é uma plataforma de conexão entre empresas e profissionais de motofrete.
             </p>
@@ -322,21 +343,34 @@ export default function Page() {
             </p>
 
             <div className="intro-cta-row">
-              <a className="intro-btn-action" href="#como-funciona">
+              <motion.a
+                className="intro-btn-action"
+                href="#como-funciona"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+              >
                 <span>Entenda como funciona</span>
                 <span className="action-circle">
                   <ArrowUpRight size={16} />
                 </span>
-              </a>
+              </motion.a>
               <span className="intro-note">✓ Sem taxa oculta • Acesso direto</span>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* 3 Premium Interactive Motion Promise Cards */}
         <div className="intro-cards-grid">
           {/* Card 1: Mais Conexão */}
-          <div className="intro-card group">
+          <motion.div
+            className="intro-card group"
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -10, transition: { type: 'spring', stiffness: 350, damping: 20 } }}
+          >
             <div className="card-top-meta">
               <span className="card-number">01</span>
               <span className="card-chip">REDE EM TEMPO REAL</span>
@@ -357,10 +391,17 @@ export default function Page() {
                 <span>Demanda contínua</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 2: Mais Possibilidades */}
-          <div className="intro-card group highlight-card">
+          <motion.div
+            className="intro-card group highlight-card"
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -12, transition: { type: 'spring', stiffness: 350, damping: 20 } }}
+          >
             <div className="card-top-meta">
               <span className="card-number">02</span>
               <span className="card-chip highlight">AUTONOMIA TOTAL</span>
@@ -381,10 +422,17 @@ export default function Page() {
                 <span>Horários flexíveis</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Card 3: Mais Movimento */}
-          <div className="intro-card group">
+          <motion.div
+            className="intro-card group"
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -10, transition: { type: 'spring', stiffness: 350, damping: 20 } }}
+          >
             <div className="card-top-meta">
               <span className="card-number">03</span>
               <span className="card-chip">FLUXO ATIVO</span>
@@ -405,7 +453,7 @@ export default function Page() {
                 <span>Controle financeiro</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
