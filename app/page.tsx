@@ -21,6 +21,7 @@ import {
   Wallet,
   Navigation,
   Smartphone,
+  UserCheck,
 } from 'lucide-react'
 import DeliveryMotion from '@/components/DeliveryMotion'
 import NetworkMotion from '@/components/NetworkMotion'
@@ -611,7 +612,115 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="cadastro" className="steps section-light section-pad"><div className="section-kicker"><span>03 / SIMPLES DE ENTENDER</span><span>COMO COMEÇAR</span></div><div className="steps-heading"><h2>Do cadastro<br /><span>ao compromisso.</span></h2><a className="button button-dark" href="mailto:cadastro@logmov.com.br">Cadastre-se como motoboy <ArrowUpRight /></a></div><div className="step-list">{[['01 /','Apresente seu perfil','Informe seus dados e a documentação necessária para validação.'],['02 /','Escolha dias e horários','Defina sua disponibilidade no app e consulte oportunidades, valores e condições.'],['03 /','Escolha e aceite','Decida quais oportunidades fazem sentido para você, sem obrigação de aceitar.'],['04 /','Acompanhe pelo app','Cumpra os compromissos aceitos, acompanhe suas corridas e consulte seu financeiro.']].map(([num, title, text]) => <div className="step" key={num}><span>{num}</span><div><h3>{title}</h3><p>{text}</p></div><ArrowUpRight /></div>)}</div><p className="fine-print">O cadastro depende de validação. A disponibilidade de propostas varia; não há garantia de renda ou de volume de serviços.</p></section>
+      <section id="cadastro" className="steps section-light section-pad">
+        {/* Ambient Tech Lighting & Grid Background */}
+        <div className="steps-ambient-glow glow-1" />
+        <div className="steps-ambient-glow glow-2" />
+
+        {/* Section Kicker */}
+        <div className="section-kicker">
+          <div className="kicker-pill">
+            <span className="kicker-live-dot" />
+            <span className="kicker-text-desktop">PASSO A PASSO TRANSPARENTE</span>
+            <span className="kicker-text-mobile">PASSO A PASSO</span>
+          </div>
+          <span className="kicker-index">03 / COMO COMEÇAR</span>
+        </div>
+
+        {/* Section Heading & Top Action */}
+        <div className="steps-heading">
+          <div className="steps-heading-main">
+            <div className="steps-subbadge">
+              <Sparkles size={13} className="subbadge-icon" />
+              <span>Jornada simples, rápida e 100% digital</span>
+            </div>
+            <h2 className="steps-title">
+              Do cadastro<br />
+              <span className="title-lime-accent">ao compromisso.</span>
+            </h2>
+          </div>
+
+          <div className="steps-heading-action">
+            <a className="steps-cta-btn" href="mailto:cadastro@logmov.com.br">
+              <span>Cadastre-se como motoboy</span>
+              <div className="steps-cta-icon">
+                <ArrowUpRight size={17} />
+              </div>
+            </a>
+            <span className="steps-cta-hint">Adesão gratuita para motoboys parceiros</span>
+          </div>
+        </div>
+
+        {/* 4 Interactive Stepper Cards */}
+        <div className="step-list">
+          {[
+            {
+              num: '01 /',
+              title: 'Apresente seu perfil',
+              text: 'Informe seus dados e envie a documentação necessária para validação segura na plataforma.',
+              chip: 'Validação rápida',
+              icon: UserCheck,
+            },
+            {
+              num: '02 /',
+              title: 'Escolha dias e horários',
+              text: 'Defina sua disponibilidade no app e consulte oportunidades, valores e condições com total clareza.',
+              chip: '100% Flexível',
+              icon: Clock,
+            },
+            {
+              num: '03 /',
+              title: 'Escolha e aceite',
+              text: 'Decida quais oportunidades fazem sentido para sua rotina, sem nenhuma obrigação de aceitar.',
+              chip: 'Sem obrigação',
+              icon: CheckCircle2,
+            },
+            {
+              num: '04 /',
+              title: 'Acompanhe pelo app',
+              text: 'Cumpra os compromissos aceitos, acompanhe suas corridas e consulte seu financeiro em tempo real.',
+              chip: 'Controle total',
+              icon: Smartphone,
+            },
+          ].map((step) => {
+            const StepIcon = step.icon
+            return (
+              <div className="step-card group" key={step.num}>
+                <div className="step-left-cluster">
+                  <span className="step-number">{step.num}</span>
+                  <div className="step-icon-sphere">
+                    <StepIcon size={20} />
+                  </div>
+                </div>
+
+                <div className="step-content">
+                  <div className="step-title-row">
+                    <h3 className="step-title">{step.title}</h3>
+                    <span className="step-chip">{step.chip}</span>
+                  </div>
+                  <p className="step-desc">{step.text}</p>
+                </div>
+
+                <div className="step-action-col">
+                  <div className="step-arrow-bubble">
+                    <ArrowUpRight size={18} />
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Fine Print Note Card */}
+        <div className="steps-fine-print-card">
+          <div className="fine-print-icon-wrap">
+            <ShieldCheck size={18} />
+          </div>
+          <p className="fine-print-text">
+            <strong>Informação importante:</strong> O cadastro depende de validação documental. A disponibilidade de propostas varia de acordo com a demanda na região; não há garantia de renda fixa ou de volume mínimo de serviços.
+          </p>
+        </div>
+      </section>
 
       <section id="beneficios" className="benefits section-lime section-pad"><div className="section-kicker"><span>04 / DIFERENCIAIS PARA SUA ROTINA</span><span>ESCOLHAS SUAS</span></div><div className="benefit-heading"><h2>O movimento é seu.<br /><em>A escolha também.</em></h2><p>Proteção veicular e Clube de Benefícios são escolhas suas. Você só adere se aceitar as condições de cada benefício.</p></div><div className="benefit-cards"><article><span className="card-tag">BENEFÍCIO OPTATIVO</span><h3>Proteção para<br />sua moto.</h3><p>A LOGMov facilita o acesso a informações sobre proteção veicular oferecida por fornecedor especializado, com contratação própria e separada.</p><a className="text-link" href="#faq">Como consultar a proteção <ArrowUpRight /></a></article><article className="dark-card"><span className="card-tag">CLUBE DE BENEFÍCIOS</span><h3>Sua rotina.<br /><em>Mais vantagens.</em></h3><p>Descontos e condições especiais em oficinas, peças, serviços e lojas parceiras para acompanhar você também fora das entregas.</p><a className="text-link light" href="#faq">Conheça o clube <ArrowUpRight /></a></article></div><div className="protection-list"><span>O QUE PODE FAZER PARTE DO PLANO</span>{['Roubo e furto','Colisão e perda total','Incêndio por colisão','Assistência 24 horas','Abrangência nacional','Guincho em acidente'].map((item, i) => <div key={item}><b>0{i + 1}</b>{item}</div>)}</div><p className="fine-print">Itens sujeitos à proposta, elegibilidade e regulamento do fornecedor. Consulte limites, carências, participações e exclusões, inclusive as condições para uso em motofrete.</p></section>
 
