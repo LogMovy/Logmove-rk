@@ -22,6 +22,8 @@ import {
   Navigation,
   Smartphone,
   UserCheck,
+  HelpCircle,
+  MessageSquare,
 } from 'lucide-react'
 import DeliveryMotion from '@/components/DeliveryMotion'
 import NetworkMotion from '@/components/NetworkMotion'
@@ -887,7 +889,94 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="faq" className="faq section-light section-pad"><div className="section-kicker"><span>05 / TUDO ÀS CLARAS</span><span>PERGUNTAS FREQUENTES</span></div><h2>Antes de seguir,<br /><span>tire suas dúvidas.</span></h2><div className="faq-list">{faqs.map(([question, answer], i) => <div className={`faq-item ${openFaq === i ? 'open' : ''}`} key={question}><button onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}><span>{question}</span>{openFaq === i ? <X /> : <Plus />}</button>{openFaq === i && <p>{answer}</p>}</div>)}</div></section>
+      <section id="faq" className="faq section-light section-pad">
+        {/* Ambient Subtle Glows */}
+        <div className="faq-ambient-glow glow-1" />
+        <div className="faq-ambient-glow glow-2" />
+
+        {/* Section Kicker */}
+        <div className="section-kicker">
+          <div className="kicker-pill">
+            <span className="kicker-live-dot" />
+            <span className="kicker-text-desktop">TRANSPARÊNCIA TOTAL</span>
+            <span className="kicker-text-mobile">DÚVIDAS</span>
+          </div>
+          <span className="kicker-index">05 / TUDO ÀS CLARAS</span>
+        </div>
+
+        {/* Two-Column Grid: Sticky Head on Left, Accordion Cards on Right */}
+        <div className="faq-grid">
+          {/* Left Column: Heading & Support Helper Card */}
+          <div className="faq-left-col">
+            <div className="faq-subbadge">
+              <HelpCircle size={13} className="subbadge-icon" />
+              <span>Transparência em cada detalhe</span>
+            </div>
+            
+            <h2 className="faq-title">
+              Antes de seguir,<br />
+              <span className="title-lime-accent">tire suas dúvidas.</span>
+            </h2>
+
+            <p className="faq-lead">
+              Separamos as principais perguntas feitas por motoboys parceiros para você entender como funciona a rotina, os pagamentos e a autonomia no app.
+            </p>
+
+            {/* Support Helper Card */}
+            <div className="faq-support-card">
+              <div className="support-card-top">
+                <div className="support-icon-wrap">
+                  <MessageSquare size={18} />
+                </div>
+                <div className="support-badge">SUPORTE RÁPIDO</div>
+              </div>
+              <h4 className="support-title">Ainda tem alguma dúvida?</h4>
+              <p className="support-desc">
+                Nossa equipe de suporte e onboarding está pronta para esclarecer qualquer ponto sobre seu pré-cadastro.
+              </p>
+              <a className="support-btn" href="mailto:cadastro@logmov.com.br">
+                <span>Falar com nosso time</span>
+                <ArrowUpRight size={15} />
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: Premium Accordion Cards List */}
+          <div className="faq-accordion-col">
+            <div className="faq-list">
+              {faqs.map(([question, answer], i) => {
+                const isOpen = openFaq === i
+                const formattedNum = (i + 1).toString().padStart(2, '0')
+                return (
+                  <div className={`faq-card group ${isOpen ? 'is-open' : ''}`} key={question}>
+                    <button
+                      className="faq-question-btn"
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                    >
+                      <div className="faq-question-left">
+                        <span className="faq-index-tag">{formattedNum}</span>
+                        <span className="faq-question-text">{question}</span>
+                      </div>
+                      <div className={`faq-toggle-bubble ${isOpen ? 'active' : ''}`}>
+                        {isOpen ? <X size={15} /> : <Plus size={15} />}
+                      </div>
+                    </button>
+
+                    {isOpen && (
+                      <div className="faq-answer-panel">
+                        <div className="faq-answer-content">
+                          <p>{answer}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="final-cta section-dark section-pad"><p className="eyebrow lime">LOGÍSTICA QUE CONECTA PESSOAS</p><h2>O próximo movimento<br /><em>começa com uma conexão.</em></h2><a className="button button-lime" href="#cadastro">Fazer meu pré-cadastro <ArrowUpRight /></a></section>
       <footer className="footer"><Brand /><p>Conectando negócios. Movendo oportunidades.</p><div><a href="#cadastro">Meu pré-cadastro</a><a href="#">Área administrativa</a><a href="#">Termos de Uso</a><a href="#">Privacidade</a></div><small>© 2026 LOGMov · Logística de motoboys</small></footer>
