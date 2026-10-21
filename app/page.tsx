@@ -17,6 +17,10 @@ import {
   Clock,
   CheckCircle2,
   Sparkles,
+  Calendar,
+  Wallet,
+  Navigation,
+  Smartphone,
 } from 'lucide-react'
 import DeliveryMotion from '@/components/DeliveryMotion'
 import NetworkMotion from '@/components/NetworkMotion'
@@ -393,7 +397,219 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="como-funciona" className="app-section section-dark section-pad"><div className="section-kicker light"><span>SEU DIA A DIA NO APLICATIVO</span><span>02 / ROTINA</span></div><div className="app-heading"><h2>Sua agenda.<br /><em>Suas corridas.</em><br />Seu controle.</h2><p>A LOGMov acompanha sua rotina antes, durante e depois de cada serviço.</p></div><div className="feature-grid"><Feature number="01 / AGENDA" title={<>Você escolhe<br /><em>dias e horários.</em></>} body="Defina no aplicativo os dias e horários em que deseja trabalhar. Organize sua disponibilidade conforme sua rotina e avalie as oportunidades antes de aceitar." items={['Minha disponibilidade', 'Dias escolhidos por você', 'Horários definidos por você']} /><Feature number="02 / FINANCEIRO" title={<>Seu financeiro<br /><em>em um só lugar.</em></>} body="Acesse sua área financeira para consultar os ganhos e acompanhar as informações financeiras dos serviços registrados no aplicativo." items={['Meu financeiro', 'Consulta de ganhos', 'Informações dos serviços']} /><Feature number="03 / CORRIDAS" title={<>Acompanhe<br /><em>cada corrida.</em></>} body="Consulte suas corridas e acompanhe o andamento dos serviços pelo aplicativo." items={['Minhas corridas', 'Acompanhamento dos serviços', 'Consulta das corridas']} /></div></section>
+      <section id="como-funciona" className="app-section section-dark section-pad">
+        {/* Ambient Glows & Tech Grid Background */}
+        <div className="app-ambient-glow glow-top" />
+        <div className="app-ambient-glow glow-bottom" />
+
+        {/* Section Kicker */}
+        <div className="section-kicker light">
+          <div className="kicker-pill dark-pill">
+            <span className="kicker-live-dot" />
+            <span className="kicker-text-desktop">CONTROLE TOTAL NO APP</span>
+            <span className="kicker-text-mobile">CONTROLE NO APP</span>
+          </div>
+          <span className="kicker-index light">02 / ROTINA</span>
+        </div>
+
+        {/* Section Header */}
+        <div className="app-heading">
+          <div className="app-heading-main">
+            <div className="app-subbadge">
+              <Smartphone size={13} className="subbadge-icon lime" />
+              <span>Experiência pensada para o motoboy</span>
+            </div>
+            <h2 className="app-title">
+              Sua agenda.<br />
+              <span className="title-lime-glow">Suas corridas.</span><br />
+              Seu controle.
+            </h2>
+          </div>
+
+          <div className="app-heading-side">
+            <p className="app-lead">
+              A LOGMov acompanha sua rotina antes, durante e depois de cada serviço.
+            </p>
+            <p className="app-subtext">
+              Uma ferramenta transparente e sem burocracia, criada para você gerenciar seus horários, validar corridas e monitorar seus rendimentos com total independência.
+            </p>
+            <div className="app-telemetry-pill">
+              <span className="telemetry-dot" />
+              <span>Sincronização instantânea com a plataforma</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 3 Interactive "App Cockpit" Feature Cards */}
+        <div className="feature-cockpits-grid">
+          {/* Card 01: AGENDA */}
+          <div className="feature-cockpit-card group">
+            <div className="cockpit-top-header">
+              <span className="cockpit-number">01 / AGENDA</span>
+              <div className="cockpit-icon-bubble">
+                <Calendar size={18} />
+              </div>
+            </div>
+
+            <h3 className="cockpit-title">
+              Você escolhe<br />
+              <span className="cockpit-title-highlight">dias e horários.</span>
+            </h3>
+
+            <p className="cockpit-body">
+              Defina no aplicativo os dias e horários em que deseja trabalhar. Organize sua disponibilidade conforme sua rotina e avalie as oportunidades antes de aceitar.
+            </p>
+
+            {/* Interactive Agenda Mockup Widget */}
+            <div className="cockpit-widget agenda-widget">
+              <div className="widget-header">
+                <span className="widget-label">ESCALA SEMANAL ATIVA</span>
+                <span className="widget-badge lime">100% Livre</span>
+              </div>
+              <div className="week-days-row">
+                {['S', 'T', 'Q', 'Q', 'S', 'S', 'D'].map((d, i) => (
+                  <div key={i} className={`week-day-pill ${i < 5 ? 'active' : ''}`}>
+                    <span className="day-name">{d}</span>
+                    <span className="day-indicator" />
+                  </div>
+                ))}
+              </div>
+              <div className="shift-status-row">
+                <Clock size={12} className="shift-icon" />
+                <span>Turno flexível: <strong>Você no comando</strong></span>
+              </div>
+            </div>
+
+            <ul className="cockpit-checklist">
+              <li>
+                <div className="check-bubble"><Check size={12} /></div>
+                <span>Minha disponibilidade</span>
+              </li>
+              <li>
+                <div className="check-bubble"><Check size={12} /></div>
+                <span>Dias escolhidos por você</span>
+              </li>
+              <li>
+                <div className="check-bubble"><Check size={12} /></div>
+                <span>Horários definidos por você</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Card 02: FINANCEIRO (Highlight Center Card) */}
+          <div className="feature-cockpit-card group highlight-card">
+            <div className="cockpit-top-header">
+              <span className="cockpit-number highlight">02 / FINANCEIRO</span>
+              <div className="cockpit-icon-bubble lime">
+                <Wallet size={18} />
+              </div>
+            </div>
+
+            <h3 className="cockpit-title">
+              Seu financeiro<br />
+              <span className="cockpit-title-highlight">em um só lugar.</span>
+            </h3>
+
+            <p className="cockpit-body">
+              Acesse sua área financeira para consultar os ganhos e acompanhar as informações financeiras dos serviços registrados no aplicativo com clareza.
+            </p>
+
+            {/* Interactive Finance Mockup Widget */}
+            <div className="cockpit-widget finance-widget">
+              <div className="widget-header">
+                <span className="widget-label">EXTRATO CONSOLIDADO</span>
+                <span className="widget-badge lime-pulse">Tempo Real</span>
+              </div>
+              <div className="finance-balance-wrap">
+                <div className="finance-amount-row">
+                  <span className="finance-currency">R$</span>
+                  <span className="finance-val">284,00</span>
+                  <span className="finance-trend">Hoje</span>
+                </div>
+                <div className="finance-mini-bar">
+                  <div className="finance-progress-fill" style={{ width: '75%' }} />
+                </div>
+              </div>
+              <div className="payout-note-row">
+                <TrendingUp size={12} className="shift-icon lime" />
+                <span>Extrato individual de cada entrega</span>
+              </div>
+            </div>
+
+            <ul className="cockpit-checklist">
+              <li>
+                <div className="check-bubble lime"><Check size={12} /></div>
+                <span>Meu financeiro</span>
+              </li>
+              <li>
+                <div className="check-bubble lime"><Check size={12} /></div>
+                <span>Consulta de ganhos detalhada</span>
+              </li>
+              <li>
+                <div className="check-bubble lime"><Check size={12} /></div>
+                <span>Informações dos serviços</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Card 03: CORRIDAS */}
+          <div className="feature-cockpit-card group">
+            <div className="cockpit-top-header">
+              <span className="cockpit-number">03 / CORRIDAS</span>
+              <div className="cockpit-icon-bubble">
+                <Navigation size={18} />
+              </div>
+            </div>
+
+            <h3 className="cockpit-title">
+              Acompanhe<br />
+              <span className="cockpit-title-highlight">cada corrida.</span>
+            </h3>
+
+            <p className="cockpit-body">
+              Consulte suas corridas e acompanhe o andamento dos serviços pelo aplicativo, com rotas transparentes, endereços mapeados e histórico completo.
+            </p>
+
+            {/* Interactive Route Mockup Widget */}
+            <div className="cockpit-widget route-widget">
+              <div className="widget-header">
+                <span className="widget-label">DISPATCH & NAVEGAÇÃO</span>
+                <span className="widget-badge blue">GPS Ativo</span>
+              </div>
+              <div className="route-mini-flow">
+                <div className="route-step-item">
+                  <span className="route-node-dot origin" />
+                  <span className="route-step-txt">Coleta: <strong>Centro Logístico</strong></span>
+                </div>
+                <div className="route-step-connector" />
+                <div className="route-step-item">
+                  <span className="route-node-dot dest" />
+                  <span className="route-step-txt">Entrega: <strong>Av. das Nações</strong></span>
+                </div>
+              </div>
+              <div className="route-metrics-chip">
+                <span>4.2 km · ~14 min</span>
+                <strong className="chip-price">R$ 38,50</strong>
+              </div>
+            </div>
+
+            <ul className="cockpit-checklist">
+              <li>
+                <div className="check-bubble"><Check size={12} /></div>
+                <span>Minhas corridas</span>
+              </li>
+              <li>
+                <div className="check-bubble"><Check size={12} /></div>
+                <span>Acompanhamento dos serviços</span>
+              </li>
+              <li>
+                <div className="check-bubble"><Check size={12} /></div>
+                <span>Consulta das corridas e rotas</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       <section id="cadastro" className="steps section-light section-pad"><div className="section-kicker"><span>03 / SIMPLES DE ENTENDER</span><span>COMO COMEÇAR</span></div><div className="steps-heading"><h2>Do cadastro<br /><span>ao compromisso.</span></h2><a className="button button-dark" href="mailto:cadastro@logmov.com.br">Cadastre-se como motoboy <ArrowUpRight /></a></div><div className="step-list">{[['01 /','Apresente seu perfil','Informe seus dados e a documentação necessária para validação.'],['02 /','Escolha dias e horários','Defina sua disponibilidade no app e consulte oportunidades, valores e condições.'],['03 /','Escolha e aceite','Decida quais oportunidades fazem sentido para você, sem obrigação de aceitar.'],['04 /','Acompanhe pelo app','Cumpra os compromissos aceitos, acompanhe suas corridas e consulte seu financeiro.']].map(([num, title, text]) => <div className="step" key={num}><span>{num}</span><div><h3>{title}</h3><p>{text}</p></div><ArrowUpRight /></div>)}</div><p className="fine-print">O cadastro depende de validação. A disponibilidade de propostas varia; não há garantia de renda ou de volume de serviços.</p></section>
 

@@ -1643,7 +1643,565 @@ main { overflow: hidden; }
   background: var(--lime);
   box-shadow: 0 0 6px var(--lime);
 }
-.app-heading { margin-bottom:80px; }.app-heading h2,.benefit-heading h2,.final-cta h2 { font-size:clamp(48px, 7vw, 98px); line-height:.88; letter-spacing:-.07em; margin:0; }.app-heading p,.benefit-heading p { align-self:end; max-width:360px; color:rgba(255,255,255,.65); line-height:1.6; }.feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,255,255,.2); }.feature { background:var(--navy); border-top:3px solid var(--lime); padding:28px; min-height:360px; }.feature-number,.card-tag { color:var(--lime); font-size:10px; font-weight:800; letter-spacing:.13em; }.feature h3 { font-size:34px; line-height:.96; letter-spacing:-.05em; margin:55px 0 22px; }.feature h3 em { color:var(--lime); font-style:normal; }.feature p { color:rgba(255,255,255,.62); line-height:1.55; font-size:14px; }.feature ul { list-style:none; padding:0; margin-top:28px; display:flex; flex-direction:column; gap:8px; }.feature li { color:rgba(255,255,255,.85); font-size:11px; display:flex; align-items:center; gap:8px; }.feature li svg { color:var(--lime); width:14px; }
+/* =========================================================
+   SECTION 02: ROTINA NO APP (COCKPIT & DISPATCH)
+   ========================================================= */
+.app-section {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--navy-2);
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(140, 229, 27, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(14, 165, 233, 0.09) 0%, transparent 45%),
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: auto, auto, 48px 48px, 48px 48px;
+}
+
+/* Ambient Diffusions */
+.app-ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.app-ambient-glow.glow-top {
+  width: 520px;
+  height: 520px;
+  top: -120px;
+  left: -60px;
+  background: radial-gradient(circle, rgba(140, 229, 27, 0.14) 0%, transparent 70%);
+}
+
+.app-ambient-glow.glow-bottom {
+  width: 620px;
+  height: 620px;
+  bottom: -160px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.14) 0%, transparent 70%);
+}
+
+/* Kicker Capsule for Dark Section */
+.app-section .section-kicker {
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: clamp(36px, 5vw, 65px);
+}
+
+.kicker-pill.dark-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Section Header (2 Columns) */
+.app-heading {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(32px, 6vw, 72px);
+  align-items: start;
+  margin-bottom: clamp(48px, 6vw, 80px);
+  position: relative;
+  z-index: 2;
+}
+
+.app-heading-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-subbadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(140, 229, 27, 0.12);
+  border: 1px solid rgba(140, 229, 27, 0.3);
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.app-subbadge .subbadge-icon.lime {
+  color: var(--lime);
+  filter: drop-shadow(0 0 6px rgba(140, 229, 27, 0.5));
+}
+
+.app-title {
+  font-size: clamp(38px, 5.2vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0;
+}
+
+.title-lime-glow {
+  color: var(--lime);
+  text-shadow: 0 0 35px rgba(140, 229, 27, 0.35);
+}
+
+.app-heading-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+.app-lead {
+  font-size: clamp(19px, 2.2vw, 25px);
+  line-height: 1.35;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.02em;
+}
+
+.app-subtext {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 24px 0;
+  max-width: 500px;
+}
+
+.app-telemetry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 11px;
+  font-weight: 700;
+  width: max-content;
+}
+
+.telemetry-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+/* =========================================================
+   3 INTERACTIVE APP COCKPIT CARDS
+   ========================================================= */
+.feature-cockpits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2.5vw, 30px);
+  position: relative;
+  z-index: 2;
+}
+
+.feature-cockpit-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 32px);
+  border-radius: 28px;
+  background: rgba(3, 21, 41, 0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature-cockpit-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(140, 229, 27, 0.45);
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(140, 229, 27, 0.2);
+}
+
+.feature-cockpit-card.highlight-card {
+  border-color: rgba(140, 229, 27, 0.35);
+  background: linear-gradient(180deg, rgba(6, 40, 75, 0.88) 0%, rgba(3, 21, 41, 0.92) 100%);
+  box-shadow: 0 25px 55px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(140, 229, 27, 0.16), inset 0 1px 0 rgba(140, 229, 27, 0.25);
+}
+
+.feature-cockpit-card.highlight-card:hover {
+  border-color: rgba(140, 229, 27, 0.65);
+  box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.85), 0 0 45px rgba(140, 229, 27, 0.35);
+}
+
+.cockpit-top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.cockpit-number {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.cockpit-number.highlight {
+  color: var(--lime);
+}
+
+.cockpit-icon-bubble {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.cockpit-icon-bubble.lime {
+  background: rgba(140, 229, 27, 0.16);
+  border-color: rgba(140, 229, 27, 0.4);
+  color: var(--lime);
+}
+
+.feature-cockpit-card:hover .cockpit-icon-bubble {
+  transform: scale(1.08) rotate(3deg);
+}
+
+.cockpit-title {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin: 0 0 14px 0;
+}
+
+.cockpit-title-highlight {
+  color: var(--lime);
+}
+
+.cockpit-body {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.62);
+  margin: 0 0 24px 0;
+  min-height: 64px;
+}
+
+/* =========================================================
+   COCKPIT SIMULATOR WIDGETS
+   ========================================================= */
+.cockpit-widget {
+  background: rgba(2, 17, 34, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 24px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.25s ease;
+}
+
+.feature-cockpit-card:hover .cockpit-widget {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.widget-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.widget-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 3px 9px;
+  border-radius: 9999px;
+}
+
+.widget-badge.lime {
+  background: rgba(140, 229, 27, 0.18);
+  color: var(--lime);
+  border: 1px solid rgba(140, 229, 27, 0.35);
+}
+
+.widget-badge.lime-pulse {
+  background: rgba(140, 229, 27, 0.22);
+  color: var(--lime);
+  border: 1px solid rgba(140, 229, 27, 0.45);
+  box-shadow: 0 0 10px rgba(140, 229, 27, 0.3);
+}
+
+.widget-badge.blue {
+  background: rgba(14, 165, 233, 0.18);
+  color: #38bdf8;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+}
+
+/* Widget 1: Agenda */
+.week-days-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.week-day-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 7px 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.week-day-pill:hover, .week-day-pill.active {
+  background: rgba(140, 229, 27, 0.12);
+  border-color: rgba(140, 229, 27, 0.35);
+}
+
+.day-name {
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.week-day-pill.active .day-name {
+  color: #ffffff;
+}
+
+.day-indicator {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.week-day-pill.active .day-indicator {
+  background: var(--lime);
+  box-shadow: 0 0 6px var(--lime);
+}
+
+.shift-status-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.shift-status-row strong {
+  color: #ffffff;
+}
+
+.shift-icon {
+  color: var(--lime);
+  flex-shrink: 0;
+}
+
+/* Widget 2: Financeiro */
+.finance-balance-wrap {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.finance-amount-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.finance-currency {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--lime);
+}
+
+.finance-val {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.finance-trend {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(140, 229, 27, 0.18);
+  color: var(--lime);
+  margin-left: auto;
+}
+
+.finance-mini-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.finance-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #38bdf8 0%, var(--lime) 100%);
+  box-shadow: 0 0 8px rgba(140, 229, 27, 0.6);
+}
+
+.payout-note-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.payout-note-row .shift-icon.lime {
+  color: var(--lime);
+}
+
+/* Widget 3: Corridas & GPS */
+.route-mini-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.route-step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.route-step-item strong {
+  color: #ffffff;
+}
+
+.route-node-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.route-node-dot.origin {
+  background: var(--lime);
+  box-shadow: 0 0 8px var(--lime);
+}
+
+.route-node-dot.dest {
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+}
+
+.route-step-connector {
+  width: 2px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-left: 3px;
+}
+
+.route-metrics-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.chip-price {
+  color: var(--lime);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* Card Checklist */
+.cockpit-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: auto;
+}
+
+.cockpit-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.check-bubble {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.check-bubble.lime {
+  background: rgba(140, 229, 27, 0.18);
+  border-color: rgba(140, 229, 27, 0.4);
+  color: var(--lime);
+  box-shadow: 0 0 8px rgba(140, 229, 27, 0.25);
+}
+
+/* Sections Heading Preserved */
+.benefit-heading h2, .final-cta h2 { font-size:clamp(48px, 7vw, 98px); line-height:.88; letter-spacing:-.07em; margin:0; }
+.benefit-heading p { align-self:end; max-width:360px; color:rgba(255,255,255,.65); line-height:1.6; }
 .steps-heading { align-items:end; margin-bottom:70px; }.steps-heading h2 { font-size:clamp(48px, 7vw, 94px); line-height:.88; letter-spacing:-.07em; margin:0; }.step-list { border-top:1px solid var(--line); }.step { display:grid; grid-template-columns:100px 1fr 20px; gap:28px; align-items:start; padding:25px 0; border-bottom:1px solid var(--line); }.step>span { color:#68788a; font-size:11px; font-weight:800; }.step h3 { font-size:28px; margin:0 0 6px; letter-spacing:-.04em; }.step p { margin:0; max-width:520px; color:#68788a; line-height:1.5; font-size:14px; }.step>svg { color:var(--lime); }.fine-print { max-width:730px; color:#657384; font-size:11px; line-height:1.5; margin-top:30px; }
 .benefits { position:relative; }.benefit-heading p { color:rgba(6,40,75,.68); }.benefit-cards { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:80px; }.benefit-cards article { background:rgba(255,255,255,.38); padding:34px; min-height:340px; display:flex; flex-direction:column; align-items:flex-start; }.benefit-cards .dark-card { background:var(--navy); color:white; }.benefit-cards h3 { font-size:45px; line-height:.9; letter-spacing:-.07em; margin:70px 0 18px; }.dark-card h3 em { color:var(--lime); font-style:normal; }.benefit-cards p { max-width:380px; color:rgba(6,40,75,.7); line-height:1.5; font-size:14px; }.dark-card p { color:rgba(255,255,255,.65); }.benefit-cards .text-link { margin-top:auto; }.protection-list { display:grid; grid-template-columns:repeat(3,1fr); gap:0 20px; margin-top:75px; border-top:1px solid rgba(6,40,75,.3); }.protection-list>span { grid-column:1/-1; padding:20px 0; font-size:10px; font-weight:800; letter-spacing:.15em; }.protection-list div { padding:18px 0; border-top:1px solid rgba(6,40,75,.2); font-size:13px; font-weight:700; display:flex; gap:18px; }.protection-list b { color:rgba(6,40,75,.45); font-size:10px; }
 .faq h2 { margin-bottom:75px; }.faq-list { max-width:870px; margin-left:auto; border-top:1px solid var(--line); }.faq-item { border-bottom:1px solid var(--line); }.faq-item button { width:100%; border:0; background:none; display:flex; justify-content:space-between; text-align:left; padding:25px 0; font:inherit; font-size:17px; color:var(--navy); cursor:pointer; }.faq-item button svg { width:18px; color:var(--lime); flex-shrink:0; }.faq-item p { color:#647384; line-height:1.5; max-width:700px; margin:0 0 25px; font-size:14px; }.final-cta { text-align:center; padding-top:140px; padding-bottom:140px; }.final-cta h2 { margin:28px 0 42px; }.footer { background:var(--navy-2); color:white; padding:55px clamp(24px, 7vw, 112px) 28px; display:grid; grid-template-columns:1fr 1fr; gap:28px; }.footer>p { color:rgba(255,255,255,.6); font-size:13px; }.footer>div { grid-column:1/-1; display:flex; gap:25px; flex-wrap:wrap; border-top:1px solid rgba(255,255,255,.2); padding-top:22px; font-size:11px; color:rgba(255,255,255,.7); }.footer small { grid-column:1/-1; color:rgba(255,255,255,.4); font-size:10px; }
@@ -1747,6 +2305,49 @@ main { overflow: hidden; }
     gap: 18px;
     margin-top: 45px;
   }
+
+  /* Section 02 Tablet & Down */
+  .app-heading {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 45px;
+  }
+  .app-heading-main {
+    align-items: center;
+    text-align: center;
+  }
+  .app-subbadge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .app-title {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .app-heading-side {
+    align-items: center;
+    text-align: center;
+    padding-top: 0;
+  }
+  .app-lead {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .app-subtext {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .app-telemetry-pill {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .feature-cockpits-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 @media (max-width: 800px) {
@@ -1758,9 +2359,8 @@ main { overflow: hidden; }
   .nav-cta { border:0; padding-left:0; }
   .hero-actions { flex-direction:column; align-items:stretch; gap:10px; width:100%; }
   .hero-btn-primary, .hero-btn-secondary { justify-content:center; width:100%; }
-  .app-heading,.benefit-heading,.steps-heading { grid-template-columns:1fr; gap:35px; }
-  .feature-grid,.benefit-cards { grid-template-columns:1fr; }
-  .feature { min-height:auto; }
+  .benefit-heading,.steps-heading { grid-template-columns:1fr; gap:35px; }
+  .benefit-cards { grid-template-columns:1fr; }
   .section-kicker { margin-bottom:48px; }
   .steps-heading .button { width:max-content; }
   .step { grid-template-columns:50px 1fr 15px; gap:12px; }
@@ -2032,6 +2632,105 @@ main { overflow: hidden; }
   .card-text {
     font-size: 13px;
     margin-bottom: 18px;
+  }
+
+  /* Section 02 Mobile */
+  .app-section .section-kicker {
+    margin-bottom: 22px;
+  }
+  .app-heading {
+    margin-bottom: 32px;
+    gap: 22px;
+  }
+  .app-subbadge {
+    font-size: 10.5px;
+    padding: 5px 12px;
+    margin-bottom: 14px;
+  }
+  .app-title {
+    font-size: clamp(28px, 7.8vw, 38px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .app-lead {
+    font-size: 16.5px;
+    line-height: 1.35;
+    margin-bottom: 12px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .app-subtext {
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .app-telemetry-pill {
+    font-size: 10px;
+    padding: 6px 12px;
+    gap: 7px;
+  }
+  .feature-cockpits-grid {
+    gap: 16px;
+  }
+  .feature-cockpit-card {
+    padding: 22px 16px;
+    border-radius: 22px;
+  }
+  .cockpit-top-header {
+    margin-bottom: 16px;
+  }
+  .cockpit-title {
+    font-size: 21px;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .cockpit-body {
+    font-size: 13px;
+    line-height: 1.55;
+    min-height: auto;
+    margin-bottom: 18px;
+  }
+  .cockpit-widget {
+    padding: 13px 12px;
+    margin-bottom: 18px;
+    border-radius: 15px;
+  }
+  .widget-label {
+    font-size: 9px;
+  }
+  .widget-badge {
+    font-size: 9px;
+    padding: 2px 7px;
+  }
+  .week-days-row {
+    gap: 4px;
+  }
+  .week-day-pill {
+    padding: 6px 0;
+    border-radius: 8px;
+  }
+  .day-name {
+    font-size: 10px;
+  }
+  .finance-val {
+    font-size: 20px;
+  }
+  .finance-currency {
+    font-size: 12px;
+  }
+  .cockpit-checklist {
+    padding-top: 14px;
+    gap: 9px;
+  }
+  .cockpit-checklist li {
+    font-size: 11.5px;
   }
 
   .protection-list { grid-template-columns:1fr; }
