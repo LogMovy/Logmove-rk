@@ -10,9 +10,16 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'LOGMOV — Logística de motoboys',
+  title: 'LOGMOV  ',
   description: 'Conectando empresas e profissionais de motofrete. Sua rotina, sua moto, novas oportunidades.',
-  generator: 'v0.app',
+  icons: {
+    icon: [
+      { url: '/logmov-icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logmov-icon.png', sizes: '192x192', type: 'image/png' },
+    ],
+    shortcut: '/logmov-icon.png',
+    apple: '/logmov-icon.png',
+  },
 }
 
 export const viewport: Viewport = {
