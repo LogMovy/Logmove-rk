@@ -722,7 +722,170 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="beneficios" className="benefits section-lime section-pad"><div className="section-kicker"><span>04 / DIFERENCIAIS PARA SUA ROTINA</span><span>ESCOLHAS SUAS</span></div><div className="benefit-heading"><h2>O movimento é seu.<br /><em>A escolha também.</em></h2><p>Proteção veicular e Clube de Benefícios são escolhas suas. Você só adere se aceitar as condições de cada benefício.</p></div><div className="benefit-cards"><article><span className="card-tag">BENEFÍCIO OPTATIVO</span><h3>Proteção para<br />sua moto.</h3><p>A LOGMov facilita o acesso a informações sobre proteção veicular oferecida por fornecedor especializado, com contratação própria e separada.</p><a className="text-link" href="#faq">Como consultar a proteção <ArrowUpRight /></a></article><article className="dark-card"><span className="card-tag">CLUBE DE BENEFÍCIOS</span><h3>Sua rotina.<br /><em>Mais vantagens.</em></h3><p>Descontos e condições especiais em oficinas, peças, serviços e lojas parceiras para acompanhar você também fora das entregas.</p><a className="text-link light" href="#faq">Conheça o clube <ArrowUpRight /></a></article></div><div className="protection-list"><span>O QUE PODE FAZER PARTE DO PLANO</span>{['Roubo e furto','Colisão e perda total','Incêndio por colisão','Assistência 24 horas','Abrangência nacional','Guincho em acidente'].map((item, i) => <div key={item}><b>0{i + 1}</b>{item}</div>)}</div><p className="fine-print">Itens sujeitos à proposta, elegibilidade e regulamento do fornecedor. Consulte limites, carências, participações e exclusões, inclusive as condições para uso em motofrete.</p></section>
+      <section id="beneficios" className="benefits section-lime section-pad">
+        {/* Ambient Subtle Glows */}
+        <div className="benefits-ambient-glow glow-1" />
+        <div className="benefits-ambient-glow glow-2" />
+
+        {/* Section Kicker */}
+        <div className="section-kicker lime-kicker">
+          <div className="kicker-pill lime-pill">
+            <span className="kicker-live-dot dark" />
+            <span className="kicker-text-desktop">DIFERENCIAIS PARA SUA ROTINA</span>
+            <span className="kicker-text-mobile">DIFERENCIAIS</span>
+          </div>
+          <span className="kicker-index lime-index">04 / ESCOLHAS SUAS</span>
+        </div>
+
+        {/* Section Heading */}
+        <div className="benefit-heading">
+          <div className="benefit-heading-main">
+            <div className="benefit-subbadge">
+              <ShieldCheck size={14} className="subbadge-icon dark" />
+              <span>Autonomia e flexibilidade para o parceiro</span>
+            </div>
+            <h2 className="benefit-title">
+              O movimento é seu.<br />
+              <span className="title-navy-italic">A escolha também.</span>
+            </h2>
+          </div>
+
+          <div className="benefit-heading-side">
+            <p className="benefit-lead">
+              Proteção veicular e Clube de Benefícios são escolhas suas. Você só adere se aceitar as condições de cada benefício.
+            </p>
+            <div className="benefit-tag-pill">
+              <span className="benefit-pill-dot" />
+              <span>Totalmente optativo · Sem vínculo obrigatório</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Two Grand Benefit Cards */}
+        <div className="benefit-cards">
+          {/* Card 1: Proteção Veicular (Frosted Glass Light) */}
+          <article className="benefit-card light-benefit-card group">
+            <div className="benefit-card-top">
+              <span className="card-tag dark">BENEFÍCIO OPTATIVO</span>
+              <div className="benefit-icon-sphere dark">
+                <ShieldCheck size={20} />
+              </div>
+            </div>
+
+            <h3 className="benefit-card-title">
+              Proteção para<br />
+              sua moto.
+            </h3>
+
+            <p className="benefit-card-text">
+              A LOGMov facilita o acesso a informações sobre proteção veicular oferecida por fornecedor especializado, com contratação própria e separada.
+            </p>
+
+            <ul className="benefit-mini-perks dark">
+              <li>
+                <div className="perk-check dark"><Check size={12} /></div>
+                <span>Contratação própria e independente</span>
+              </li>
+              <li>
+                <div className="perk-check dark"><Check size={12} /></div>
+                <span>Fornecedor especializado no setor</span>
+              </li>
+              <li>
+                <div className="perk-check dark"><Check size={12} /></div>
+                <span>Não obrigatório para rodar na LOGMov</span>
+              </li>
+            </ul>
+
+            <a className="benefit-action-link dark" href="#faq">
+              <span>Como consultar a proteção</span>
+              <div className="benefit-link-bubble dark">
+                <ArrowUpRight size={16} />
+              </div>
+            </a>
+          </article>
+
+          {/* Card 2: Clube de Benefícios (Deep Navy Glass Luxury) */}
+          <article className="benefit-card dark-benefit-card group">
+            <div className="benefit-card-top">
+              <span className="card-tag lime">CLUBE DE BENEFÍCIOS</span>
+              <div className="benefit-icon-sphere lime">
+                <Sparkles size={20} />
+              </div>
+            </div>
+
+            <h3 className="benefit-card-title light">
+              Sua rotina.<br />
+              <span className="title-lime-glow">Mais vantagens.</span>
+            </h3>
+
+            <p className="benefit-card-text light">
+              Descontos e condições especiais em oficinas, peças, serviços e lojas parceiras para acompanhar você também fora das entregas do dia a dia.
+            </p>
+
+            <ul className="benefit-mini-perks light">
+              <li>
+                <div className="perk-check lime"><Check size={12} /></div>
+                <span>Descontos especiais em oficinas parceiras</span>
+              </li>
+              <li>
+                <div className="perk-check lime"><Check size={12} /></div>
+                <span>Economia em peças, pneus e manutenção</span>
+              </li>
+              <li>
+                <div className="perk-check lime"><Check size={12} /></div>
+                <span>Vantagens que vão além das corridas</span>
+              </li>
+            </ul>
+
+            <a className="benefit-action-link lime" href="#faq">
+              <span>Conheça o clube</span>
+              <div className="benefit-link-bubble lime">
+                <ArrowUpRight size={16} />
+              </div>
+            </a>
+          </article>
+        </div>
+
+        {/* Protection Coverage Grid */}
+        <div className="protection-grid-wrap">
+          <div className="protection-header">
+            <div className="protection-title-row">
+              <span className="protection-badge">COBERTURAS DISPONÍVEIS</span>
+              <h4 className="protection-headline">O que pode fazer parte do plano</h4>
+            </div>
+            <span className="protection-subtitle">Consulte limites e regulamento do fornecedor</span>
+          </div>
+
+          <div className="protection-cards-grid">
+            {[
+              { num: '01', title: 'Roubo e furto' },
+              { num: '02', title: 'Colisão e perda total' },
+              { num: '03', title: 'Incêndio por colisão' },
+              { num: '04', title: 'Assistência 24 horas' },
+              { num: '05', title: 'Abrangência nacional' },
+              { num: '06', title: 'Guincho em acidente' },
+            ].map((item) => (
+              <div className="protection-item-card group" key={item.num}>
+                <span className="protection-item-num">{item.num}</span>
+                <span className="protection-item-title">{item.title}</span>
+                <div className="protection-check-bubble">
+                  <Check size={12} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Fine Print Note Card */}
+        <div className="benefits-fine-print-card">
+          <div className="fine-print-icon-wrap dark">
+            <ShieldCheck size={18} />
+          </div>
+          <p className="benefits-fine-print-text">
+            <strong>Condições gerais:</strong> Itens sujeitos à proposta, elegibilidade e regulamento do fornecedor parceiro. Consulte limites, carências, participações e exclusões, inclusive as condições específicas para uso em serviços de motofrete.
+          </p>
+        </div>
+      </section>
 
       <section id="faq" className="faq section-light section-pad"><div className="section-kicker"><span>05 / TUDO ÀS CLARAS</span><span>PERGUNTAS FREQUENTES</span></div><h2>Antes de seguir,<br /><span>tire suas dúvidas.</span></h2><div className="faq-list">{faqs.map(([question, answer], i) => <div className={`faq-item ${openFaq === i ? 'open' : ''}`} key={question}><button onClick={() => setOpenFaq(openFaq === i ? null : i)} aria-expanded={openFaq === i}><span>{question}</span>{openFaq === i ? <X /> : <Plus />}</button>{openFaq === i && <p>{answer}</p>}</div>)}</div></section>
 
