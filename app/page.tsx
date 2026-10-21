@@ -71,7 +71,7 @@ export default function Page() {
           </h1>
 
           <p className="hero-text">
-            Escolha os dias e horários em que deseja trabalhar, acompanhe suas corridas e consulte seu financeiro em tempo real com total autonomia.
+            Escolha os dias e horários em que deseja trabalhar, acompanhe suas corridas e consulte seu financeiro com total autonomia.
           </p>
 
           <div className="hero-highlights">
@@ -445,7 +445,7 @@ export default function Page() {
             </div>
             <h3 className="card-title">Mais Movimento</h3>
             <p className="card-text">
-              Acompanhe suas corridas e seus ganhos em tempo real pelo aplicativo, mantendo o controle total do seu planejamento financeiro.
+              Acompanhe suas corridas e seus ganhos pelo aplicativo, mantendo o controle total do seu planejamento financeiro.
             </p>
             <div className="card-bottom-bar">
               <div className="card-metric-tag">
@@ -475,10 +475,6 @@ export default function Page() {
         {/* Section Header */}
         <div className="app-heading">
           <div className="app-heading-main">
-            <div className="app-subbadge">
-              <Smartphone size={13} className="subbadge-icon lime" />
-              <span>Experiência pensada para o motoboy</span>
-            </div>
             <h2 className="app-title">
               Sua agenda.<br />
               <span className="title-lime-glow">Suas corridas.</span><br />
@@ -578,7 +574,6 @@ export default function Page() {
             <div className="cockpit-widget finance-widget">
               <div className="widget-header">
                 <span className="widget-label">EXTRATO CONSOLIDADO</span>
-                <span className="widget-badge lime-pulse">Tempo Real</span>
               </div>
               <div className="finance-balance-wrap">
                 <div className="finance-amount-row">
@@ -743,7 +738,7 @@ export default function Page() {
             {
               num: '04 /',
               title: 'Acompanhe pelo app',
-              text: 'Cumpra os compromissos aceitos, acompanhe suas corridas e consulte seu financeiro em tempo real.',
+              text: 'Cumpra os compromissos aceitos, acompanhe suas corridas e consulte seu financeiro.',
               chip: 'Controle total',
               icon: Smartphone,
             },
