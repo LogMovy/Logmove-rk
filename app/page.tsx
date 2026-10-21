@@ -19,6 +19,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import DeliveryMotion from '@/components/DeliveryMotion'
+import NetworkMotion from '@/components/NetworkMotion'
 import Header from '@/components/Header'
 
 const logoUrl = '/logmov-icon.png'
@@ -27,9 +28,9 @@ const faqs = [
   ['Posso escolher os dias e horários em que vou trabalhar?', 'Sim. Você define sua disponibilidade no aplicativo, de acordo com a sua rotina.'],
   ['Consigo acompanhar meu financeiro e minhas corridas?', 'Sim. A área do motoboy reúne suas corridas e as informações financeiras dos serviços registrados.'],
   ['Como funciona a taxa de adesão gratuita?', 'Motoboys parceiros podem consultar as condições de gratuidade da taxa de adesão. Mensalidades e outros valores são informados antes da contratação.'],
-  ['A LOGMov é uma empresa de proteção veicular?', 'Não. A LOGMov conecta você a oportunidades e facilita o acesso a benefícios oferecidos por fornecedores especializados.'],
+  ['A LOGMOV é uma empresa de proteção veicular?', 'Não. A LOGMOV conecta você a oportunidades e facilita o acesso a benefícios oferecidos por fornecedores especializados.'],
   ['Preciso contratar a proteção para usar a plataforma?', 'Não. A proteção veicular e o Clube de Benefícios são optativos e independentes do acesso às oportunidades.'],
-  ['A LOGMov garante serviços ou ganhos?', 'Não. A disponibilidade de propostas varia e não há garantia de renda ou volume de serviços.'],
+  ['A LOGMOV garante serviços ou ganhos?', 'Não. A disponibilidade de propostas varia e não há garantia de renda ou volume de serviços.'],
 ]
 
 function Brand({ light = false }: { light?: boolean }) {
@@ -51,7 +52,6 @@ export default function Page() {
           <div className="hero-pill-badge">
             <span className="live-dot" />
             <span className="badge-text">Conexões que movem a cidade</span>
-            <Sparkles size={13} className="badge-sparkle" />
           </div>
 
           <h1 className="hero-headline">
@@ -233,7 +233,7 @@ export default function Page() {
               <span>EMPRESAS COM DEMANDA</span>
             </div>
             <div className="eco-connector">
-              <ArrowRight size={13} />
+              <ArrowRight size={13} className="connector-arrow" />
             </div>
             <div className="eco-badge highlight">
               <Bike size={15} className="eco-icon lime" />
@@ -248,12 +248,149 @@ export default function Page() {
             </div>
           </div>
         </div>
+
+        {/* Organic Section Transition Curve to Section 01 */}
+        <div className="hero-bottom-curve" aria-hidden="true">
+          <svg viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none">
+            <path d="M0,15 C480,55 960,55 1440,15 L1440,60 L0,60 Z" />
+          </svg>
+        </div>
       </section>
 
       <section id="aplicativo" className="intro section-light section-pad">
-        <div className="section-kicker"><span>LOGMOV</span><span>01 / A LOGMOV</span></div>
-        <div className="intro-grid"><h2>Do encontro certo<br />à próxima <span>oportunidade.</span></h2><div><p className="lead">A LOGMov é uma plataforma de conexão entre empresas e profissionais de motofrete.</p><p>Reúne oportunidades e facilita o encontro entre a demanda de quem precisa movimentar seu negócio e a disponibilidade de quem trabalha sobre duas rodas.</p><a className="text-link" href="#como-funciona">Entenda a LOGMov <ArrowUpRight /></a></div></div>
-        <div className="promise-row"><div><strong>↗</strong><span>MAIS CONEXÃO</span></div><div><strong>↗</strong><span>MAIS POSSIBILIDADES</span></div><div><strong>↗</strong><span>MAIS MOVIMENTO</span></div></div>
+        {/* Dynamic Motion Canvas */}
+        <NetworkMotion />
+
+        {/* Ambient Glows */}
+        <div className="intro-ambient-glow glow-1" />
+        <div className="intro-ambient-glow glow-2" />
+
+        {/* Section Kicker */}
+        <div className="section-kicker">
+          <div className="kicker-pill">
+            <span className="kicker-live-dot" />
+            <span className="kicker-text-desktop">PLATAFORMA & TECNOLOGIA</span>
+            <span className="kicker-text-mobile">PLATAFORMA</span>
+          </div>
+          <span className="kicker-index">01 / A LOGMOV</span>
+        </div>
+
+        {/* Main Grid: Headline & Value Proposition */}
+        <div className="intro-grid">
+          <div className="intro-headline-col">
+
+            
+            <h2 className="intro-title">
+              Do encontro certo<br />
+              à próxima <span className="title-lime-accent">oportunidade.</span>
+            </h2>
+
+            {/* Micro Live Network Status Card */}
+            <div className="intro-status-card">
+              <div className="status-card-icon-wrap">
+                <Bike size={18} className="status-bike-icon" />
+              </div>
+              <div className="status-card-content">
+                <div className="status-card-title">Malha Urbana Integrada</div>
+                <div className="status-card-desc">Conexão inteligente entre demanda de empresas e a disponibilidade de motoboys parceiros.</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="intro-copy-col">
+            <p className="lead">
+              A LOGMOV é uma plataforma de conexão entre empresas e profissionais de motofrete.
+            </p>
+            <p className="intro-body-text">
+              Reúne oportunidades e facilita o encontro entre a demanda de quem precisa movimentar seu negócio e a disponibilidade de quem trabalha sobre duas rodas, com transparência total e autonomia de decisão.
+            </p>
+
+            <div className="intro-cta-row">
+              <a className="intro-btn-action" href="#como-funciona">
+                <span>Entenda como funciona</span>
+                <span className="action-circle">
+                  <ArrowUpRight size={16} />
+                </span>
+              </a>
+              <span className="intro-note">✓ Sem taxa oculta • Acesso direto</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 3 Premium Interactive Motion Promise Cards */}
+        <div className="intro-cards-grid">
+          {/* Card 1: Mais Conexão */}
+          <div className="intro-card group">
+            <div className="card-top-meta">
+              <span className="card-number">01</span>
+              <span className="card-chip">REDE EM TEMPO REAL</span>
+              <div className="card-arrow-wrap">
+                <ArrowUpRight size={16} />
+              </div>
+            </div>
+            <div className="card-icon-sphere">
+              <Building2 size={22} className="sphere-icon" />
+            </div>
+            <h3 className="card-title">Mais Conexão</h3>
+            <p className="card-text">
+              Acesso facilitado a pedidos e serviços de diversos estabelecimentos e negócios que demandam entregas rápidas na sua região.
+            </p>
+            <div className="card-bottom-bar">
+              <div className="card-metric-tag">
+                <span className="metric-dot" />
+                <span>Demanda contínua</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Mais Possibilidades */}
+          <div className="intro-card group highlight-card">
+            <div className="card-top-meta">
+              <span className="card-number">02</span>
+              <span className="card-chip highlight">AUTONOMIA TOTAL</span>
+              <div className="card-arrow-wrap highlight">
+                <ArrowUpRight size={16} />
+              </div>
+            </div>
+            <div className="card-icon-sphere lime">
+              <Bike size={22} className="sphere-icon" />
+            </div>
+            <h3 className="card-title">Mais Possibilidades</h3>
+            <p className="card-text">
+              Você escolhe os dias e horários em que deseja atuar. Mais autonomia para conciliar seus compromissos e decidir quando ligar o app.
+            </p>
+            <div className="card-bottom-bar">
+              <div className="card-metric-tag">
+                <span className="metric-dot lime" />
+                <span>Horários flexíveis</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Mais Movimento */}
+          <div className="intro-card group">
+            <div className="card-top-meta">
+              <span className="card-number">03</span>
+              <span className="card-chip">FLUXO ATIVO</span>
+              <div className="card-arrow-wrap">
+                <ArrowUpRight size={16} />
+              </div>
+            </div>
+            <div className="card-icon-sphere">
+              <TrendingUp size={22} className="sphere-icon" />
+            </div>
+            <h3 className="card-title">Mais Movimento</h3>
+            <p className="card-text">
+              Acompanhe suas corridas e seus ganhos em tempo real pelo aplicativo, mantendo o controle total do seu planejamento financeiro.
+            </p>
+            <div className="card-bottom-bar">
+              <div className="card-metric-tag">
+                <span className="metric-dot" />
+                <span>Controle financeiro</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="como-funciona" className="app-section section-dark section-pad"><div className="section-kicker light"><span>SEU DIA A DIA NO APLICATIVO</span><span>02 / ROTINA</span></div><div className="app-heading"><h2>Sua agenda.<br /><em>Suas corridas.</em><br />Seu controle.</h2><p>A LOGMov acompanha sua rotina antes, durante e depois de cada serviço.</p></div><div className="feature-grid"><Feature number="01 / AGENDA" title={<>Você escolhe<br /><em>dias e horários.</em></>} body="Defina no aplicativo os dias e horários em que deseja trabalhar. Organize sua disponibilidade conforme sua rotina e avalie as oportunidades antes de aceitar." items={['Minha disponibilidade', 'Dias escolhidos por você', 'Horários definidos por você']} /><Feature number="02 / FINANCEIRO" title={<>Seu financeiro<br /><em>em um só lugar.</em></>} body="Acesse sua área financeira para consultar os ganhos e acompanhar as informações financeiras dos serviços registrados no aplicativo." items={['Meu financeiro', 'Consulta de ganhos', 'Informações dos serviços']} /><Feature number="03 / CORRIDAS" title={<>Acompanhe<br /><em>cada corrida.</em></>} body="Consulte suas corridas e acompanhe o andamento dos serviços pelo aplicativo." items={['Minhas corridas', 'Acompanhamento dos serviços', 'Consulta das corridas']} /></div></section>
