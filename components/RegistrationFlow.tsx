@@ -29,6 +29,7 @@ import {
 } from 'lucide-react'
 import Registration3DScene from '@/components/Registration3DScene'
 import NetworkMotion from '@/components/NetworkMotion'
+import PremiumSelect, { SelectOption } from '@/components/PremiumSelect'
 
 const daysList = [
   { id: 'Segunda-feira', short: 'SEG', label: 'Segunda-feira', tag: 'Alta demanda' },
@@ -40,17 +41,21 @@ const daysList = [
   { id: 'Domingo', short: 'DOM', label: 'Domingo', tag: 'Flexível' },
 ]
 
-const popularBanks = [
-  '001 - Banco do Brasil',
-  '260 - Nu Pagamentos (Nubank)',
-  '341 - Itaú Unibanco',
-  '237 - Bradesco',
-  '104 - Caixa Econômica Federal',
-  '033 - Santander',
-  '077 - Banco Inter',
-  '336 - Banco C6',
-  '290 - PagBank',
-  '380 - PicPay',
+const popularBanks: SelectOption[] = [
+  { value: '260 - Nu Pagamentos (Nubank)', label: 'Nubank (Nu Pagamentos)', code: '260', short: 'Conta Digital · PIX Instantâneo', badge: 'Popular', color: '#820ad1' },
+  { value: '001 - Banco do Brasil', label: 'Banco do Brasil S.A.', code: '001', short: 'Banco Tradicional', color: '#0038a8' },
+  { value: '341 - Itaú Unibanco', label: 'Itaú Unibanco S.A.', code: '341', short: 'Banco Tradicional', badge: 'Popular', color: '#ec7000' },
+  { value: '104 - Caixa Econômica Federal', label: 'Caixa Econômica Federal', code: '104', short: 'Poupança / Caixa Tem', color: '#005ca9' },
+  { value: '237 - Bradesco', label: 'Banco Bradesco S.A.', code: '237', short: 'Banco Tradicional', color: '#cc092f' },
+  { value: '077 - Banco Inter', label: 'Banco Inter S.A.', code: '077', short: 'Conta Digital · Zero Taxa', badge: 'Digital', color: '#ff7a00' },
+  { value: '033 - Santander', label: 'Banco Santander Brasil', code: '033', short: 'Banco Tradicional', color: '#ec0000' },
+  { value: '336 - Banco C6', label: 'C6 Bank S.A.', code: '336', short: 'Conta Digital', badge: 'Digital', color: '#242424' },
+  { value: '290 - PagBank', label: 'PagBank (PagSeguro)', code: '290', short: 'Conta Pagamento', badge: 'Digital', color: '#00a868' },
+  { value: '380 - PicPay', label: 'PicPay Bank', code: '380', short: 'Carteira Digital', color: '#11c76f' },
+  { value: '323 - Mercado Pago', label: 'Mercado Pago', code: '323', short: 'Conta Digital', color: '#009ee3' },
+  { value: '756 - Sicoob', label: 'Sicoob (Cooperativa)', code: '756', short: 'Sistema Cooperativo', color: '#003641' },
+  { value: '748 - Sicredi', label: 'Sicredi', code: '748', short: 'Sistema Cooperativo', color: '#3fa110' },
+  { value: '403 - Cora', label: 'Cora Sociedade de Crédito', code: '403', short: 'Conta PJ / MEI', badge: 'Ideal MEI', color: '#fe3e6d' },
 ]
 
 const initialData = {
@@ -683,21 +688,17 @@ export default function RegistrationFlow() {
                         transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                         className="registration-fields"
                       >
-                        <PremiumField
+                        <PremiumSelect
                           label="Instituição / Banco"
-                          name="bank"
                           value={data.bank}
-                          onChange={update}
-                          placeholder="Ex: 260 - Nubank, Itaú, Inter..."
+                          onChange={(val) => update('bank', val)}
+                          options={popularBanks}
+                          placeholder="Selecione seu banco ou pesquise pelo código..."
+                          searchPlaceholder="Digite o nome ou código (ex: 260, Nubank, Itaú)..."
                           icon={<Landmark size={16} />}
-                          list="logmovy-banks-list"
+                          badge="Busca rápida FEBRABAN"
                           fullWidth
                         />
-                        <datalist id="logmovy-banks-list">
-                          {popularBanks.map((b) => (
-                            <option key={b} value={b} />
-                          ))}
-                        </datalist>
 
                         <PremiumField
                           label="Agência"
@@ -911,33 +912,99 @@ export default function RegistrationFlow() {
                         </div>
 
                         <div className="terms-scroll">
-                          <h4>Termos de uso — Cadastro de Parceiro LogMovy</h4>
+                          <div className="terms-doc-header">
+                            <span className="terms-doc-badge">CONTRATO SaaS + MARKETPLACE · v1.1</span>
+                            <h4>Contrato de Adesão e Licença de Uso da Plataforma LogMovy</h4>
+                            <small>Profissional Parceiro / Motofretista · Foro de Campina Grande/PB</small>
+                          </div>
+
+                          <div className="terms-highlight-box">
+                            <strong>RESUMO EXECUTIVO — REGRAS-CHAVE</strong>
+                            <ul>
+                              <li><strong>1. Autonomia:</strong> O Profissional Parceiro escolhe quando informar disponibilidade e se aceita ou não cada oportunidade antes do aceite.</li>
+                              <li><strong>2. Sem jornada imposta:</strong> Não há obrigação de permanecer online, cumprir quantidade mínima de horas, frequência semanal ou percentual mínimo de aceites.</li>
+                              <li><strong>3. Sem exclusividade:</strong> O profissional pode atender clientes próprios, empresas distintas e utilizar plataformas concorrentes.</li>
+                              <li><strong>4. Aceite por serviço:</strong> Após aceitar uma oportunidade específica, nasce um compromisso civil/comercial limitado àquele serviço, com condições previamente apresentadas.</li>
+                              <li><strong>5. Dados e segurança:</strong> Cadastro, documentos, localização quando necessária, histórico de serviços, pagamentos e logs são tratados conforme a LGPD e a Política de Privacidade.</li>
+                              <li><strong>6. Proteção e Clube:</strong> Proteção veicular e Clube de Benefícios são ofertas facultativas, autônomas e sujeitas a condições próprias dos fornecedores.</li>
+                              <li><strong>7. Cadastro gratuito:</strong> A adesão inicial à LogMovy não possui taxa de adesão. Serviços opcionais ou planos futuros somente poderão ser cobrados com informação prévia e aceite específico.</li>
+                            </ul>
+                          </div>
+
+                          <h5>1. Objeto, Escopo e Natureza SaaS / Marketplace</h5>
                           <p>
-                            Ao prosseguir, você solicita seu cadastro como profissional parceiro da{' '}
-                            <strong>LogMovy</strong>. As informações fornecidas poderão ser usadas para
-                            identificar você, analisar seu perfil e validar os dados e documentos informados.
+                            Este contrato disciplina o cadastro e a licença de uso da plataforma <strong>LogMovy</strong>, em modalidade Software as a Service (SaaS), bem como o acesso a funcionalidades de marketplace destinadas a aproximar Empresas Parceiras e Profissionais Parceiros para oportunidades específicas de motofrete.
                           </p>
                           <p>
-                            O envio deste cadastro não garante aprovação, oferta de serviços, volume mínimo de
-                            corridas ou renda. A disponibilidade de oportunidades depende da demanda e da
-                            região.
+                            A LogMovy fornece infraestrutura tecnológica e ambiente digital de conexão e gestão de oportunidades. O serviço não constitui fornecimento de mão de obra, agência de trabalho temporário, vínculo empregatício automático ou terceirização operacional gerenciada.
+                          </p>
+
+                          <h5>2. A LogMovy não é Cooperativa, Associação ou Entidade de Classe</h5>
+                          <p>
+                            A LogMovy não se constitui como cooperativa de trabalho, sociedade cooperativa, associação, sindicato ou sociedade entre os profissionais cadastrados. O cadastro não gera quota-parte, capital cooperativo, assembleia, direito de voto societário, fundo comum ou rateio de sobras ou perdas. A relação é individual e contratual, limitada ao uso da tecnologia e aos serviços específicos aceitos.
+                          </p>
+
+                          <h5>3. Autonomia do Profissional e Ausência de Exclusividade</h5>
+                          <p>
+                            O Profissional Parceiro possui autonomia para organizar sua atividade, observados os compromissos que voluntariamente aceitar. Não há exclusividade perante a LogMovy ou as Empresas Parceiras, podendo atender clientes próprios, prestar serviços para terceiros e utilizar plataformas concorrentes.
                           </p>
                           <p>
-                            Você define sua disponibilidade e decide se aceita cada oportunidade apresentada,
-                            observando as condições informadas antes de confirmar o serviço. Benefícios e
-                            serviços de terceiros, quando oferecidos, são opcionais e sujeitos a condições
-                            próprias.
+                            Não existe obrigação de número mínimo de horas, dias ou serviços por semana, nem percentual mínimo de aceitação. Recusa antes do aceite não é infração e não gera advertência, multa ou bloqueio. A agenda de disponibilidade é manifestação de preferência, não ponto ou escala laboral obrigatória.
+                          </p>
+
+                          <h5>4. Ausência de Vínculo Empregatício Automático e Realidade Operacional</h5>
+                          <p>
+                            As Partes declaram a intenção de manter relação civil/comercial relacionada ao uso da tecnologia e às oportunidades individualmente aceitas. A LogMovy não garante salário, remuneração mínima periódica, quantidade de demandas, estabilidade, férias, 13º salário ou FGTS, e não exercerá poder disciplinar trabalhista, chefia hierárquica ou controle de jornada. Regras de segurança, integridade da plataforma e medidas contra fraude não equivalem a subordinação.
+                          </p>
+
+                          <h5>5. Elegibilidade, Cadastro e Documentação</h5>
+                          <p>
+                            O Profissional Parceiro deverá fornecer dados verdadeiros, manter habilitação (CNH) e documentação da motocicleta regulares e observar a Lei nº 12.009/2009, o Código de Trânsito Brasileiro, regulamentações do Contran e normas aplicáveis ao motofrete. Quando aplicável, deverá manter inscrição empresarial/MEI ativa e compatível com a atividade.
                           </p>
                           <p>
-                            Você declara que os dados informados são verdadeiros e que tem autorização para
-                            utilizar a conta bancária e a chave PIX cadastradas. Mantenha sua senha em sigilo e
-                            comunique qualquer uso não autorizado.
+                            O acesso digital é individual e protegido por credenciais próprias, sendo vedada a cessão ou empréstimo de conta a terceiros.
+                          </p>
+
+                          <h5>6. Agenda Voluntária, Publicação, Aceite e Execução</h5>
+                          <p>
+                            Cada oportunidade apresentará, na medida aplicável, empresa demandante, atividade, região/local, data e janela prevista, valor ou critério de cálculo e condições essenciais à decisão. O Profissional somente ficará vinculado à oportunidade após manifestação inequívoca de aceite.
                           </p>
                           <p>
-                            Seus dados serão tratados para gestão do cadastro, validação e operação dos
-                            repasses, conforme a legislação aplicável e o aviso de privacidade da LogMovy.
-                            Você poderá solicitar informações sobre seus dados pelos canais de atendimento da
-                            plataforma.
+                            Depois do aceite, o profissional assume obrigação de diligência, pontualidade razoável, comunicação e execução do serviço específico. Cancelamentos posteriores ao aceite deverão ser comunicados imediatamente. O não comparecimento injustificado ou descumprimento grave de compromisso já aceito poderá repercutir em indicador de confiabilidade ou restrição contratual proporcional, sempre resguardado canal de contestação.
+                          </p>
+
+                          <h5>7. Avaliações, Confiabilidade e Repasses Financeiros</h5>
+                          <p>
+                            A plataforma poderá utilizar indicadores de qualidade e confiabilidade considerando conclusão de serviços aceitos e pontualidade, sem utilizar recusas anteriores ao aceite ou tempo offline como punição.
+                          </p>
+                          <p>
+                            O valor de cada oportunidade será informado antes do aceite e os repasses serão realizados por meio dos dados bancários e chave PIX cadastrados pelo titular. A adesão inicial à plataforma é gratuita.
+                          </p>
+
+                          <h5>8. Relação com Empresas Parceiras e Responsabilidades</h5>
+                          <p>
+                            As Empresas Parceiras utilizam a plataforma para publicar demandas e contratar oportunidades específicas, sendo vedado utilizar a LogMovy para impor plantão compulsório ou exigir exclusividade. O profissional é responsável pela condução segura, equipamentos obrigatórios e regularidade do veículo.
+                          </p>
+
+                          <h5>9. Proteção Veicular e Clube de Benefícios (Facultativos)</h5>
+                          <p>
+                            A LogMovy poderá apresentar ofertas facultativas de proteção veicular, assistência 24h e Clube de Benefícios com descontos em oficinas, peças e serviços parceiros. A exibição não ativa cobertura automática: a adesão é totalmente opcional, depende de contratação própria junto ao fornecedor responsável e a não adesão não afeta o acesso, nota ou ranking no marketplace.
+                          </p>
+
+                          <h5>10. Privacidade, Proteção de Dados (LGPD) e Segurança</h5>
+                          <p>
+                            O tratamento de dados pessoais seguirá a Política de Privacidade LogMovy e a Lei nº 13.709/2018 (LGPD), abrangendo dados de identificação, CNH, veículo, disponibilidade, aceites, histórico financeiro, chave PIX, registros técnicos de acesso e localização (limitada ao necessário para oferta próxima, rota, comprovação de execução e prevenção a fraude).
+                          </p>
+                          <p>
+                            A LogMovy não vende banco de dados pessoal a terceiros e preserva registros eletrônicos de aceite (data, hora, IP e versão contratual) como meio legítimo de prova e auditoria. O titular pode exercer seus direitos previstos na LGPD pelos canais de atendimento da plataforma.
+                          </p>
+
+                          <h5>11. Propriedade Intelectual, Suspensão, Vigência e Foro</h5>
+                          <p>
+                            O profissional recebe licença limitada, revogável e intransferível para uso legítimo da plataforma, sendo vedada fraude, criação de contas fictícias ou conduta ilícita. O usuário pode solicitar encerramento da conta a qualquer momento, respeitados compromissos já aceitos.
+                          </p>
+                          <p>
+                            Este contrato entra em vigor na data do aceite eletrônico. Aplica-se a legislação brasileira, elegendo-se o foro de <strong>Campina Grande/PB</strong> para dirimir controvérsias civis/comerciais relacionadas a este instrumento.
                           </p>
                         </div>
 
@@ -951,8 +1018,7 @@ export default function RegistrationFlow() {
                             }
                           />
                           <span>
-                            Li e aceito integralmente os termos de uso e a política de privacidade da{' '}
-                            <strong>LogMovy</strong>. <b>*</b>
+                            Li e compreendi o <strong>Contrato de Adesão e Licença de Uso da Plataforma LogMovy (v1.1)</strong>, declaro ciência da Política de Privacidade (LGPD), reconheço a natureza SaaS/Marketplace autônoma e confirmo que os dados informados são verdadeiros. <b>*</b>
                           </span>
                         </label>
                       </motion.div>
