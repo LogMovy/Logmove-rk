@@ -91,11 +91,8 @@ export default function Page() {
 
           <div className="hero-actions">
             <a
-              className="hero-btn-primary cursor-blocked"
-              href="#cadastro"
-              onClick={(e) => e.preventDefault()}
-              title="Cadastro indisponível no momento"
-              aria-disabled="true"
+              className="hero-btn-primary"
+              href="/cadastro"
             >
               <span>Quero me cadastrar</span>
               <span className="btn-icon-bubble">
@@ -666,7 +663,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="cadastro" className="steps section-light section-pad">
+      <section id="como-comecar" className="steps section-light section-pad">
         {/* Ambient Tech Lighting & Grid Background */}
         <div className="steps-ambient-glow glow-1" />
         <div className="steps-ambient-glow glow-2" />
@@ -692,11 +689,8 @@ export default function Page() {
 
           <div className="steps-heading-action">
             <a
-              className="steps-cta-btn cursor-blocked"
-              href="#cadastro"
-              onClick={(e) => e.preventDefault()}
-              title="Cadastro indisponível no momento"
-              aria-disabled="true"
+              className="steps-cta-btn"
+              href="/cadastro"
             >
               <span>Cadastre-se como motoboy</span>
               <div className="steps-cta-icon">
@@ -1068,11 +1062,8 @@ export default function Page() {
           {/* Action Buttons Row */}
           <div className="final-cta-actions">
             <a
-              className="final-cta-btn-primary group cursor-blocked"
-              href="#cadastro"
-              onClick={(e) => e.preventDefault()}
-              title="Cadastro indisponível no momento"
-              aria-disabled="true"
+              className="final-cta-btn-primary group"
+              href="/cadastro"
             >
               <span>Fazer meu pré-cadastro</span>
               <span className="btn-icon-bubble">
@@ -1147,11 +1138,8 @@ export default function Page() {
               <ul className="footer-links-list">
                 <li>
                   <a
-                    href="#cadastro"
-                    className="footer-link-highlight cursor-blocked"
-                    onClick={(e) => e.preventDefault()}
-                    title="Cadastro indisponível no momento"
-                    aria-disabled="true"
+                    href="/cadastro"
+                    className="footer-link-highlight"
                   >
                     Meu pré-cadastro ↗
                   </a>

@@ -19,7 +19,7 @@ export default function Header() {
     <header className={`header-wrapper ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="header-glass-bar">
         {/* Brand / Logo */}
-        <a href="#inicio" className="premium-brand" aria-label="LogMovy início">
+        <a href="/#inicio" className="premium-brand" aria-label="LogMovy início">
           <div className="brand-text">
             <span className="brand-log">LOG</span>
             <span className="brand-mov">MOVY</span>
@@ -29,13 +29,13 @@ export default function Header() {
 
         {/* Navigation Links */}
         <nav className="header-nav" aria-label="Navegação principal">
-          <a href="#aplicativo" className="nav-item">
+          <a href="/#aplicativo" className="nav-item">
             <span>O aplicativo</span>
           </a>
-          <a href="#como-funciona" className="nav-item">
+          <a href="/#como-funciona" className="nav-item">
             <span>Como funciona</span>
           </a>
-          <a href="#beneficios" className="nav-item">
+          <a href="/#beneficios" className="nav-item">
             <span>Benefícios</span>
           </a>
         </nav>
@@ -43,11 +43,8 @@ export default function Header() {
         {/* Header Right Actions */}
         <div className="header-actions">
           <a
-            href="#cadastro"
-            className="premium-header-cta group cursor-blocked"
-            onClick={(e) => e.preventDefault()}
-            title="Cadastro indisponível no momento"
-            aria-disabled="true"
+            href="/cadastro"
+            className="premium-header-cta group"
           >
             <span className="cta-shine" />
             <span className="cta-content">
@@ -73,28 +70,28 @@ export default function Header() {
         <div className="mobile-dropdown-content">
           <nav className="mobile-nav-links">
             <a
-              href="#aplicativo"
+              href="/#aplicativo"
               className="mobile-nav-link"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span>01.</span> O aplicativo
             </a>
             <a
-              href="#como-funciona"
+              href="/#como-funciona"
               className="mobile-nav-link"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span>02.</span> Como funciona
             </a>
             <a
-              href="#beneficios"
+              href="/#beneficios"
               className="mobile-nav-link"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span>03.</span> Benefícios
             </a>
             <a
-              href="#faq"
+              href="/#faq"
               className="mobile-nav-link"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -103,14 +100,11 @@ export default function Header() {
           </nav>
 
           <a
-            href="#cadastro"
-            className="mobile-cta-btn cursor-blocked"
+            href="/cadastro"
+            className="mobile-cta-btn"
             onClick={(e) => {
-              e.preventDefault()
               setMobileMenuOpen(false)
             }}
-            title="Cadastro indisponível no momento"
-            aria-disabled="true"
           >
             Cadastre-se como motoboy
             <ArrowUpRight size={18} />
