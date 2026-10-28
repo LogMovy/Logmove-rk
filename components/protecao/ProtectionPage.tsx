@@ -32,6 +32,12 @@ import Squares from '@/components/Squares'
 import DeliveryMotion from '@/components/DeliveryMotion'
 import NetworkMotion from '@/components/NetworkMotion'
 
+const WHATSAPP_PROTECAO_URL =
+  'https://wa.me/558399446461?text=' +
+  encodeURIComponent(
+    'Olá! Conheci a proteção veicular por meio do site da *LogMovy* e gostaria de falar com um consultor para entender melhor os benefícios, as coberturas e os valores dos planos disponíveis. Poderiam me ajudar?'
+  )
+
 const stepsData = [
   {
     num: 1,
@@ -311,8 +317,13 @@ export default function ProtectionPage() {
             </div>
 
             <div className="prot-hero-actions">
-              <a href="/cadastro" className="prot-btn-primary">
-                <span>Quero me cadastrar e consultar</span>
+              <a
+                href={WHATSAPP_PROTECAO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="prot-btn-primary"
+              >
+                <span>Falar com consultor da proteção</span>
                 <span className="prot-btn-bubble">
                   <ArrowUpRight size={17} />
                 </span>
@@ -813,17 +824,22 @@ export default function ProtectionPage() {
               <div className="faq-support-card">
                 <div className="support-card-top">
                   <div className="support-icon-sphere">
-                    <ShieldCheck size={18} />
+                    <PhoneCall size={18} />
                   </div>
                   <div>
-                    <h4 className="support-title">Pronto para se cadastrar?</h4>
+                    <h4 className="support-title">Quer cotar para sua moto?</h4>
                     <p className="support-desc">
-                      Faça seu cadastro gratuito na LogMovy e escolha seus benefícios com liberdade.
+                      Fale diretamente no WhatsApp (+55 83 9944-6461) com um consultor da proteção veicular para tirar dúvidas e simular seu plano.
                     </p>
                   </div>
                 </div>
-                <a href="/cadastro" className="support-btn">
-                  <span>Ir para o cadastro de parceiro</span>
+                <a
+                  href={WHATSAPP_PROTECAO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="support-btn"
+                >
+                  <span>Chamar consultor no WhatsApp</span>
                   <ArrowUpRight size={15} />
                 </a>
               </div>
@@ -890,12 +906,17 @@ export default function ProtectionPage() {
           </h2>
 
           <p className="final-cta-lead">
-            Cadastre-se gratuitamente na plataforma LogMovy para acessar oportunidades de entregas e, se desejar, solicite informações sobre a proteção veicular.
+            Fale agora pelo WhatsApp (+55 83 9944-6461) diretamente com um consultor da proteção veicular para conhecer coberturas, benefícios e valores para a sua moto.
           </p>
 
           <div className="final-cta-actions">
-            <a href="/cadastro" className="final-cta-btn-primary group">
-              <span>Fazer meu cadastro agora</span>
+            <a
+              href={WHATSAPP_PROTECAO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="final-cta-btn-primary group"
+            >
+              <span>Falar com consultor no WhatsApp</span>
               <span className="btn-icon-bubble">
                 <ArrowUpRight size={17} />
               </span>
