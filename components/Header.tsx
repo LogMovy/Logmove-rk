@@ -19,10 +19,10 @@ export default function Header() {
     <header className={`header-wrapper ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="header-glass-bar">
         {/* Brand / Logo */}
-        <a href="#inicio" className="premium-brand" aria-label="LOGMov início">
+        <a href="#inicio" className="premium-brand" aria-label="LogMovy início">
           <div className="brand-text">
             <span className="brand-log">LOG</span>
-            <span className="brand-mov">MOV</span>
+            <span className="brand-mov">MOVY</span>
           </div>
           <span className="brand-tagline">LOGÍSTICA DE MOTOBOYS</span>
         </a>

@@ -39,13 +39,13 @@ const faqs = [
   ['Posso escolher os dias e horários em que vou trabalhar?', 'Sim. Você define sua disponibilidade no aplicativo, de acordo com a sua rotina.'],
   ['Consigo acompanhar meu financeiro e minhas corridas?', 'Sim. A área do motoboy reúne suas corridas e as informações financeiras dos serviços registrados.'],
   ['Como funciona a taxa de adesão gratuita?', 'Motoboys parceiros podem consultar as condições de gratuidade da taxa de adesão. Mensalidades e outros valores são informados antes da contratação.'],
-  ['A LOGMOV é uma empresa de proteção veicular?', 'Não. A LOGMOV conecta você a oportunidades e facilita o acesso a benefícios oferecidos por fornecedores especializados.'],
+  ['A LogMovy é uma empresa de proteção veicular?', 'Não. A LogMovy conecta você a oportunidades e facilita o acesso a benefícios oferecidos por fornecedores especializados.'],
   ['Preciso contratar a proteção para usar a plataforma?', 'Não. A proteção veicular e o Clube de Benefícios são optativos e independentes do acesso às oportunidades.'],
-  ['A LOGMOV garante serviços ou ganhos?', 'Não. A disponibilidade de propostas varia e não há garantia de renda ou volume de serviços.'],
+  ['A LogMovy garante serviços ou ganhos?', 'Não. A disponibilidade de propostas varia e não há garantia de renda ou volume de serviços.'],
 ]
 
 function Brand({ light = false }: { light?: boolean }) {
-  return <a href="#inicio" className={`brand ${light ? 'brand-light' : ''}`} aria-label="LOGMov início"><span>LOG</span><b>Mov</b><small>LOGÍSTICA DE MOTOBOYS</small></a>
+  return <a href="#inicio" className={`brand ${light ? 'brand-light' : ''}`} aria-label="LogMovy início"><span>LOG</span><b>Movy</b><small>LOGÍSTICA DE MOTOBOYS</small></a>
 }
 
 export default function Page() {
@@ -127,7 +127,7 @@ export default function Page() {
 
           {/* Floating Motoboy Emblem Badge with glow */}
           <div className="cockpit-emblem-float">
-            <img src={logoUrl} alt="LOGMov Motociclista" className="cockpit-emblem-img" />
+            <img src={logoUrl} alt="LogMovy Motociclista" className="cockpit-emblem-img" />
           </div>
 
           {/* Smartphone / Cockpit Glass Card */}
@@ -243,7 +243,7 @@ export default function Page() {
 
         {/* Hero Bottom Bar: Connected Ecosystem */}
         <div className="hero-bottom-ecosystem">
-          <div className="ecosystem-title">ECOSSISTEMA LOGMOV:</div>
+          <div className="ecosystem-title">ECOSSISTEMA LOGMOVY:</div>
           <div className="ecosystem-badges">
             <div className="eco-badge">
               <Building2 size={14} className="eco-icon" />
@@ -295,7 +295,7 @@ export default function Page() {
             <span className="kicker-text-desktop">PLATAFORMA & TECNOLOGIA</span>
             <span className="kicker-text-mobile">PLATAFORMA</span>
           </div>
-          <span className="kicker-index">01 / A LOGMOV</span>
+          <span className="kicker-index">01 / A LOGMOVY</span>
         </motion.div>
 
         {/* Main Grid: Headline & Value Proposition */}
@@ -336,7 +336,7 @@ export default function Page() {
             transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="lead">
-              A LOGMOV é uma plataforma de conexão entre empresas e profissionais de motofrete.
+              A LogMovy é uma plataforma de conexão entre empresas e profissionais de motofrete.
             </p>
             <p className="intro-body-text">
               Reúne oportunidades e facilita o encontro entre a demanda de quem precisa movimentar seu negócio e a disponibilidade de quem trabalha sobre duas rodas, com transparência total e autonomia de decisão.
@@ -484,7 +484,7 @@ export default function Page() {
 
           <div className="app-heading-side">
             <p className="app-lead">
-              A LOGMov acompanha sua rotina antes, durante e depois de cada serviço.
+              A LogMovy acompanha sua rotina antes, durante e depois de cada serviço.
             </p>
             <p className="app-subtext">
               Uma ferramenta transparente e sem burocracia, criada para você gerenciar seus horários, validar corridas e monitorar seus rendimentos com total independência.
@@ -830,7 +830,7 @@ export default function Page() {
             </h3>
 
             <p className="benefit-card-text">
-              A LOGMov facilita o acesso a informações sobre proteção veicular oferecida por fornecedor especializado, com contratação própria e separada.
+              A LogMovy facilita o acesso a informações sobre proteção veicular oferecida por fornecedor especializado, com contratação própria e separada.
             </p>
 
             <ul className="benefit-mini-perks dark">
@@ -844,7 +844,7 @@ export default function Page() {
               </li>
               <li>
                 <div className="perk-check dark"><Check size={12} /></div>
-                <span>Não obrigatório para rodar na LOGMov</span>
+                <span>Não obrigatório para rodar na LogMovy</span>
               </li>
             </ul>
 
@@ -1113,10 +1113,10 @@ export default function Page() {
           <div className="footer-grid">
             {/* Col 1: Brand & Proposition */}
             <div className="footer-col-brand">
-              <a href="#inicio" className="premium-brand footer-brand" aria-label="LOGMov início">
+              <a href="#inicio" className="premium-brand footer-brand" aria-label="LogMovy início">
                 <div className="brand-text">
                   <span className="brand-log">LOG</span>
-                  <span className="brand-mov">MOV</span>
+                  <span className="brand-mov">MOVY</span>
                 </div>
                 <span className="brand-tagline">LOGÍSTICA DE MOTOBOYS</span>
               </a>
@@ -1178,7 +1178,7 @@ export default function Page() {
           {/* Bottom Bar */}
           <div className="footer-bottom-bar">
             <div className="footer-bottom-left">
-              <small>© 2026 LOGMov · Logística de Motoboys. Todos os direitos reservados.</small>
+              <small>© 2026 LogMovy · Logística de Motoboys. Todos os direitos reservados.</small>
               <div className="footer-legal-links">
                 <a href="#">Termos de Uso</a>
                 <span className="legal-dot">·</span>
