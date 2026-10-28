@@ -10,7 +10,7 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'LOGMOV  ',
+  title: 'LOGMOVY',
   description: 'Conectando empresas e profissionais de motofrete. Sua rotina, sua moto, novas oportunidades.',
   icons: {
     icon: [
