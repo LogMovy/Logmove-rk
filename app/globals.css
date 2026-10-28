@@ -1629,39 +1629,371 @@
   transform: translateY(-2px);
 }
 
+
+.reg-mobile-bottom-widgets {
+  display: none;
+}
+
 @media (max-width: 960px) {
+  .reg-desktop-only-block,
+  .reg-desktop-only-flex {
+    display: none !important;
+  }
+  .reg-mobile-bottom-widgets {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  .reg-mobile-bottom-widgets .reg-live-pass-card {
+    margin-bottom: 0;
+  }
+
+  .registration-page {
+    padding-top: 72px;
+  }
+  .registration-section {
+    padding: 40px 24px 72px !important;
+    align-items: flex-start;
+  }
   .registration-shell {
     grid-template-columns: 1fr;
     gap: 28px;
+    max-width: 680px;
   }
   .registration-intro {
     position: static;
     padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .registration-intro h2 {
+    margin: 16px 0 12px;
+    font-size: clamp(34px, 6.5vw, 48px);
+    text-align: center;
+  }
+  .registration-intro > p {
+    max-width: 520px;
+    margin: 0 auto 20px;
+    text-align: center;
+  }
+  .reg-3d-widget {
+    display: none !important;
+  }
+  .reg-live-pass-card,
+  .registration-assurance {
+    width: 100%;
+    text-align: left;
   }
   .reg-stepper-bar {
-    grid-template-columns: repeat(2, 1fr);
+    display: none !important;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
+  .registration-page {
+    padding-top: 66px;
+  }
+  .registration-section {
+    padding: 22px 14px 56px !important;
+  }
+  .registration-shell {
+    gap: 20px;
+  }
+  .registration-eyebrow {
+    font-size: 9px;
+    padding: 5px 12px 5px 9px;
+    letter-spacing: 0.13em;
+  }
+  .registration-intro h2 {
+    font-size: clamp(30px, 8.2vw, 38px);
+    line-height: 1.04;
+    margin: 12px 0 10px;
+  }
+  .registration-intro > p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-bottom: 16px;
+    padding: 0 4px;
+  }
+
+  /* Hide 3D Telemetry on Mobile */
+  .reg-3d-widget {
+    display: none !important;
+  }
+  .reg-3d-canvas-wrap {
+    height: 145px;
+  }
+  .reg-3d-hud-bar {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .reg-3d-hud-label {
+    font-size: 8.5px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 215px;
+  }
+  .reg-3d-hud-pct {
+    font-size: 10px;
+    padding: 2px 7px;
+  }
+
+  /* Live Partner Pass Card Mobile */
+  .reg-live-pass-card {
+    padding: 13px 14px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+  }
+  .pass-card-header {
+    padding-bottom: 9px;
+    margin-bottom: 10px;
+  }
+  .pass-badge-left {
+    font-size: 9px;
+  }
+  .pass-status-pill {
+    font-size: 8.5px;
+    padding: 2px 8px;
+  }
+  .pass-card-body {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .pass-driver-name {
+    font-size: 13.5px;
+  }
+  .pass-sub-detail {
+    font-size: 10px;
+  }
+  .mercosul-plate-mini {
+    width: 96px;
+  }
+  .plate-code {
+    font-size: 11.5px;
+    padding: 4px 3px 3px;
+  }
+
+  /* Assurance Compact on Mobile */
+  .registration-assurance {
+    padding: 10px 12px;
+    gap: 10px;
+    border-radius: 13px;
+  }
+  .assurance-icon-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+  }
+  .registration-assurance strong {
+    font-size: 11px;
+  }
+  .registration-assurance span {
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  /* Right Card Mobile */
+  .registration-card {
+    padding: 20px 15px;
+    border-radius: 22px;
+  }
+
+  /* Hide Stepper Bar on Mobile */
+  .reg-stepper-bar {
+    display: none !important;
+  }
+  .reg-step-tab {
+    padding: 7px 8px;
+    gap: 7px;
+    border-radius: 10px;
+  }
+  .step-tab-bubble {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+  }
+  .step-tab-text small {
+    font-size: 7.5px;
+  }
+  .step-tab-text strong {
+    font-size: 11px;
+  }
+
+  /* Progress Head Mobile */
+  .registration-progress-head {
+    gap: 10px;
+  }
+  .reg-head-eyebrow {
+    font-size: 9px;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .registration-progress-head h3 {
+    font-size: 20px;
+    line-height: 1.15;
+  }
+  .reg-head-sub {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  .registration-step-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    font-size: 13px;
+  }
+  .registration-progress {
+    margin: 14px 0 20px;
+    gap: 6px;
+  }
+
+  /* Form Fields & Inputs on Mobile (16px font prevents iOS auto-zoom) */
   .registration-fields,
   .registration-day-grid,
   .reg-segmented-pills,
   .reg-review-grid,
   .success-summary-box {
     grid-template-columns: 1fr;
+    gap: 13px;
   }
-  .registration-card {
-    padding: 22px 16px;
-    border-radius: 22px;
+  .reg-input-shell {
+    height: 48px;
+    border-radius: 12px;
   }
-  .reg-stepper-bar {
+  .reg-input-shell input,
+  .reg-select-search-input {
+    font-size: 16px;
+  }
+  .reg-selected-label-text,
+  .reg-select-placeholder {
+    font-size: 14px;
+  }
+
+  /* Custom Select Popover Mobile */
+  .reg-select-popover {
+    border-radius: 15px;
+  }
+  .reg-select-options-list {
+    max-height: 210px;
+  }
+  .reg-select-option-row {
+    padding: 9px 9px;
+    gap: 8px;
+  }
+  .opt-side-tag {
+    display: none;
+  }
+  .reg-select-popover-footer span {
+    display: none;
+  }
+  .reg-select-popover-footer {
+    justify-content: center;
+  }
+
+  /* PIX Chips Mobile */
+  .reg-pix-type-grid {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 7px;
+  }
+  .reg-pix-chip {
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 11px;
+  }
+  .reg-pix-chip:last-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Days Toolbar Mobile */
+  .reg-days-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .reg-days-presets {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 6px;
   }
+  .preset-chip {
+    text-align: center;
+    padding: 7px 6px;
+    font-size: 10.5px;
+  }
+
+  /* Terms Scroll Mobile */
+  .terms-scroll {
+    max-height: 245px;
+    padding: 14px;
+    font-size: 11.5px;
+  }
+  .terms-highlight-box {
+    padding: 11px 12px;
+  }
+  .registration-consent {
+    align-items: flex-start;
+    padding: 12px;
+    font-size: 11.5px;
+  }
+  .registration-consent input {
+    margin-top: 2px;
+  }
+
+  /* Actions Bar Mobile */
+  .registration-actions {
+    margin-top: 22px;
+    gap: 10px;
+  }
+  .registration-back {
+    height: 48px;
+    padding: 0 16px;
+    font-size: 12px;
+  }
+  .registration-next {
+    flex: 1;
+    justify-content: space-between;
+    height: 50px;
+    padding: 0 8px 0 20px;
+    font-size: 13px;
+  }
+
+  /* Footer Meta Mobile */
+  .reg-footer-meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 390px) {
   .pass-card-body {
     flex-direction: column;
     align-items: flex-start;
+  }
+  .mercosul-plate-mini {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+  }
+  .plate-top-band {
+    padding: 6px 10px;
+    height: 100%;
+  }
+  .plate-code {
+    padding: 4px 12px;
   }
 }
 * { box-sizing: border-box; }

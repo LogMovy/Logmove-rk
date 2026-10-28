@@ -388,8 +388,8 @@ export default function RegistrationFlow() {
             submitted={submitted}
           />
 
-          {/* Live Dynamic Partner Pass Preview Card */}
-          <div className="reg-live-pass-card">
+          {/* Live Dynamic Partner Pass Preview Card (Desktop) */}
+          <div className="reg-live-pass-card reg-desktop-only-block">
             <div className="pass-card-header">
               <div className="pass-badge-left">
                 <Bike size={15} className="pass-bike-icon" />
@@ -423,7 +423,7 @@ export default function RegistrationFlow() {
             </div>
           </div>
 
-          <div className="registration-assurance">
+          <div className="registration-assurance reg-desktop-only-flex">
             <div className="assurance-icon-box">
               <ShieldCheck size={17} />
             </div>
@@ -1050,6 +1050,52 @@ export default function RegistrationFlow() {
               </div>
             )}
           </AnimatePresence>
+        </div>
+
+        {/* MOBILE BOTTOM STACK: PARTNER PASS & ASSURANCE BELOW FORM */}
+        <div className="reg-mobile-bottom-widgets">
+          <div className="reg-live-pass-card">
+            <div className="pass-card-header">
+              <div className="pass-badge-left">
+                <Bike size={15} className="pass-bike-icon" />
+                <span>CREDENCIAL DE PARCEIRO</span>
+              </div>
+              <span className="pass-status-pill">
+                <span className="pass-status-dot" />
+                {submitted ? 'ATIVO' : `ETAPA 0${step + 1}/04`}
+              </span>
+            </div>
+
+            <div className="pass-card-body">
+              <div className="pass-info-col">
+                <span className="pass-meta-label">CONDUTOR PARCEIRO</span>
+                <strong className="pass-driver-name">
+                  {data.name.trim() || 'Seu nome aparecerá aqui'}
+                </strong>
+                <span className="pass-sub-detail">
+                  {data.cpf ? `CPF: ${data.cpf}` : 'CPF pendente'} ·{' '}
+                  {data.days.length} {data.days.length === 1 ? 'dia/sem' : 'dias/sem'}
+                </span>
+              </div>
+
+              <div className={`mercosul-plate-mini ${isMercosulPlate ? 'is-valid' : ''}`}>
+                <div className="plate-top-band">
+                  <span>BRASIL</span>
+                </div>
+                <div className="plate-code">{data.plate || 'ABC-1D23'}</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="registration-assurance">
+            <div className="assurance-icon-box">
+              <ShieldCheck size={17} />
+            </div>
+            <div>
+              <strong>Ambiente criptografado ponta a ponta</strong>
+              <span>Seus dados são usados exclusivamente para análise e repasses.</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
