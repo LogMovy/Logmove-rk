@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import RegistrationFlow from '@/components/RegistrationFlow'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Cadastro de parceiro | LOGMOVY',
@@ -12,6 +13,7 @@ export default function CadastroPage() {
     <main className="registration-page">
       <Header />
       <RegistrationFlow />
+      <Footer />
     </main>
   )
 }
