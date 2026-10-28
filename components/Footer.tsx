@@ -45,7 +45,7 @@ export default function Footer() {
                   Meu pré-cadastro ↗
                 </a>
               </li>
-              <li><a href="#">Área administrativa</a></li>
+              <li><a href="/protecao">Proteção Veicular</a></li>
               <li><a href="/#beneficios">Clube de Benefícios</a></li>
               <li><a href="/#faq">Dúvidas Frequentes</a></li>
             </ul>
@@ -84,4 +84,3 @@ export default function Footer() {
     </footer>
   )
 }
-

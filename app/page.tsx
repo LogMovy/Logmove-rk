@@ -842,7 +842,7 @@ export default function Page() {
               </li>
             </ul>
 
-            <a className="benefit-action-link dark" href="#faq">
+            <a className="benefit-action-link dark" href="/protecao">
               <span>Como consultar a proteção</span>
               <div className="benefit-link-bubble dark">
                 <ArrowUpRight size={16} />
