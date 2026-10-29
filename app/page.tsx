@@ -32,6 +32,8 @@ import {
 import DeliveryMotion from '@/components/DeliveryMotion'
 import NetworkMotion from '@/components/NetworkMotion'
 import Header from '@/components/Header'
+import ShinyText from '@/components/reactbits/ShinyText'
+import CountUp from '@/components/reactbits/CountUp'
 
 const logoUrl = '/logmov-icon.png'
 
@@ -50,6 +52,22 @@ function Brand({ light = false }: { light?: boolean }) {
 
 export default function Page() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [cockpitTilt, setCockpitTilt] = useState({ rotateX: 0, rotateY: 0, spotX: 50, spotY: 50, active: false })
+
+  const handleCockpitMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const pctX = (x / rect.width) * 100
+    const pctY = (y / rect.height) * 100
+    const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 6
+    const rotateX = -((y - rect.height / 2) / (rect.height / 2)) * 6
+    setCockpitTilt({ rotateX, rotateY, spotX: pctX, spotY: pctY, active: true })
+  }
+
+  const handleCockpitMouseLeave = () => {
+    setCockpitTilt({ rotateX: 0, rotateY: 0, spotX: 50, spotY: 50, active: false })
+  }
 
   return (
     <main>
@@ -60,36 +78,87 @@ export default function Page() {
         
         {/* Left Column: Hero Content */}
         <div className="hero-copy">
-          <div className="hero-pill-badge">
+          <motion.div
+            className="hero-pill-badge"
+            initial={{ opacity: 0, y: 18, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ scale: 1.03, y: -2 }}
+          >
             <span className="live-dot" />
-            <span className="badge-text">Conexões que movem a cidade</span>
-          </div>
+            <ShinyText
+              text="Conexões que movem a cidade"
+              speed={3.2}
+              className="badge-text"
+            />
+          </motion.div>
 
           <h1 className="hero-headline">
-            <span className="headline-line">Sua rotina. <span className="headline-lime">Sua moto.</span></span>
-            <span className="headline-gradient headline-line">Novas oportunidades.</span>
+            <motion.span
+              className="headline-line"
+              initial={{ opacity: 0, y: 26, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Sua rotina. <span className="headline-lime headline-lime-pulse">Sua moto.</span>
+            </motion.span>
+            <motion.span
+              className="headline-gradient headline-gradient-animated headline-line"
+              initial={{ opacity: 0, y: 26, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Novas oportunidades.
+            </motion.span>
           </h1>
 
-          <p className="hero-text">
+          <motion.p
+            className="hero-text"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+          >
             Escolha os dias e horários em que deseja trabalhar, acompanhe suas corridas e consulte seu financeiro com total autonomia.
-          </p>
+          </motion.p>
 
-          <div className="hero-highlights">
-            <div className="highlight-item">
+          <motion.div
+            className="hero-highlights"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <motion.div
+              className="highlight-item"
+              whileHover={{ y: -3, scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <CheckCircle2 size={15} className="highlight-icon" />
               <span>Autonomia de agenda</span>
-            </div>
-            <div className="highlight-item">
+            </motion.div>
+            <motion.div
+              className="highlight-item"
+              whileHover={{ y: -3, scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <CheckCircle2 size={15} className="highlight-icon" />
               <span>Controle financeiro</span>
-            </div>
-            <div className="highlight-item">
+            </motion.div>
+            <motion.div
+              className="highlight-item"
+              whileHover={{ y: -3, scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <CheckCircle2 size={15} className="highlight-icon" />
               <span>Benefícios optativos</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="hero-actions">
+          <motion.div
+            className="hero-actions"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
+          >
             <a
               className="hero-btn-primary"
               href="/cadastro"
@@ -106,19 +175,29 @@ export default function Page() {
                 <ArrowDownRight size={17} />
               </span>
             </a>
-          </div>
+          </motion.div>
 
-          <div className="hero-trust-bar">
+          <motion.div
+            className="hero-trust-bar"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.58 }}
+          >
             <span className="trust-indicator">⚡ Adesão gratuita</span>
             <span className="trust-dot">•</span>
             <span>Sem exclusividade</span>
             <span className="trust-dot">•</span>
             <span>Validação simples</span>
-          </div>
+          </motion.div>
         </div>
 
         {/* Right Column: Hero Interactive Cockpit App Card */}
-        <div className="hero-cockpit-wrap">
+        <motion.div
+          className="hero-cockpit-wrap"
+          initial={{ opacity: 0, y: 28, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+        >
           {/* Ambient Glow Aura */}
           <div className="cockpit-ambient-glow" />
 
@@ -128,7 +207,28 @@ export default function Page() {
           </div>
 
           {/* Smartphone / Cockpit Glass Card */}
-          <div className="cockpit-card">
+          <div
+            className="cockpit-card cockpit-card-interactive"
+            onMouseMove={handleCockpitMouseMove}
+            onMouseLeave={handleCockpitMouseLeave}
+            style={{
+              transform: cockpitTilt.active
+                ? `perspective(1000px) rotateX(${cockpitTilt.rotateX}deg) rotateY(${cockpitTilt.rotateY}deg) translateY(-4px)`
+                : undefined,
+            }}
+          >
+            {/* Dynamic Cursor Spotlight Overlay */}
+            <div
+              className="cockpit-spotlight-overlay"
+              style={{
+                opacity: cockpitTilt.active ? 1 : 0,
+                background: `radial-gradient(360px circle at ${cockpitTilt.spotX}% ${cockpitTilt.spotY}%, rgba(140, 229, 27, 0.16), transparent 65%)`,
+              }}
+            />
+
+            {/* Animated Border Scanline */}
+            <div className="cockpit-border-beam" />
+
             {/* Card Top: Live Mode Bar */}
             <div className="cockpit-top-bar">
               <div className="cockpit-status">
@@ -142,7 +242,7 @@ export default function Page() {
                 </div>
               </div>
               <div className="cockpit-signal-wrap">
-                <span className="signal-bars">
+                <span className="signal-bars signal-bars-animated">
                   <span className="s-bar s1" />
                   <span className="s-bar s2" />
                   <span className="s-bar s3" />
@@ -154,7 +254,7 @@ export default function Page() {
             {/* Route In Progress Card */}
             <div className="cockpit-route-card">
               <div className="route-card-meta">
-                <span className="route-tag">CORRIDA DISPONÍVEL</span>
+                <span className="route-tag route-tag-pulse">CORRIDA DISPONÍVEL</span>
                 <span className="route-timer">Há 2 min</span>
               </div>
 
@@ -168,7 +268,9 @@ export default function Page() {
                 </div>
 
                 <div className="flow-connector">
-                  <div className="flow-line" />
+                  <div className="flow-line">
+                    <span className="flow-line-laser" />
+                  </div>
                   <div className="flow-bike-icon">
                     <Bike size={13} />
                   </div>
@@ -187,7 +289,9 @@ export default function Page() {
               <div className="route-specs-grid">
                 <div className="spec-col highlight">
                   <span className="spec-label">VALOR ESTIMADO</span>
-                  <span className="spec-val-lime">R$ 38,50</span>
+                  <span className="spec-val-lime">
+                    R$ <CountUp to={38} duration={1100} />,50
+                  </span>
                 </div>
                 <div className="spec-sep" />
                 <div className="spec-col">
@@ -204,16 +308,26 @@ export default function Page() {
 
             {/* Bottom Metrics inside Card */}
             <div className="cockpit-metrics-row">
-              <div className="metric-chip">
+              <motion.div
+                className="metric-chip"
+                whileHover={{ y: -2, scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+              >
                 <div className="metric-icon-wrap lime-bg">
                   <TrendingUp size={14} />
                 </div>
                 <div>
-                  <div className="metric-val">R$ 284,00</div>
+                  <div className="metric-val">
+                    R$ <CountUp to={284} duration={1300} />,00
+                  </div>
                   <div className="metric-label">Ganhos de hoje</div>
                 </div>
-              </div>
-              <div className="metric-chip">
+              </motion.div>
+              <motion.div
+                className="metric-chip"
+                whileHover={{ y: -2, scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+              >
                 <div className="metric-icon-wrap blue-bg">
                   <ShieldCheck size={14} />
                 </div>
@@ -221,47 +335,75 @@ export default function Page() {
                   <div className="metric-val">Ativo</div>
                   <div className="metric-label">Clube parceiro</div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Floating Pill: Deliveries Counter */}
-          <div className="satellite-pill top-right">
+          <motion.div
+            className="satellite-pill top-right"
+            whileHover={{ scale: 1.06, y: -3 }}
+          >
             <span className="sat-dot" />
-            <span><strong>+1.200</strong> entregas hoje</span>
-          </div>
+            <span>
+              <strong>
+                +<CountUp to={1200} duration={1500} />
+              </strong>{' '}
+              entregas hoje
+            </span>
+          </motion.div>
 
           {/* Floating Pill: Flexibility */}
-          <div className="satellite-pill bottom-left">
+          <motion.div
+            className="satellite-pill bottom-left"
+            whileHover={{ scale: 1.06, y: -3 }}
+          >
             <Clock size={13} className="sat-icon" />
             <span>Você define seus dias e horas</span>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Hero Bottom Bar: Connected Ecosystem */}
-        <div className="hero-bottom-ecosystem">
+        <motion.div
+          className="hero-bottom-ecosystem"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="ecosystem-title">ECOSSISTEMA LOGMOVY:</div>
           <div className="ecosystem-badges">
-            <div className="eco-badge">
+            <motion.div
+              className="eco-badge"
+              whileHover={{ y: -2, scale: 1.03 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <Building2 size={14} className="eco-icon" />
               <span>EMPRESAS COM DEMANDA</span>
-            </div>
-            <div className="eco-connector">
+            </motion.div>
+            <div className="eco-connector eco-connector-pulse">
               <ArrowRight size={13} className="connector-arrow" />
             </div>
-            <div className="eco-badge highlight">
+            <motion.div
+              className="eco-badge highlight"
+              whileHover={{ y: -2, scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <Bike size={15} className="eco-icon lime" />
               <span>MOTOBOYS PARCEIROS</span>
-            </div>
-            <div className="eco-connector plus">
+            </motion.div>
+            <div className="eco-connector plus eco-connector-pulse">
               <Plus size={13} />
             </div>
-            <div className="eco-badge">
+            <motion.div
+              className="eco-badge"
+              whileHover={{ y: -2, scale: 1.03 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <ShieldCheck size={14} className="eco-icon" />
               <span>BENEFÍCIOS OPTATIVOS</span>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Organic Section Transition Curve to Section 01 */}
         <div className="hero-bottom-curve" aria-hidden="true">
