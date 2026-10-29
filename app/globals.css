@@ -6305,10 +6305,7 @@ button.cursor-blocked:active {
   background-color: var(--navy-2);
   background-image:
     radial-gradient(circle at 50% 15%, rgba(140, 229, 27, 0.09) 0%, transparent 55%),
-    radial-gradient(circle at 85% 85%, rgba(14, 165, 233, 0.08) 0%, transparent 60%),
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: auto, auto, 48px 48px, 48px 48px;
+    radial-gradient(circle at 85% 85%, rgba(14, 165, 233, 0.08) 0%, transparent 60%);
   padding: clamp(90px, 12vw, 160px) clamp(20px, 5vw, 60px);
   text-align: center;
 }
@@ -8228,4 +8225,82 @@ button.cursor-blocked:active {
     border-color: rgba(140, 229, 27, 0.55);
     box-shadow: 0 0 12px rgba(140, 229, 27, 0.25);
   }
+}
+
+
+/* =========================================================
+   02 / ROTINA SECTION MOTION & INTERACTIVE WIDGET EFFECTS
+   ========================================================= */
+.cockpit-motion-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.week-day-interactive {
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.week-day-interactive:hover {
+  border-color: rgba(140, 229, 27, 0.55);
+  box-shadow: 0 0 12px rgba(140, 229, 27, 0.22);
+}
+
+.finance-progress-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.finance-progress-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  animation: financeBarShine 2.6s ease-in-out infinite;
+}
+
+@keyframes financeBarShine {
+  0% { left: -60%; }
+  100% { left: 120%; }
+}
+
+.route-step-connector-animated {
+  position: relative;
+  overflow: hidden;
+}
+
+.route-step-laser {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(180deg, transparent, #8ce51b, #38bdf8);
+  animation: routeLaserDrop 1.8s linear infinite;
+}
+
+.route-dest-pulse {
+  animation: destNodePulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes destNodePulse {
+  0% { transform: scale(1); box-shadow: 0 0 8px #38bdf8; }
+  100% { transform: scale(1.3); box-shadow: 0 0 16px #8ce51b; }
+}
+
+
+/* =========================================================
+   04 / ESCOLHAS SUAS SECTION MOTION EFFECTS
+   ========================================================= */
+.benefit-motion-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.protection-item-card {
+  cursor: pointer;
 }
