@@ -32,6 +32,7 @@ export default function Footer() {
               <li><a href="/#aplicativo">O Aplicativo</a></li>
               <li><a href="/#como-funciona">Como Funciona</a></li>
               <li><a href="/#beneficios">Benefícios</a></li>
+              <li><a href="/empresas">Para Empresas</a></li>
               <li><a href="/#faq">Perguntas Frequentes</a></li>
             </ul>
           </div>
@@ -45,8 +46,8 @@ export default function Footer() {
                   Meu pré-cadastro ↗
                 </a>
               </li>
-              <li><a href="#">Área administrativa</a></li>
-              <li><a href="/#beneficios">Clube de Benefícios</a></li>
+              <li><a href="/protecao">Proteção Veicular</a></li>
+              <li><a href="/clube-beneficios">Clube de Benefícios</a></li>
               <li><a href="/#faq">Dúvidas Frequentes</a></li>
             </ul>
           </div>
@@ -84,4 +85,3 @@ export default function Footer() {
     </footer>
   )
 }
-

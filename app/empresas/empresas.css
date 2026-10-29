@@ -1,0 +1,658 @@
+/* =========================================================
+   PÁGINA /EMPRESAS — DESIGN SYSTEM LOGMOVY B2B
+   ========================================================= */
+
+@import '../protecao/protecao.css';
+
+.emp-live-sla-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(140, 229, 27, 0.14);
+  border: 1px solid rgba(140, 229, 27, 0.35);
+  color: #8ce51b;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.emp-why-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.emp-why-card .rb-spotlight-content {
+  justify-content: space-between;
+}
+
+.emp-why-footer-tag {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #8ce51b;
+  letter-spacing: 0.02em;
+}
+
+.prot-stage-pills-nav.emp-four-cols {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* =========================================================
+   04. FORMULÁRIO B2B DE CADASTRO DE EMPRESAS
+   ========================================================= */
+.emp-form-section {
+  position: relative;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(140, 229, 27, 0.1), transparent 38%),
+    var(--paper);
+}
+
+.emp-form-layout {
+  display: grid;
+  grid-template-columns: 0.88fr 1.12fr;
+  gap: clamp(28px, 4.5vw, 56px);
+  align-items: start;
+}
+
+.emp-sidebar-sticky {
+  position: sticky;
+  top: 108px;
+}
+
+.emp-sidebar-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #5ea30e;
+  margin-bottom: 10px;
+}
+
+.emp-sidebar-title {
+  margin: 0 0 12px;
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  color: #06284b;
+}
+
+.emp-sidebar-desc {
+  margin: 0 0 22px;
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: #526477;
+}
+
+/* Live B2B Corporate Pass Preview Card */
+.emp-live-pass-card {
+  padding: 20px;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #06284b 0%, #031529 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 50px -16px rgba(6, 40, 75, 0.32);
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.emp-pass-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.emp-pass-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.emp-pass-badge svg {
+  color: #8ce51b;
+}
+
+.emp-pass-status {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(140, 229, 27, 0.16);
+  border: 1px solid rgba(140, 229, 27, 0.35);
+  color: #8ce51b;
+}
+
+.emp-pass-label {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 4px;
+}
+
+.emp-pass-company {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.emp-pass-sub {
+  margin: 0 0 14px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.emp-pass-metrics-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 11px 12px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 12px;
+}
+
+.emp-pass-metric span {
+  display: block;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.48);
+  margin-bottom: 2px;
+}
+
+.emp-pass-metric strong {
+  font-size: 12px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.emp-pass-metric strong.lime {
+  color: #8ce51b;
+}
+
+.emp-pass-footer-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.emp-pass-footer-strip strong {
+  color: #ffffff;
+}
+
+/* Guarantees List */
+.emp-guarantees-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.emp-guarantee-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 13px 15px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(6, 40, 75, 0.08);
+}
+
+.emp-guarantee-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: #eff9e5;
+  color: #5ea30e;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.emp-guarantee-item strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: #06284b;
+}
+
+.emp-guarantee-item span {
+  display: block;
+  font-size: 12px;
+  color: #526477;
+}
+
+/* Form Card */
+.emp-b2b-form {
+  padding: clamp(24px, 4vw, 36px);
+  border-radius: 28px;
+  background: #ffffff;
+  border: 1.5px solid rgba(6, 40, 75, 0.1);
+  box-shadow: 0 28px 65px -20px rgba(6, 40, 75, 0.14);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.emp-form-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.emp-form-step-pill {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #06284b;
+  color: #8ce51b;
+  margin-bottom: 8px;
+}
+
+.emp-form-card-header h3 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #06284b;
+  letter-spacing: -0.03em;
+}
+
+.emp-form-card-header p {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.emp-form-header-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: #f0f9e5;
+  color: #4d7c0f;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.emp-form-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.emp-block-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #06284b;
+}
+
+.emp-block-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: #06284b;
+  color: #8ce51b;
+  font-size: 10.5px;
+  display: grid;
+  place-items: center;
+}
+
+.emp-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.emp-full-col {
+  grid-column: 1 / -1;
+}
+
+.emp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.emp-field > span,
+.emp-sub-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.emp-field input,
+.emp-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 13px;
+  border: 1.5px solid #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.emp-field input:focus,
+.emp-field textarea:focus {
+  outline: none;
+  border-color: #06284b;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(140, 229, 27, 0.22);
+}
+
+.emp-sub-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.emp-volume-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.emp-modality-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.emp-choice-card {
+  padding: 12px 13px;
+  border-radius: 14px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.emp-choice-card:hover {
+  border-color: #cbd5e1;
+}
+
+.emp-choice-card.is-selected {
+  border-color: #8ce51b;
+  background: #f4fbea;
+  box-shadow: 0 8px 20px -10px rgba(140, 229, 27, 0.35);
+}
+
+.emp-choice-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+
+.emp-choice-top strong {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #06284b;
+}
+
+.emp-choice-radio {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  flex-shrink: 0;
+}
+
+.emp-choice-card.is-selected .emp-choice-radio {
+  border-color: #06284b;
+  background: #8ce51b;
+}
+
+.emp-choice-card small {
+  display: block;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #526477;
+}
+
+/* Peak Shift Chips */
+.emp-shifts-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.emp-shift-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  color: #475569;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.emp-shift-chip .shift-chip-check {
+  opacity: 0.3;
+}
+
+.emp-shift-chip.active {
+  background: #06284b;
+  border-color: #06284b;
+  color: #ffffff;
+}
+
+.emp-shift-chip.active .shift-chip-check {
+  opacity: 1;
+  color: #8ce51b;
+}
+
+/* Consent & Submit */
+.emp-consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #475569;
+  cursor: pointer;
+}
+
+.emp-consent-row input {
+  margin-top: 3px;
+  accent-color: #06284b;
+}
+
+.emp-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 56px;
+  padding: 0 12px 0 24px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #06284b 0%, #0a3b6e 100%);
+  color: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 18px 36px -10px rgba(6, 40, 75, 0.42);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.emp-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 42px -10px rgba(6, 40, 75, 0.55);
+}
+
+.emp-submit-bubble {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #8ce51b;
+  color: #092201;
+  display: grid;
+  place-items: center;
+}
+
+/* Success State Card */
+.emp-success-card {
+  padding: 38px 32px;
+  border-radius: 28px;
+  background: #ffffff;
+  border: 2px solid #8ce51b;
+  box-shadow: 0 28px 65px -20px rgba(6, 40, 75, 0.16);
+  text-align: center;
+}
+
+.emp-success-icon-ring {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: #eff9e5;
+  color: #5ea30e;
+  display: grid;
+  place-items: center;
+}
+
+.emp-protocol-pill {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 5px 13px;
+  border-radius: 999px;
+  background: #06284b;
+  color: #8ce51b;
+  margin-bottom: 12px;
+}
+
+.emp-success-card h3 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-weight: 800;
+  color: #06284b;
+}
+
+.emp-success-card p {
+  margin: 0 auto 22px;
+  max-width: 520px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+.emp-success-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  text-align: left;
+  padding: 18px;
+  border-radius: 18px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 20px;
+}
+
+.emp-success-summary span {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+.emp-success-summary strong {
+  font-size: 13px;
+  font-weight: 800;
+  color: #06284b;
+}
+
+.emp-reset-btn {
+  padding: 11px 22px;
+  border-radius: 999px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: #06284b;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 960px) {
+  .emp-form-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .emp-sidebar-sticky {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .emp-fields-grid,
+  .emp-volume-grid,
+  .emp-modality-grid,
+  .emp-success-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .emp-b2b-form {
+    padding: 20px 16px;
+    border-radius: 22px;
+  }
+
+  .emp-submit-btn {
+    font-size: 12.5px;
+    padding-left: 18px;
+  }
+}
+

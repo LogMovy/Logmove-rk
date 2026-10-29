@@ -1,0 +1,248 @@
+/* =========================================================
+   PÁGINA /CLUBE-BENEFICIOS — DESIGN SYSTEM LOGMOVY × VM BRASIL
+   ========================================================= */
+
+@import '../protecao/protecao.css';
+
+/* Partner Domain Pill inside Hero Cockpit */
+.club-partner-domain-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(140, 229, 27, 0.14);
+  border: 1px solid rgba(140, 229, 27, 0.35);
+  color: #8ce51b;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  transition: all 0.2s ease;
+}
+
+.club-partner-domain-pill:hover {
+  background: rgba(140, 229, 27, 0.24);
+  transform: translateY(-1px);
+}
+
+/* Spotlight Section Divider & Perk Footer Tag */
+.club-spotlight-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.club-perk-card .rb-spotlight-content {
+  justify-content: space-between;
+}
+
+.club-perk-footer-tag {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #8ce51b;
+  letter-spacing: 0.02em;
+}
+
+/* 4-column stage nav for Club Steps */
+.prot-stage-pills-nav.club-four-cols {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* 8-card Assistance 24h Grid */
+.club-assistance-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.club-assist-card {
+  padding: 22px 20px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(6, 40, 75, 0.09);
+  box-shadow: 0 12px 30px -14px rgba(6, 40, 75, 0.08);
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+
+.club-assist-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(140, 229, 27, 0.65);
+}
+
+.club-assist-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.club-assist-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #f0f9e5;
+  color: #4d7c0f;
+}
+
+.club-assist-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: #06284b;
+  color: #8ce51b;
+  display: grid;
+  place-items: center;
+}
+
+.club-assist-card h4 {
+  margin: 0 0 7px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #06284b;
+  letter-spacing: -0.02em;
+}
+
+.club-assist-card p {
+  margin: 0;
+  font-size: 12.8px;
+  line-height: 1.55;
+  color: #526477;
+}
+
+/* Partner Showcase Card (VM Brasil Official Identification) */
+.club-partner-showcase-card {
+  padding: clamp(26px, 4vw, 40px);
+  border-radius: 28px;
+  background: linear-gradient(145deg, #06284b 0%, #031529 100%);
+  border: 1px solid rgba(140, 229, 27, 0.28);
+  box-shadow: 0 28px 65px -18px rgba(6, 40, 75, 0.35);
+  color: #ffffff;
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.club-partner-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(140, 229, 27, 0.14);
+  border: 1px solid rgba(140, 229, 27, 0.35);
+  color: #8ce51b;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+}
+
+.club-partner-left h3 {
+  margin: 0 0 10px;
+  font-size: clamp(22px, 2.8vw, 30px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.club-partner-left p {
+  margin: 0 0 18px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.club-partner-meta-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.club-partner-meta-pills span {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.club-partner-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.club-partner-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 50px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #98ef25 0%, #7fd612 100%);
+  color: #092201;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 14px 28px -8px rgba(140, 229, 27, 0.45);
+  transition: all 0.22s ease;
+}
+
+.club-partner-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px -8px rgba(140, 229, 27, 0.65);
+}
+
+.club-partner-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  transition: all 0.22s ease;
+}
+
+.club-partner-cta-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 960px) {
+  .club-assistance-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .club-partner-showcase-card {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  .club-assistance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .club-partner-showcase-card {
+    padding: 22px 18px;
+    border-radius: 22px;
+  }
+}
+

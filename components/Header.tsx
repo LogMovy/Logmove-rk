@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { ArrowUpRight, Menu, X } from 'lucide-react'
+import { ArrowUpRight, Building2, Menu, X } from 'lucide-react'
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -42,6 +42,14 @@ export default function Header() {
 
         {/* Header Right Actions */}
         <div className="header-actions">
+          <a
+            href="/empresas"
+            className="header-company-cta"
+          >
+            <Building2 size={14} className="company-cta-icon" />
+            <span>Para Empresas</span>
+          </a>
+
           <a
             href="/cadastro"
             className="premium-header-cta group"
@@ -91,24 +99,41 @@ export default function Header() {
               <span>03.</span> Benefícios
             </a>
             <a
+              href="/empresas"
+              className="mobile-nav-link"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <span>04.</span> Para Empresas
+            </a>
+            <a
               href="/#faq"
               className="mobile-nav-link"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <span>04.</span> Dúvidas frequentes
+              <span>05.</span> Dúvidas frequentes
             </a>
           </nav>
 
-          <a
-            href="/cadastro"
-            className="mobile-cta-btn"
-            onClick={(e) => {
-              setMobileMenuOpen(false)
-            }}
-          >
-            Cadastre-se como motoboy
-            <ArrowUpRight size={18} />
-          </a>
+          <div className="mobile-cta-stack">
+            <a
+              href="/empresas"
+              className="mobile-company-btn"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <Building2 size={16} />
+              <span>Sou Empresa · Contratar</span>
+              <ArrowUpRight size={16} />
+            </a>
+
+            <a
+              href="/cadastro"
+              className="mobile-cta-btn"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Cadastre-se como motoboy
+              <ArrowUpRight size={18} />
+            </a>
+          </div>
         </div>
       </div>
     </header>
