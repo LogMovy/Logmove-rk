@@ -8349,3 +8349,26 @@ button.cursor-blocked:active {
   25% { transform: translateX(-3px); }
   75% { transform: translateX(3px); }
 }
+
+
+/* =========================================================
+   /CADASTRO PAGE MOTION & SHIMMER EFFECTS
+   ========================================================= */
+.reg-em-animated {
+  background: linear-gradient(125deg, #529406 0%, #8ce51b 50%, #4d7c0f 100%) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: heroGradFlow 4.5s ease-in-out infinite alternate;
+}
+
+.reg-pass-card-motion {
+  position: relative;
+  overflow: hidden;
+}
+
+.reg-next-shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
