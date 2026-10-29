@@ -46,7 +46,7 @@ export default function Footer() {
                 </a>
               </li>
               <li><a href="/protecao">Proteção Veicular</a></li>
-              <li><a href="/#beneficios">Clube de Benefícios</a></li>
+              <li><a href="/clube-beneficios">Clube de Benefícios</a></li>
               <li><a href="/#faq">Dúvidas Frequentes</a></li>
             </ul>
           </div>
