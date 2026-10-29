@@ -1483,7 +1483,18 @@ export default function Page() {
                     Meu pré-cadastro ↗
                   </a>
                 </li>
-                <li><a href="#">Área administrativa</a></li>
+                <li>
+                  <a
+                    href="#area-administrativa"
+                    onClick={(e) => e.preventDefault()}
+                    aria-disabled="true"
+                    title="Área administrativa indisponível no momento"
+                    className="cursor-blocked footer-link-blocked"
+                  >
+                    <span>Área administrativa</span>
+                    <span className="footer-soon-badge">EM BREVE</span>
+                  </a>
+                </li>
                 <li><a href="#beneficios">Clube de Benefícios</a></li>
                 <li><a href="#faq">Dúvidas Frequentes</a></li>
               </ul>

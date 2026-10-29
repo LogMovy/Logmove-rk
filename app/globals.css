@@ -8304,3 +8304,48 @@ button.cursor-blocked:active {
 .protection-item-card {
   cursor: pointer;
 }
+
+
+/* =========================================================
+   FOOTER BLOCKED LINK EFFECT (ÁREA ADMINISTRATIVA)
+   ========================================================= */
+.footer-link-blocked {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  cursor: not-allowed !important;
+  opacity: 0.55 !important;
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+
+.footer-soon-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.footer-link-blocked:hover {
+  opacity: 0.72 !important;
+  animation: blockedNudge 0.32s ease-in-out;
+}
+
+.footer-link-blocked:hover .footer-soon-badge {
+  background: rgba(239, 68, 68, 0.16);
+  border-color: rgba(239, 68, 68, 0.45);
+  color: #fca5a5;
+}
+
+@keyframes blockedNudge {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
