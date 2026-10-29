@@ -32,6 +32,7 @@ export default function Footer() {
               <li><a href="/#aplicativo">O Aplicativo</a></li>
               <li><a href="/#como-funciona">Como Funciona</a></li>
               <li><a href="/#beneficios">Benefícios</a></li>
+              <li><a href="/empresas">Para Empresas</a></li>
               <li><a href="/#faq">Perguntas Frequentes</a></li>
             </ul>
           </div>
