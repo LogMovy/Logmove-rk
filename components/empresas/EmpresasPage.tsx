@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion } from 'motion/react'
+import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
 import {
   Building2,
   ArrowUpRight,
@@ -267,6 +267,29 @@ function maskPhone(v: string) {
 export default function EmpresasPage() {
   const [activeStage, setActiveStage] = useState<number>(1)
   const [openFaq, setOpenFaq] = useState<number | null>(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const triggerY = window.innerHeight * 0.36
+      let closestStage = 1
+      let minDistance = Infinity
+      for (const st of b2bStepsData) {
+        const el = document.getElementById(`emp-step-card-${st.num}`)
+        if (!el) continue
+        const rect = el.getBoundingClientRect()
+        const cardCenter = rect.top + rect.height / 2
+        const dist = Math.abs(cardCenter - triggerY)
+        if (dist < minDistance) {
+          minDistance = dist
+          closestStage = st.num
+        }
+      }
+      setActiveStage((prev) => (prev !== closestStage ? closestStage : prev))
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   // Company Form State
   const [nomeFantasia, setNomeFantasia] = useState('')
@@ -602,15 +625,24 @@ export default function EmpresasPage() {
                       <span className="prot-dossier-tag">{currentStep.tag}</span>
                     </div>
 
-                    <div className="prot-dossier-hero">
-                      <div className="prot-dossier-icon-sphere">
-                        <CurrentIcon size={24} />
-                      </div>
-                      <div>
-                        <h4>{currentStep.title}</h4>
-                        <p>{currentStep.lead}</p>
-                      </div>
-                    </div>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentStep.num}
+                        className="prot-dossier-hero"
+                        initial={{ opacity: 0, y: 8, filter: 'blur(3px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, y: -8, filter: 'blur(3px)' }}
+                        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <div className="prot-dossier-icon-sphere">
+                          <CurrentIcon size={24} />
+                        </div>
+                        <div>
+                          <h4>{currentStep.title}</h4>
+                          <p>{currentStep.lead}</p>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
 
                     <div className="prot-dossier-progress-bar">
                       {b2bStepsData.map((s) => (
