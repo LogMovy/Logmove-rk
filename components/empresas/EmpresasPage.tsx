@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import {
   Building2,
@@ -25,6 +25,7 @@ import {
   Store,
   PackageCheck,
   BarChart3,
+  Lock,
 } from 'lucide-react'
 import BlurText from '@/components/reactbits/BlurText'
 import ShinyText from '@/components/reactbits/ShinyText'
@@ -264,6 +265,135 @@ function maskPhone(v: string) {
   return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`
 }
 
+
+interface B2BFieldProps {
+  label: string
+  name: string
+  type?: string
+  required?: boolean
+  value: string
+  onChange: (val: string) => void
+  placeholder?: string
+  badge?: string
+  inputMode?: React.HTMLAttributes<HTMLInputElement>['inputMode']
+  fullWidth?: boolean
+}
+
+function B2BPremiumField({
+  label,
+  name,
+  type = 'text',
+  required = true,
+  value,
+  onChange,
+  placeholder,
+  badge,
+  inputMode,
+  fullWidth = false,
+}: B2BFieldProps) {
+  const [focused, setFocused] = useState(false)
+  const isFilled = value.trim().length > 0
+
+  return (
+    <motion.div
+      whileHover={{ y: -2 }}
+      transition={{ type: 'spring', stiffness: 420, damping: 22 }}
+      className={`reg-premium-field ${focused ? 'is-focused' : ''} ${isFilled ? 'is-filled' : ''} ${
+        fullWidth ? 'col-span-full' : ''
+      }`}
+    >
+      <div className="reg-field-top">
+        <label htmlFor={`field-${name}`} className="reg-field-label">
+          {label}
+          {required ? <b className="reg-req-star"> *</b> : <small className="reg-opt-tag"> (opcional)</small>}
+        </label>
+        {badge && <span className="reg-field-mini-badge">{badge}</span>}
+      </div>
+
+      <div className="reg-input-shell">
+        <input
+          id={`field-${name}`}
+          name={name}
+          type={type}
+          inputMode={inputMode}
+          required={required}
+          value={value}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          autoComplete="off"
+        />
+        {isFilled && required && (
+          <span className="reg-valid-indicator" title="Preenchido">
+            <Check size={13} strokeWidth={3} />
+          </span>
+        )}
+      </div>
+    </motion.div>
+  )
+}
+
+interface B2BTextareaProps {
+  label: string
+  name: string
+  required?: boolean
+  value: string
+  onChange: (val: string) => void
+  placeholder?: string
+  rows?: number
+  fullWidth?: boolean
+}
+
+function B2BPremiumTextarea({
+  label,
+  name,
+  required = false,
+  value,
+  onChange,
+  placeholder,
+  rows = 3,
+  fullWidth = true,
+}: B2BTextareaProps) {
+  const [focused, setFocused] = useState(false)
+  const isFilled = value.trim().length > 0
+
+  return (
+    <motion.div
+      whileHover={{ y: -2 }}
+      transition={{ type: 'spring', stiffness: 420, damping: 22 }}
+      className={`reg-premium-field ${focused ? 'is-focused' : ''} ${isFilled ? 'is-filled' : ''} ${
+        fullWidth ? 'col-span-full' : ''
+      }`}
+    >
+      <div className="reg-field-top">
+        <label htmlFor={`field-${name}`} className="reg-field-label">
+          {label}
+          {required ? <b className="reg-req-star"> *</b> : <small className="reg-opt-tag"> (opcional)</small>}
+        </label>
+      </div>
+
+      <div className="reg-textarea-shell">
+        <textarea
+          id={`field-${name}`}
+          name={name}
+          rows={rows}
+          value={value}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+        />
+        {isFilled && required && (
+          <span className="reg-valid-indicator" title="Preenchido">
+            <Check size={13} strokeWidth={3} />
+          </span>
+        )}
+      </div>
+    </motion.div>
+  )
+}
+
 export default function EmpresasPage() {
   const [activeStage, setActiveStage] = useState<number>(1)
   const [openFaq, setOpenFaq] = useState<number | null>(0)
@@ -307,6 +437,23 @@ export default function EmpresasPage() {
   const [observacoes, setObservacoes] = useState('')
   const [aceiteContato, setAceiteContato] = useState(true)
   const [submittedProtocol, setSubmittedProtocol] = useState<string | null>(null)
+
+  const completionScore = useMemo(() => {
+    let filled = 0
+    if (nomeFantasia.trim()) filled++
+    if (cnpj.trim().length >= 14) filled++
+    if (cidadeUf.trim()) filled++
+    if (segmento.trim()) filled++
+    if (responsavel.trim()) filled++
+    if (cargo.trim()) filled++
+    if (whatsapp.trim().length >= 14) filled++
+    if (email.trim() && email.includes('@')) filled++
+    if (volumeDiario) filled++
+    if (modalidade) filled++
+    if (aceiteContato) filled++
+    return filled / 11
+  }, [nomeFantasia, cnpj, cidadeUf, segmento, responsavel, cargo, whatsapp, email, volumeDiario, modalidade, aceiteContato])
+
 
   const toggleShift = (shift: string) => {
     setTurnosPico((prev) =>
@@ -757,10 +904,15 @@ export default function EmpresasPage() {
                 </p>
 
                 {/* Live Updating Corporate Pass Card */}
-                <div className="emp-live-pass-card">
+                <motion.div
+                  className="emp-live-pass-card"
+                  whileHover={{ y: -4, scale: 1.015 }}
+                  transition={{ type: 'spring', stiffness: 350, damping: 22 }}
+                >
+                  <div className="cockpit-border-beam" />
                   <div className="emp-pass-top">
                     <div className="emp-pass-badge">
-                      <Building2 size={14} />
+                      <Lock size={14} className="text-[#8ce51b]" />
                       <span>CREDENCIAL EMPRESA PARCEIRA</span>
                     </div>
                     <span className="emp-pass-status">
@@ -795,11 +947,11 @@ export default function EmpresasPage() {
                       <span>{cidadeUf.trim() || 'Brasil'}</span>
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* 3 Quick Guarantees */}
                 <div className="emp-guarantees-list">
-                  <div className="emp-guarantee-item">
+                  <motion.div className="emp-guarantee-item" whileHover={{ x: 4, scale: 1.01 }} transition={{ type: 'spring', stiffness: 400, damping: 24 }}>
                     <div className="emp-guarantee-icon">
                       <Check size={14} strokeWidth={3} />
                     </div>
@@ -807,9 +959,9 @@ export default function EmpresasPage() {
                       <strong>Retorno comercial ágil</strong>
                       <span>Análise prioritária do perfil da sua operação.</span>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="emp-guarantee-item">
+                  <motion.div className="emp-guarantee-item" whileHover={{ x: 4, scale: 1.01 }} transition={{ type: 'spring', stiffness: 400, damping: 24 }}>
                     <div className="emp-guarantee-icon">
                       <Check size={14} strokeWidth={3} />
                     </div>
@@ -817,9 +969,9 @@ export default function EmpresasPage() {
                       <strong>Sem taxa de adesão no pré-cadastro</strong>
                       <span>Solicite o diagnóstico da sua operação sem compromisso.</span>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="emp-guarantee-item">
+                  <motion.div className="emp-guarantee-item" whileHover={{ x: 4, scale: 1.01 }} transition={{ type: 'spring', stiffness: 400, damping: 24 }}>
                     <div className="emp-guarantee-icon">
                       <Check size={14} strokeWidth={3} />
                     </div>
@@ -827,7 +979,7 @@ export default function EmpresasPage() {
                       <strong>Dados protegidos (LGPD)</strong>
                       <span>Informações utilizadas exclusivamente para proposta comercial B2B.</span>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
@@ -884,7 +1036,18 @@ export default function EmpresasPage() {
                   </div>
                 </motion.div>
               ) : (
-                <form className="emp-b2b-form" onSubmit={handleCompanySubmit}>
+                <motion.form
+                  className="emp-b2b-form registration-card"
+                  onSubmit={handleCompanySubmit}
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <div
+                    className="reg-card-top-progress-glow"
+                    style={{ width: `${Math.round(completionScore * 100)}%` }}
+                  />
+
                   <div className="emp-form-card-header">
                     <div>
                       <span className="emp-form-step-pill">FORMULÁRIO OFICIAL B2B</span>
@@ -903,52 +1066,49 @@ export default function EmpresasPage() {
                       <span>Identificação da Empresa</span>
                     </div>
 
-                    <div className="emp-fields-grid">
-                      <label className="emp-field">
-                        <span>Nome Fantasia / Marca *</span>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Ex: Burger House / Drogaria Central"
-                          value={nomeFantasia}
-                          onChange={(e) => setNomeFantasia(e.target.value)}
-                        />
-                      </label>
+                    <div className="registration-fields">
+                      <B2BPremiumField
+                        label="Nome Fantasia / Marca"
+                        name="nomeFantasia"
+                        required
+                        placeholder="Ex: Burger House / Drogaria Central"
+                        value={nomeFantasia}
+                        onChange={setNomeFantasia}
+                      />
 
-                      <label className="emp-field">
-                        <span>CNPJ *</span>
-                        <input
-                          type="text"
-                          required
-                          inputMode="numeric"
-                          placeholder="00.000.000/0000-00"
-                          value={cnpj}
-                          onChange={(e) => setCnpj(maskCnpj(e.target.value))}
-                        />
-                      </label>
+                      <B2BPremiumField
+                        label="CNPJ"
+                        name="cnpj"
+                        required
+                        inputMode="numeric"
+                        placeholder="00.000.000/0000-00"
+                        value={cnpj}
+                        onChange={(v) => setCnpj(maskCnpj(v))}
+                      />
 
-                      <label className="emp-field">
-                        <span>Razão Social</span>
-                        <input
-                          type="text"
-                          placeholder="Razão social completa da empresa"
-                          value={razaoSocial}
-                          onChange={(e) => setRazaoSocial(e.target.value)}
-                        />
-                      </label>
+                      <B2BPremiumField
+                        label="Razão Social"
+                        name="razaoSocial"
+                        required={false}
+                        placeholder="Razão social completa da empresa"
+                        value={razaoSocial}
+                        onChange={setRazaoSocial}
+                      />
 
-                      <label className="emp-field">
-                        <span>Cidade / UF da Operação *</span>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Ex: João Pessoa - PB / Aracaju - SE"
-                          value={cidadeUf}
-                          onChange={(e) => setCidadeUf(e.target.value)}
-                        />
-                      </label>
+                      <B2BPremiumField
+                        label="Cidade / UF da Operação"
+                        name="cidadeUf"
+                        required
+                        placeholder="Ex: João Pessoa - PB / Aracaju - SE"
+                        value={cidadeUf}
+                        onChange={setCidadeUf}
+                      />
 
-                      <div className="emp-field emp-full-col">
+                      <motion.div
+                        whileHover={{ y: -2 }}
+                        transition={{ type: 'spring', stiffness: 420, damping: 22 }}
+                        className="col-span-full"
+                      >
                         <PremiumSelect
                           label="Segmento de Atuação *"
                           value={segmento}
@@ -959,7 +1119,7 @@ export default function EmpresasPage() {
                           badge="SETOR"
                           fullWidth
                         />
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
 
@@ -970,51 +1130,45 @@ export default function EmpresasPage() {
                       <span>Responsável pela Operação</span>
                     </div>
 
-                    <div className="emp-fields-grid">
-                      <label className="emp-field">
-                        <span>Nome Completo do Responsável *</span>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Seu nome completo"
-                          value={responsavel}
-                          onChange={(e) => setResponsavel(e.target.value)}
-                        />
-                      </label>
+                    <div className="registration-fields">
+                      <B2BPremiumField
+                        label="Nome Completo do Responsável"
+                        name="responsavel"
+                        required
+                        placeholder="Seu nome completo"
+                        value={responsavel}
+                        onChange={setResponsavel}
+                      />
 
-                      <label className="emp-field">
-                        <span>Cargo / Função *</span>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Ex: Sócio-Proprietário / Gerente de Operações"
-                          value={cargo}
-                          onChange={(e) => setCargo(e.target.value)}
-                        />
-                      </label>
+                      <B2BPremiumField
+                        label="Cargo / Função"
+                        name="cargo"
+                        required
+                        placeholder="Ex: Sócio-Proprietário / Gerente de Operações"
+                        value={cargo}
+                        onChange={setCargo}
+                      />
 
-                      <label className="emp-field">
-                        <span>WhatsApp Corporativo *</span>
-                        <input
-                          type="tel"
-                          required
-                          inputMode="numeric"
-                          placeholder="(00) 00000-0000"
-                          value={whatsapp}
-                          onChange={(e) => setWhatsapp(maskPhone(e.target.value))}
-                        />
-                      </label>
+                      <B2BPremiumField
+                        label="WhatsApp Corporativo"
+                        name="whatsapp"
+                        type="tel"
+                        inputMode="numeric"
+                        required
+                        placeholder="(00) 00000-0000"
+                        value={whatsapp}
+                        onChange={(v) => setWhatsapp(maskPhone(v))}
+                      />
 
-                      <label className="emp-field">
-                        <span>E-mail Corporativo *</span>
-                        <input
-                          type="email"
-                          required
-                          placeholder="contato@suaempresa.com.br"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </label>
+                      <B2BPremiumField
+                        label="E-mail Corporativo"
+                        name="email"
+                        type="email"
+                        required
+                        placeholder="contato@suaempresa.com.br"
+                        value={email}
+                        onChange={setEmail}
+                      />
                     </div>
                   </div>
 
@@ -1031,18 +1185,23 @@ export default function EmpresasPage() {
                         {dailyVolumeChoices.map((vol) => {
                           const active = volumeDiario === vol.id
                           return (
-                            <button
+                            <motion.button
                               key={vol.id}
                               type="button"
+                              whileHover={{ y: -2, scale: 1.01 }}
+                              whileTap={{ scale: 0.98 }}
+                              transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                               onClick={() => setVolumeDiario(vol.id)}
                               className={`emp-choice-card ${active ? 'is-selected' : ''}`}
                             >
                               <div className="emp-choice-top">
                                 <strong>{vol.label}</strong>
-                                <span className="emp-choice-radio" />
+                                <span className="emp-choice-radio">
+                                  {active && <span className="emp-choice-radio-dot" />}
+                                </span>
                               </div>
                               <small>{vol.sub}</small>
-                            </button>
+                            </motion.button>
                           )
                         })}
                       </div>
@@ -1054,18 +1213,23 @@ export default function EmpresasPage() {
                         {modalityChoices.map((mod) => {
                           const active = modalidade === mod.id
                           return (
-                            <button
+                            <motion.button
                               key={mod.id}
                               type="button"
+                              whileHover={{ y: -2, scale: 1.01 }}
+                              whileTap={{ scale: 0.98 }}
+                              transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                               onClick={() => setModalidade(mod.id)}
                               className={`emp-choice-card ${active ? 'is-selected' : ''}`}
                             >
                               <div className="emp-choice-top">
                                 <strong>{mod.title}</strong>
-                                <span className="emp-choice-radio" />
+                                <span className="emp-choice-radio">
+                                  {active && <span className="emp-choice-radio-dot" />}
+                                </span>
                               </div>
                               <small>{mod.desc}</small>
-                            </button>
+                            </motion.button>
                           )
                         })}
                       </div>
@@ -1077,29 +1241,33 @@ export default function EmpresasPage() {
                         {shiftOptions.map((shift) => {
                           const active = turnosPico.includes(shift)
                           return (
-                            <button
+                            <motion.button
                               key={shift}
                               type="button"
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.97 }}
+                              transition={{ type: 'spring', stiffness: 450, damping: 24 }}
                               onClick={() => toggleShift(shift)}
                               className={`emp-shift-chip ${active ? 'active' : ''}`}
                             >
                               <Check size={12} className="shift-chip-check" />
                               <span>{shift}</span>
-                            </button>
+                            </motion.button>
                           )
                         })}
                       </div>
                     </div>
 
-                    <label className="emp-field emp-full-col">
-                      <span>Observações sobre sua operação (Opcional)</span>
-                      <textarea
-                        rows={3}
-                        placeholder="Conte se possui múltiplos pontos de coleta, raio médio de entrega ou necessidades específicas..."
-                        value={observacoes}
-                        onChange={(e) => setObservacoes(e.target.value)}
-                      />
-                    </label>
+                    <B2BPremiumTextarea
+                      label="Observações sobre sua operação"
+                      name="observacoes"
+                      required={false}
+                      rows={3}
+                      placeholder="Conte se possui múltiplos pontos de coleta, raio médio de entrega ou necessidades específicas..."
+                      value={observacoes}
+                      onChange={setObservacoes}
+                      fullWidth
+                    />
                   </div>
 
                   {/* Consent & Submit */}
@@ -1115,13 +1283,19 @@ export default function EmpresasPage() {
                     </span>
                   </label>
 
-                  <button type="submit" className="emp-submit-btn">
+                  <motion.button
+                    type="submit"
+                    className="emp-submit-btn"
+                    whileHover={{ scale: 1.015, y: -2 }}
+                    whileTap={{ scale: 0.985 }}
+                    transition={{ type: 'spring', stiffness: 450, damping: 22 }}
+                  >
                     <span>Solicitar contato comercial para minha empresa</span>
                     <span className="emp-submit-bubble">
                       <ArrowUpRight size={18} />
                     </span>
-                  </button>
-                </form>
+                  </motion.button>
+                </motion.form>
               )}
             </div>
           </div>
