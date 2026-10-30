@@ -32,6 +32,9 @@ import {
 import DeliveryMotion from '@/components/DeliveryMotion'
 import NetworkMotion from '@/components/NetworkMotion'
 import Header from '@/components/Header'
+import ShinyText from '@/components/reactbits/ShinyText'
+import CountUp from '@/components/reactbits/CountUp'
+import Squares from '@/components/Squares'
 
 const logoUrl = '/logmov-icon.png'
 
@@ -50,6 +53,27 @@ function Brand({ light = false }: { light?: boolean }) {
 
 export default function Page() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [activeDays, setActiveDays] = useState<number[]>([0, 1, 2, 3, 4])
+
+  const toggleAgendaDay = (idx: number) => {
+    setActiveDays((prev) => (prev.includes(idx) ? prev.filter((d) => d !== idx) : [...prev, idx]))
+  }
+  const [cockpitTilt, setCockpitTilt] = useState({ rotateX: 0, rotateY: 0, spotX: 50, spotY: 50, active: false })
+
+  const handleCockpitMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const pctX = (x / rect.width) * 100
+    const pctY = (y / rect.height) * 100
+    const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 6
+    const rotateX = -((y - rect.height / 2) / (rect.height / 2)) * 6
+    setCockpitTilt({ rotateX, rotateY, spotX: pctX, spotY: pctY, active: true })
+  }
+
+  const handleCockpitMouseLeave = () => {
+    setCockpitTilt({ rotateX: 0, rotateY: 0, spotX: 50, spotY: 50, active: false })
+  }
 
   return (
     <main>
@@ -60,36 +84,87 @@ export default function Page() {
         
         {/* Left Column: Hero Content */}
         <div className="hero-copy">
-          <div className="hero-pill-badge">
+          <motion.div
+            className="hero-pill-badge"
+            initial={{ opacity: 0, y: 18, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ scale: 1.03, y: -2 }}
+          >
             <span className="live-dot" />
-            <span className="badge-text">Conexões que movem a cidade</span>
-          </div>
+            <ShinyText
+              text="Conexões que movem a cidade"
+              speed={3.2}
+              className="badge-text"
+            />
+          </motion.div>
 
           <h1 className="hero-headline">
-            <span className="headline-line">Sua rotina. <span className="headline-lime">Sua moto.</span></span>
-            <span className="headline-gradient headline-line">Novas oportunidades.</span>
+            <motion.span
+              className="headline-line"
+              initial={{ opacity: 0, y: 26, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Sua rotina. <span className="headline-lime headline-lime-pulse">Sua moto.</span>
+            </motion.span>
+            <motion.span
+              className="headline-gradient headline-gradient-animated headline-line"
+              initial={{ opacity: 0, y: 26, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Novas oportunidades.
+            </motion.span>
           </h1>
 
-          <p className="hero-text">
+          <motion.p
+            className="hero-text"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+          >
             Escolha os dias e horários em que deseja trabalhar, acompanhe suas corridas e consulte seu financeiro com total autonomia.
-          </p>
+          </motion.p>
 
-          <div className="hero-highlights">
-            <div className="highlight-item">
+          <motion.div
+            className="hero-highlights"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <motion.div
+              className="highlight-item"
+              whileHover={{ y: -3, scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <CheckCircle2 size={15} className="highlight-icon" />
               <span>Autonomia de agenda</span>
-            </div>
-            <div className="highlight-item">
+            </motion.div>
+            <motion.div
+              className="highlight-item"
+              whileHover={{ y: -3, scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <CheckCircle2 size={15} className="highlight-icon" />
               <span>Controle financeiro</span>
-            </div>
-            <div className="highlight-item">
+            </motion.div>
+            <motion.div
+              className="highlight-item"
+              whileHover={{ y: -3, scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <CheckCircle2 size={15} className="highlight-icon" />
               <span>Benefícios optativos</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="hero-actions">
+          <motion.div
+            className="hero-actions"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
+          >
             <a
               className="hero-btn-primary"
               href="/cadastro"
@@ -106,19 +181,29 @@ export default function Page() {
                 <ArrowDownRight size={17} />
               </span>
             </a>
-          </div>
+          </motion.div>
 
-          <div className="hero-trust-bar">
+          <motion.div
+            className="hero-trust-bar"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.58 }}
+          >
             <span className="trust-indicator">⚡ Adesão gratuita</span>
             <span className="trust-dot">•</span>
             <span>Sem exclusividade</span>
             <span className="trust-dot">•</span>
             <span>Validação simples</span>
-          </div>
+          </motion.div>
         </div>
 
         {/* Right Column: Hero Interactive Cockpit App Card */}
-        <div className="hero-cockpit-wrap">
+        <motion.div
+          className="hero-cockpit-wrap"
+          initial={{ opacity: 0, y: 28, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+        >
           {/* Ambient Glow Aura */}
           <div className="cockpit-ambient-glow" />
 
@@ -128,7 +213,28 @@ export default function Page() {
           </div>
 
           {/* Smartphone / Cockpit Glass Card */}
-          <div className="cockpit-card">
+          <div
+            className="cockpit-card cockpit-card-interactive"
+            onMouseMove={handleCockpitMouseMove}
+            onMouseLeave={handleCockpitMouseLeave}
+            style={{
+              transform: cockpitTilt.active
+                ? `perspective(1000px) rotateX(${cockpitTilt.rotateX}deg) rotateY(${cockpitTilt.rotateY}deg) translateY(-4px)`
+                : undefined,
+            }}
+          >
+            {/* Dynamic Cursor Spotlight Overlay */}
+            <div
+              className="cockpit-spotlight-overlay"
+              style={{
+                opacity: cockpitTilt.active ? 1 : 0,
+                background: `radial-gradient(360px circle at ${cockpitTilt.spotX}% ${cockpitTilt.spotY}%, rgba(140, 229, 27, 0.16), transparent 65%)`,
+              }}
+            />
+
+            {/* Animated Border Scanline */}
+            <div className="cockpit-border-beam" />
+
             {/* Card Top: Live Mode Bar */}
             <div className="cockpit-top-bar">
               <div className="cockpit-status">
@@ -142,7 +248,7 @@ export default function Page() {
                 </div>
               </div>
               <div className="cockpit-signal-wrap">
-                <span className="signal-bars">
+                <span className="signal-bars signal-bars-animated">
                   <span className="s-bar s1" />
                   <span className="s-bar s2" />
                   <span className="s-bar s3" />
@@ -154,7 +260,7 @@ export default function Page() {
             {/* Route In Progress Card */}
             <div className="cockpit-route-card">
               <div className="route-card-meta">
-                <span className="route-tag">CORRIDA DISPONÍVEL</span>
+                <span className="route-tag route-tag-pulse">CORRIDA DISPONÍVEL</span>
                 <span className="route-timer">Há 2 min</span>
               </div>
 
@@ -168,7 +274,9 @@ export default function Page() {
                 </div>
 
                 <div className="flow-connector">
-                  <div className="flow-line" />
+                  <div className="flow-line">
+                    <span className="flow-line-laser" />
+                  </div>
                   <div className="flow-bike-icon">
                     <Bike size={13} />
                   </div>
@@ -187,7 +295,9 @@ export default function Page() {
               <div className="route-specs-grid">
                 <div className="spec-col highlight">
                   <span className="spec-label">VALOR ESTIMADO</span>
-                  <span className="spec-val-lime">R$ 38,50</span>
+                  <span className="spec-val-lime">
+                    R$ <CountUp to={38} duration={1100} />,50
+                  </span>
                 </div>
                 <div className="spec-sep" />
                 <div className="spec-col">
@@ -204,16 +314,26 @@ export default function Page() {
 
             {/* Bottom Metrics inside Card */}
             <div className="cockpit-metrics-row">
-              <div className="metric-chip">
+              <motion.div
+                className="metric-chip"
+                whileHover={{ y: -2, scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+              >
                 <div className="metric-icon-wrap lime-bg">
                   <TrendingUp size={14} />
                 </div>
                 <div>
-                  <div className="metric-val">R$ 284,00</div>
+                  <div className="metric-val">
+                    R$ <CountUp to={284} duration={1300} />,00
+                  </div>
                   <div className="metric-label">Ganhos de hoje</div>
                 </div>
-              </div>
-              <div className="metric-chip">
+              </motion.div>
+              <motion.div
+                className="metric-chip"
+                whileHover={{ y: -2, scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+              >
                 <div className="metric-icon-wrap blue-bg">
                   <ShieldCheck size={14} />
                 </div>
@@ -221,47 +341,75 @@ export default function Page() {
                   <div className="metric-val">Ativo</div>
                   <div className="metric-label">Clube parceiro</div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Floating Pill: Deliveries Counter */}
-          <div className="satellite-pill top-right">
+          <motion.div
+            className="satellite-pill top-right"
+            whileHover={{ scale: 1.06, y: -3 }}
+          >
             <span className="sat-dot" />
-            <span><strong>+1.200</strong> entregas hoje</span>
-          </div>
+            <span>
+              <strong>
+                +<CountUp to={1200} duration={1500} />
+              </strong>{' '}
+              entregas hoje
+            </span>
+          </motion.div>
 
           {/* Floating Pill: Flexibility */}
-          <div className="satellite-pill bottom-left">
+          <motion.div
+            className="satellite-pill bottom-left"
+            whileHover={{ scale: 1.06, y: -3 }}
+          >
             <Clock size={13} className="sat-icon" />
             <span>Você define seus dias e horas</span>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Hero Bottom Bar: Connected Ecosystem */}
-        <div className="hero-bottom-ecosystem">
+        <motion.div
+          className="hero-bottom-ecosystem"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="ecosystem-title">ECOSSISTEMA LOGMOVY:</div>
           <div className="ecosystem-badges">
-            <div className="eco-badge">
+            <motion.div
+              className="eco-badge"
+              whileHover={{ y: -2, scale: 1.03 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <Building2 size={14} className="eco-icon" />
               <span>EMPRESAS COM DEMANDA</span>
-            </div>
-            <div className="eco-connector">
+            </motion.div>
+            <div className="eco-connector eco-connector-pulse">
               <ArrowRight size={13} className="connector-arrow" />
             </div>
-            <div className="eco-badge highlight">
+            <motion.div
+              className="eco-badge highlight"
+              whileHover={{ y: -2, scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <Bike size={15} className="eco-icon lime" />
               <span>MOTOBOYS PARCEIROS</span>
-            </div>
-            <div className="eco-connector plus">
+            </motion.div>
+            <div className="eco-connector plus eco-connector-pulse">
               <Plus size={13} />
             </div>
-            <div className="eco-badge">
+            <motion.div
+              className="eco-badge"
+              whileHover={{ y: -2, scale: 1.03 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <ShieldCheck size={14} className="eco-icon" />
               <span>BENEFÍCIOS OPTATIVOS</span>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Organic Section Transition Curve to Section 01 */}
         <div className="hero-bottom-curve" aria-hidden="true">
@@ -460,48 +608,80 @@ export default function Page() {
         <div className="app-ambient-glow glow-bottom" />
 
         {/* Section Kicker */}
-        <div className="section-kicker light">
+        <motion.div
+          className="section-kicker light"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="kicker-pill dark-pill">
             <span className="kicker-live-dot" />
             <span className="kicker-text-desktop">CONTROLE TOTAL NO APP</span>
             <span className="kicker-text-mobile">CONTROLE NO APP</span>
           </div>
           <span className="kicker-index light">02 / ROTINA</span>
-        </div>
+        </motion.div>
 
         {/* Section Header */}
         <div className="app-heading">
-          <div className="app-heading-main">
+          <motion.div
+            className="app-heading-main"
+            initial={{ opacity: 0, x: -28, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
             <h2 className="app-title">
               Sua agenda.<br />
-              <span className="title-lime-glow">Suas corridas.</span><br />
+              <span className="title-lime-glow headline-lime-pulse">Suas corridas.</span><br />
               Seu controle.
             </h2>
-          </div>
+          </motion.div>
 
-          <div className="app-heading-side">
+          <motion.div
+            className="app-heading-side"
+            initial={{ opacity: 0, x: 28 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          >
             <p className="app-lead">
               A LogMovy acompanha sua rotina antes, durante e depois de cada serviço.
             </p>
             <p className="app-subtext">
               Uma ferramenta transparente e sem burocracia, criada para você gerenciar seus horários, validar corridas e monitorar seus rendimentos com total independência.
             </p>
-            <div className="app-telemetry-pill">
+            <motion.div
+              className="app-telemetry-pill"
+              whileHover={{ scale: 1.03, y: -2 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <span className="telemetry-dot" />
               <span>Sincronização instantânea com a plataforma</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* 3 Interactive "App Cockpit" Feature Cards */}
         <div className="feature-cockpits-grid">
           {/* Card 01: AGENDA */}
-          <div className="feature-cockpit-card group">
+          <motion.div
+            className="feature-cockpit-card group cockpit-motion-card"
+            initial={{ opacity: 0, y: 38 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -10, transition: { type: 'spring', stiffness: 340, damping: 20 } }}
+          >
             <div className="cockpit-top-header">
               <span className="cockpit-number">01 / AGENDA</span>
-              <div className="cockpit-icon-bubble">
+              <motion.div
+                className="cockpit-icon-bubble"
+                whileHover={{ rotate: 8, scale: 1.1 }}
+              >
                 <Calendar size={18} />
-              </div>
+              </motion.div>
             </div>
 
             <h3 className="cockpit-title">
@@ -520,12 +700,22 @@ export default function Page() {
                 <span className="widget-badge lime">100% Livre</span>
               </div>
               <div className="week-days-row">
-                {['S', 'T', 'Q', 'Q', 'S', 'S', 'D'].map((d, i) => (
-                  <div key={i} className={`week-day-pill ${i < 5 ? 'active' : ''}`}>
-                    <span className="day-name">{d}</span>
-                    <span className="day-indicator" />
-                  </div>
-                ))}
+                {['S', 'T', 'Q', 'Q', 'S', 'S', 'D'].map((d, i) => {
+                  const isDayActive = activeDays.includes(i)
+                  return (
+                    <motion.div
+                      key={i}
+                      onClick={() => toggleAgendaDay(i)}
+                      whileHover={{ y: -3, scale: 1.07 }}
+                      whileTap={{ scale: 0.93 }}
+                      className={`week-day-pill week-day-interactive ${isDayActive ? 'active' : ''}`}
+                      title="Clique para alternar disponibilidade"
+                    >
+                      <span className="day-name">{d}</span>
+                      <span className="day-indicator" />
+                    </motion.div>
+                  )
+                })}
               </div>
               <div className="shift-status-row">
                 <Clock size={12} className="shift-icon" />
@@ -534,28 +724,39 @@ export default function Page() {
             </div>
 
             <ul className="cockpit-checklist">
-              <li>
+              <motion.li whileHover={{ x: 4 }}>
                 <div className="check-bubble"><Check size={12} /></div>
                 <span>Minha disponibilidade</span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 4 }}>
                 <div className="check-bubble"><Check size={12} /></div>
                 <span>Dias escolhidos por você</span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 4 }}>
                 <div className="check-bubble"><Check size={12} /></div>
                 <span>Horários definidos por você</span>
-              </li>
+              </motion.li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Card 02: FINANCEIRO (Highlight Center Card) */}
-          <div className="feature-cockpit-card group highlight-card">
+          <motion.div
+            className="feature-cockpit-card group highlight-card cockpit-motion-card"
+            initial={{ opacity: 0, y: 38 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -12, transition: { type: 'spring', stiffness: 340, damping: 20 } }}
+          >
+            <div className="cockpit-border-beam" />
             <div className="cockpit-top-header">
               <span className="cockpit-number highlight">02 / FINANCEIRO</span>
-              <div className="cockpit-icon-bubble lime">
+              <motion.div
+                className="cockpit-icon-bubble lime"
+                whileHover={{ rotate: -8, scale: 1.1 }}
+              >
                 <Wallet size={18} />
-              </div>
+              </motion.div>
             </div>
 
             <h3 className="cockpit-title">
@@ -575,11 +776,19 @@ export default function Page() {
               <div className="finance-balance-wrap">
                 <div className="finance-amount-row">
                   <span className="finance-currency">R$</span>
-                  <span className="finance-val">284,00</span>
+                  <span className="finance-val">
+                    <CountUp to={284} duration={1400} />,00
+                  </span>
                   <span className="finance-trend">Hoje</span>
                 </div>
                 <div className="finance-mini-bar">
-                  <div className="finance-progress-fill" style={{ width: '75%' }} />
+                  <motion.div
+                    className="finance-progress-fill finance-progress-shimmer"
+                    initial={{ width: '0%' }}
+                    whileInView={{ width: '75%' }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  />
                 </div>
               </div>
               <div className="payout-note-row">
@@ -589,28 +798,38 @@ export default function Page() {
             </div>
 
             <ul className="cockpit-checklist">
-              <li>
+              <motion.li whileHover={{ x: 4 }}>
                 <div className="check-bubble lime"><Check size={12} /></div>
                 <span>Meu financeiro</span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 4 }}>
                 <div className="check-bubble lime"><Check size={12} /></div>
                 <span>Consulta de ganhos detalhada</span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 4 }}>
                 <div className="check-bubble lime"><Check size={12} /></div>
                 <span>Informações dos serviços</span>
-              </li>
+              </motion.li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Card 03: CORRIDAS */}
-          <div className="feature-cockpit-card group">
+          <motion.div
+            className="feature-cockpit-card group cockpit-motion-card"
+            initial={{ opacity: 0, y: 38 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -10, transition: { type: 'spring', stiffness: 340, damping: 20 } }}
+          >
             <div className="cockpit-top-header">
               <span className="cockpit-number">03 / CORRIDAS</span>
-              <div className="cockpit-icon-bubble">
+              <motion.div
+                className="cockpit-icon-bubble"
+                whileHover={{ rotate: 12, scale: 1.1 }}
+              >
                 <Navigation size={18} />
-              </div>
+              </motion.div>
             </div>
 
             <h3 className="cockpit-title">
@@ -633,33 +852,37 @@ export default function Page() {
                   <span className="route-node-dot origin" />
                   <span className="route-step-txt">Coleta: <strong>Centro Logístico</strong></span>
                 </div>
-                <div className="route-step-connector" />
+                <div className="route-step-connector route-step-connector-animated">
+                  <span className="route-step-laser" />
+                </div>
                 <div className="route-step-item">
-                  <span className="route-node-dot dest" />
+                  <span className="route-node-dot dest route-dest-pulse" />
                   <span className="route-step-txt">Entrega: <strong>Av. das Nações</strong></span>
                 </div>
               </div>
               <div className="route-metrics-chip">
                 <span>4.2 km · ~14 min</span>
-                <strong className="chip-price">R$ 38,50</strong>
+                <strong className="chip-price">
+                  R$ <CountUp to={38} duration={1200} />,50
+                </strong>
               </div>
             </div>
 
             <ul className="cockpit-checklist">
-              <li>
+              <motion.li whileHover={{ x: 4 }}>
                 <div className="check-bubble"><Check size={12} /></div>
                 <span>Minhas corridas</span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 4 }}>
                 <div className="check-bubble"><Check size={12} /></div>
                 <span>Acompanhamento dos serviços</span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 4 }}>
                 <div className="check-bubble"><Check size={12} /></div>
                 <span>Consulta das corridas e rotas</span>
-              </li>
+              </motion.li>
             </ul>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -778,44 +1001,76 @@ export default function Page() {
         <div className="benefits-ambient-glow glow-2" />
 
         {/* Section Kicker */}
-        <div className="section-kicker lime-kicker">
+        <motion.div
+          className="section-kicker lime-kicker"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="kicker-pill lime-pill">
             <span className="kicker-live-dot dark" />
             <span className="kicker-text-desktop">DIFERENCIAIS PARA SUA ROTINA</span>
             <span className="kicker-text-mobile">DIFERENCIAIS</span>
           </div>
           <span className="kicker-index lime-index">04 / ESCOLHAS SUAS</span>
-        </div>
+        </motion.div>
 
         {/* Section Heading */}
         <div className="benefit-heading">
-          <div className="benefit-heading-main">
+          <motion.div
+            className="benefit-heading-main"
+            initial={{ opacity: 0, x: -28, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
             <h2 className="benefit-title">
               O movimento é seu.<br />
               <span className="title-navy-italic">A escolha também.</span>
             </h2>
-          </div>
+          </motion.div>
 
-          <div className="benefit-heading-side">
+          <motion.div
+            className="benefit-heading-side"
+            initial={{ opacity: 0, x: 28 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          >
             <p className="benefit-lead">
               Proteção veicular e Clube de Benefícios são escolhas suas. Você só adere se aceitar as condições de cada benefício.
             </p>
-            <div className="benefit-tag-pill">
+            <motion.div
+              className="benefit-tag-pill"
+              whileHover={{ scale: 1.03, y: -2 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <span className="benefit-pill-dot" />
               <span>Totalmente optativo · Sem vínculo obrigatório</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Two Grand Benefit Cards */}
         <div className="benefit-cards">
           {/* Card 1: Proteção Veicular (Frosted Glass Light) */}
-          <article className="benefit-card light-benefit-card group">
+          <motion.article
+            className="benefit-card light-benefit-card group benefit-motion-card"
+            initial={{ opacity: 0, y: 38 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -10, transition: { type: 'spring', stiffness: 340, damping: 20 } }}
+          >
             <div className="benefit-card-top">
               <span className="card-tag dark">BENEFÍCIO OPTATIVO</span>
-              <div className="benefit-icon-sphere dark">
+              <motion.div
+                className="benefit-icon-sphere dark"
+                whileHover={{ rotate: 10, scale: 1.12 }}
+              >
                 <ShieldCheck size={20} />
-              </div>
+              </motion.div>
             </div>
 
             <h3 className="benefit-card-title">
@@ -828,18 +1083,18 @@ export default function Page() {
             </p>
 
             <ul className="benefit-mini-perks dark">
-              <li>
+              <motion.li whileHover={{ x: 5 }}>
                 <div className="perk-check dark"><Check size={12} /></div>
                 <span>Contratação própria e independente</span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 5 }}>
                 <div className="perk-check dark"><Check size={12} /></div>
                 <span>Fornecedor especializado no setor</span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 5 }}>
                 <div className="perk-check dark"><Check size={12} /></div>
                 <span>Não obrigatório para rodar na LogMovy</span>
-              </li>
+              </motion.li>
             </ul>
 
             <a className="benefit-action-link dark" href="/protecao">
@@ -848,20 +1103,31 @@ export default function Page() {
                 <ArrowUpRight size={16} />
               </div>
             </a>
-          </article>
+          </motion.article>
 
           {/* Card 2: Clube de Benefícios (Deep Navy Glass Luxury) */}
-          <article className="benefit-card dark-benefit-card group">
+          <motion.article
+            className="benefit-card dark-benefit-card group benefit-motion-card"
+            initial={{ opacity: 0, y: 38 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -10, transition: { type: 'spring', stiffness: 340, damping: 20 } }}
+          >
+            <div className="cockpit-border-beam" />
             <div className="benefit-card-top">
               <span className="card-tag lime">CLUBE DE BENEFÍCIOS</span>
-              <div className="benefit-icon-sphere lime">
+              <motion.div
+                className="benefit-icon-sphere lime"
+                whileHover={{ rotate: -10, scale: 1.12 }}
+              >
                 <Sparkles size={20} />
-              </div>
+              </motion.div>
             </div>
 
             <h3 className="benefit-card-title light">
               Sua rotina.<br />
-              <span className="title-lime-glow">Mais vantagens.</span>
+              <span className="title-lime-glow headline-lime-pulse">Mais vantagens.</span>
             </h3>
 
             <p className="benefit-card-text light">
@@ -869,18 +1135,18 @@ export default function Page() {
             </p>
 
             <ul className="benefit-mini-perks light">
-              <li>
+              <motion.li whileHover={{ x: 5 }}>
                 <div className="perk-check lime"><Check size={12} /></div>
                 <span>Descontos especiais em oficinas parceiras</span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 5 }}>
                 <div className="perk-check lime"><Check size={12} /></div>
                 <span>Economia em peças, pneus e manutenção</span>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 5 }}>
                 <div className="perk-check lime"><Check size={12} /></div>
                 <span>Vantagens que vão além das corridas</span>
-              </li>
+              </motion.li>
             </ul>
 
             <a className="benefit-action-link lime" href="/clube-beneficios">
@@ -889,11 +1155,17 @@ export default function Page() {
                 <ArrowUpRight size={16} />
               </div>
             </a>
-          </article>
+          </motion.article>
         </div>
 
         {/* Protection Coverage Grid */}
-        <div className="protection-grid-wrap">
+        <motion.div
+          className="protection-grid-wrap"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="protection-header">
             <div className="protection-title-row">
               <span className="protection-badge">COBERTURAS DISPONÍVEIS</span>
@@ -910,27 +1182,43 @@ export default function Page() {
               { num: '04', title: 'Assistência 24 horas' },
               { num: '05', title: 'Abrangência nacional' },
               { num: '06', title: 'Guincho em acidente' },
-            ].map((item) => (
-              <div className="protection-item-card group" key={item.num}>
+            ].map((item, idx) => (
+              <motion.div
+                className="protection-item-card group"
+                key={item.num}
+                initial={{ opacity: 0, y: 18, scale: 0.97 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, delay: 0.1 + idx * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <span className="protection-item-num">{item.num}</span>
                 <span className="protection-item-title">{item.title}</span>
                 <div className="protection-check-bubble">
                   <Check size={12} />
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Fine Print Note Card */}
-        <div className="benefits-fine-print-card">
+        <motion.div
+          className="benefits-fine-print-card"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.55, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          whileHover={{ y: -2 }}
+        >
           <div className="fine-print-icon-wrap dark">
             <ShieldCheck size={18} />
           </div>
           <p className="benefits-fine-print-text">
             <strong>Condições gerais:</strong> Itens sujeitos à proposta, elegibilidade e regulamento do fornecedor parceiro. Consulte limites, carências, participações e exclusões, inclusive as condições específicas para uso em serviços de motofrete.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       <section id="faq" className="faq section-light section-pad">
@@ -1026,41 +1314,84 @@ export default function Page() {
 
       {/* FINAL CTA SECTION */}
       <section className="final-cta section-dark">
+        {/* Interactive Moving Squares Canvas */}
+        <Squares
+          direction="diagonal"
+          speed={0.4}
+          borderColor="rgba(255, 255, 255, 0.07)"
+          squareSize={52}
+          hoverFillColor="rgba(140, 229, 27, 0.18)"
+        />
+
         {/* Ambient Tech Glows */}
         <div className="final-cta-ambient-glow glow-top" />
         <div className="final-cta-ambient-glow glow-bottom" />
 
         <div className="final-cta-container">
-          {/* Eyebrow Capsule */}
-
           {/* Heading */}
-          <h2 className="final-cta-title">
+          <motion.h2
+            className="final-cta-title"
+            initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
             O próximo movimento<br />
             <span className="final-cta-gradient-glow">começa com uma conexão.</span>
-          </h2>
+          </motion.h2>
 
-          <p className="final-cta-lead">
+          <motion.p
+            className="final-cta-lead"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.65, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          >
             Faça parte da plataforma que valoriza seu corre diário com transparência nas rotas, repasses claros e autonomia total para definir seus horários.
-          </p>
+          </motion.p>
 
           {/* Value Highlights Pill Row */}
-          <div className="final-cta-perks">
-            <div className="cta-perk-item">
+          <motion.div
+            className="final-cta-perks"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.65, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <motion.div
+              className="cta-perk-item"
+              whileHover={{ y: -3, scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <CheckCircle2 size={15} className="perk-icon-lime" />
               <span>Sem taxa de adesão</span>
-            </div>
-            <div className="cta-perk-item">
+            </motion.div>
+            <motion.div
+              className="cta-perk-item"
+              whileHover={{ y: -3, scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <CheckCircle2 size={15} className="perk-icon-lime" />
               <span>Acesso imediato às oportunidades</span>
-            </div>
-            <div className="cta-perk-item">
+            </motion.div>
+            <motion.div
+              className="cta-perk-item"
+              whileHover={{ y: -3, scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            >
               <CheckCircle2 size={15} className="perk-icon-lime" />
               <span>Clube de benefícios optativo</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Action Buttons Row */}
-          <div className="final-cta-actions">
+          <motion.div
+            className="final-cta-actions"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.65, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          >
             <a
               className="final-cta-btn-primary group"
               href="/cadastro"
@@ -1076,12 +1407,20 @@ export default function Page() {
               <HelpCircle size={16} />
               <span>Dúvidas frequentes</span>
             </a>
-          </div>
+          </motion.div>
 
           {/* Telemetry Status Strip */}
-          <div className="final-cta-telemetry-strip">
+          <motion.div
+            className="final-cta-telemetry-strip"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.65, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="telemetry-strip-item">
-              <div className="strip-item-val">100%</div>
+              <div className="strip-item-val">
+                <CountUp to={100} duration={1200} suffix="%" />
+              </div>
               <div className="strip-item-desc">Autonomia de horários</div>
             </div>
             <div className="telemetry-strip-divider" />
@@ -1094,7 +1433,7 @@ export default function Page() {
               <div className="strip-item-val">Ágil</div>
               <div className="strip-item-desc">Suporte ao parceiro</div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -1144,7 +1483,18 @@ export default function Page() {
                     Meu pré-cadastro ↗
                   </a>
                 </li>
-                <li><a href="#">Área administrativa</a></li>
+                <li>
+                  <a
+                    href="#area-administrativa"
+                    onClick={(e) => e.preventDefault()}
+                    aria-disabled="true"
+                    title="Área administrativa indisponível no momento"
+                    className="cursor-blocked footer-link-blocked"
+                  >
+                    <span>Área administrativa</span>
+                    <span className="footer-soon-badge">EM BREVE</span>
+                  </a>
+                </li>
                 <li><a href="#beneficios">Clube de Benefícios</a></li>
                 <li><a href="#faq">Dúvidas Frequentes</a></li>
               </ul>

@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { ArrowUp, Shield } from 'lucide-react'
 
@@ -44,6 +46,18 @@ export default function Footer() {
               <li>
                 <a href="/cadastro" className="footer-link-highlight">
                   Meu pré-cadastro ↗
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#area-administrativa"
+                  onClick={(e) => e.preventDefault()}
+                  aria-disabled="true"
+                  title="Área administrativa indisponível no momento"
+                  className="cursor-blocked footer-link-blocked"
+                >
+                  <span>Área administrativa</span>
+                  <span className="footer-soon-badge">EM BREVE</span>
                 </a>
               </li>
               <li><a href="/protecao">Proteção Veicular</a></li>

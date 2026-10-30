@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion } from 'motion/react'
+import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
 import {
   ShieldCheck,
   ArrowUpRight,
@@ -261,6 +261,29 @@ export default function ProtectionPage() {
   const [activeStage, setActiveStage] = useState<number>(1)
   const [checkedList, setCheckedList] = useState<string[]>(['motofrete', 'carencia'])
   const [openFaq, setOpenFaq] = useState<number | null>(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const triggerY = window.innerHeight * 0.36
+      let closestStage = 1
+      let minDistance = Infinity
+      for (const st of stepsData) {
+        const el = document.getElementById(`prot-step-card-${st.num}`)
+        if (!el) continue
+        const rect = el.getBoundingClientRect()
+        const cardCenter = rect.top + rect.height / 2
+        const dist = Math.abs(cardCenter - triggerY)
+        if (dist < minDistance) {
+          minDistance = dist
+          closestStage = st.num
+        }
+      }
+      setActiveStage((prev) => (prev !== closestStage ? closestStage : prev))
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const toggleCheck = (id: string) => {
     setCheckedList((prev) =>
@@ -523,15 +546,24 @@ export default function ProtectionPage() {
                       <span className="prot-dossier-tag">{currentStep.tag}</span>
                     </div>
 
-                    <div className="prot-dossier-hero">
-                      <div className="prot-dossier-icon-sphere">
-                        <CurrentIcon size={24} />
-                      </div>
-                      <div>
-                        <h4>{currentStep.title}</h4>
-                        <p>{currentStep.lead}</p>
-                      </div>
-                    </div>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentStep.num}
+                        className="prot-dossier-hero"
+                        initial={{ opacity: 0, y: 8, filter: 'blur(3px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, y: -8, filter: 'blur(3px)' }}
+                        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <div className="prot-dossier-icon-sphere">
+                          <CurrentIcon size={24} />
+                        </div>
+                        <div>
+                          <h4>{currentStep.title}</h4>
+                          <p>{currentStep.lead}</p>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
 
                     <div className="prot-dossier-progress-bar">
                       {stepsData.map((s) => (
@@ -617,51 +649,96 @@ export default function ProtectionPage() {
       </section>
 
       {/* =========================================================
-          03. COBERTURAS POSSÍVEIS (REACT BITS SPOTLIGHT CARDS)
+          03. COBERTURAS POSSÍVEIS (REACT BITS SPOTLIGHT CARDS + MOTION)
          ========================================================= */}
       <section className="prot-coverages-section section-dark section-pad">
+        {/* Interactive Squares Canvas Background */}
+        <Squares
+          direction="diagonal"
+          speed={0.35}
+          borderColor="rgba(255, 255, 255, 0.05)"
+          squareSize={48}
+          hoverFillColor="rgba(140, 229, 27, 0.09)"
+        />
+        <div className="prot-coverages-ambient-glow" aria-hidden="true" />
+
         <div className="prot-container">
-          <div className="section-kicker light">
+          <motion.div
+            className="section-kicker light"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="kicker-pill dark-pill">
               <span className="kicker-live-dot" />
               <span className="kicker-text-desktop">ITENS QUE PODEM COMPOR O PLANO</span>
               <span className="kicker-text-mobile">COBERTURAS</span>
             </div>
             <span className="kicker-index light">02 / COBERTURAS POSSÍVEIS</span>
-          </div>
+          </motion.div>
 
           <div className="prot-section-head light">
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            >
               <h2 className="prot-section-title light">
                 O que pode fazer parte
                 <br />
                 <span className="title-lime-glow">da sua proteção veicular.</span>
               </h2>
-            </div>
-            <p className="prot-section-desc light">
+            </motion.div>
+            <motion.p
+              className="prot-section-desc light"
+              initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.65, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            >
               Os itens abaixo exemplificam as coberturas divulgadas pelos fornecedores parceiros. A existência e a extensão reais dependem do contrato e regulamento de cada fornecedor.
-            </p>
+            </motion.p>
           </div>
 
           <div className="prot-spotlight-grid">
-            {coveragesData.map((cov) => {
+            {coveragesData.map((cov, idx) => {
               const CovIcon = cov.icon
               return (
-                <SpotlightCard
+                <motion.div
                   key={cov.num}
-                  className="prot-coverage-card"
-                  spotlightColor="rgba(140, 229, 27, 0.22)"
+                  className="prot-cov-motion-wrap"
+                  initial={{ opacity: 0, y: 34, scale: 0.96, filter: 'blur(6px)' }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{
+                    duration: 0.58,
+                    delay: idx * 0.09,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  whileHover={{
+                    y: -8,
+                    scale: 1.015,
+                    transition: { type: 'spring', stiffness: 320, damping: 22 },
+                  }}
                 >
-                  <div className="prot-cov-top">
-                    <span className="prot-cov-num">{cov.num}</span>
-                    <span className="prot-cov-badge">{cov.badge}</span>
-                    <div className="prot-cov-icon">
-                      <CovIcon size={18} />
+                  <SpotlightCard
+                    className="prot-coverage-card"
+                    spotlightColor="rgba(140, 229, 27, 0.24)"
+                  >
+                    <div className="prot-cov-laser-line" aria-hidden="true" />
+                    <div className="prot-cov-top">
+                      <span className="prot-cov-num">{cov.num}</span>
+                      <span className="prot-cov-badge">{cov.badge}</span>
+                      <div className="prot-cov-icon">
+                        <CovIcon size={18} />
+                      </div>
                     </div>
-                  </div>
-                  <h3 className="prot-cov-title">{cov.title}</h3>
-                  <p className="prot-cov-desc">{cov.desc}</p>
-                </SpotlightCard>
+                    <h3 className="prot-cov-title">{cov.title}</h3>
+                    <p className="prot-cov-desc">{cov.desc}</p>
+                  </SpotlightCard>
+                </motion.div>
               )
             })}
           </div>
@@ -673,41 +750,81 @@ export default function ProtectionPage() {
          ========================================================= */}
       <section className="prot-factors-section section-light section-pad">
         <div className="prot-container">
-          <div className="section-kicker">
+          <motion.div
+            className="section-kicker"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="kicker-pill">
               <span className="kicker-live-dot" />
               <span className="kicker-text-desktop">CRITÉRIOS DE COTAÇÃO & CONFERÊNCIA</span>
               <span className="kicker-text-mobile">CRITÉRIOS</span>
             </div>
             <span className="kicker-index">03 / COTAÇÃO & CHECKLIST</span>
-          </div>
+          </motion.div>
 
           {/* Factors Sub-block */}
           <div className="prot-factors-block">
             <div className="prot-factors-header">
-              <h2 className="prot-section-title">
+              <motion.h2
+                className="prot-section-title"
+                initial={{ opacity: 0, y: 22, filter: 'blur(5px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
                 O que influencia o valor
                 <br />
                 <span className="prot-title-lime">da sua mensalidade.</span>
-              </h2>
-              <p className="prot-section-desc">
+              </motion.h2>
+              <motion.p
+                className="prot-section-desc"
+                initial={{ opacity: 0, y: 18, filter: 'blur(4px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
                 Cada motocicleta e rotina têm características próprias. Por isso, o fornecedor calcula a cotação individualmente com base em 4 pilares:
-              </p>
+              </motion.p>
             </div>
 
             <div className="prot-factors-grid">
-              {pricingFactors.map((f) => (
-                <div key={f.code} className="prot-factor-card">
+              {pricingFactors.map((f, idx) => (
+                <motion.div
+                  key={f.code}
+                  className="prot-factor-card"
+                  initial={{ opacity: 0, y: 28, scale: 0.96, filter: 'blur(4px)' }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{
+                    duration: 0.55,
+                    delay: idx * 0.09,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  whileHover={{
+                    y: -7,
+                    scale: 1.015,
+                    transition: { type: 'spring', stiffness: 320, damping: 22 },
+                  }}
+                >
                   <span className="prot-factor-code">{f.code}</span>
                   <h4>{f.title}</h4>
                   <p>{f.desc}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
 
           {/* Interactive Pre-Contract Checklist (Anexo II Rules) */}
-          <div className="prot-checklist-box">
+          <motion.div
+            className="prot-checklist-box"
+            initial={{ opacity: 0, y: 28, filter: 'blur(5px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="prot-checklist-head">
               <div>
                 <span className="prot-checklist-eyebrow">
@@ -722,75 +839,69 @@ export default function ProtectionPage() {
               <div className="prot-checklist-meter">
                 <div className="meter-top">
                   <span>Itens conferidos</span>
-                  <strong>
+                  <motion.strong
+                    key={checkProgress}
+                    initial={{ scale: 0.9, opacity: 0.6 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: 'spring', stiffness: 320, damping: 20 }}
+                  >
                     {checkedList.length}/{checklistItems.length} ({checkProgress}%)
-                  </strong>
+                  </motion.strong>
                 </div>
                 <div className="meter-bar-bg">
-                  <div className="meter-bar-fill" style={{ width: `${checkProgress}%` }} />
+                  <motion.div
+                    className="meter-bar-fill"
+                    initial={false}
+                    animate={{ width: `${checkProgress}%` }}
+                    transition={{ type: 'spring', stiffness: 160, damping: 22 }}
+                  />
                 </div>
               </div>
             </div>
 
             <div className="prot-checklist-grid">
-              {checklistItems.map((item) => {
+              {checklistItems.map((item, idx) => {
                 const isChecked = checkedList.includes(item.id)
                 return (
-                  <button
+                  <motion.button
                     key={item.id}
                     type="button"
                     onClick={() => toggleCheck(item.id)}
                     className={`prot-check-card ${isChecked ? 'is-checked' : ''}`}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{
+                      duration: 0.45,
+                      delay: idx * 0.06,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    whileHover={{
+                      y: -3,
+                      scale: 1.008,
+                      transition: { type: 'spring', stiffness: 340, damping: 22 },
+                    }}
+                    whileTap={{ scale: 0.985 }}
                   >
-                    <span className="prot-check-box">
+                    <motion.span
+                      className="prot-check-box"
+                      animate={isChecked ? { scale: [1, 1.18, 1] } : { scale: 1 }}
+                      transition={{ duration: 0.25 }}
+                    >
                       <Check size={13} strokeWidth={3} />
-                    </span>
+                    </motion.span>
                     <div className="prot-check-text">
                       <strong>{item.title}</strong>
                       <small>{item.desc}</small>
                     </div>
-                  </button>
+                  </motion.button>
                 )
               })}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* =========================================================
-          06. EM CASO DE OCORRÊNCIA / SINISTRO (4 PASSOS)
-         ========================================================= */}
-      <section className="prot-incident-section section-light">
-        <div className="prot-container">
-          <div className="prot-incident-shell">
-            <div className="prot-incident-header">
-              <div className="prot-incident-badge">
-                <PhoneCall size={14} />
-                <span>PROCEDIMENTO PADRÃO DE ACIONAMENTO</span>
-              </div>
-              <h3>Como agir em caso de pane, colisão, roubo ou furto</h3>
-              <p>
-                Caso você tenha contratado um plano junto ao fornecedor parceiro, o atendimento de emergência e a regulação de sinistro acontecem diretamente com a central do fornecedor:
-              </p>
-            </div>
-
-            <div className="prot-incident-grid">
-              {incidentSteps.map((inc, idx) => (
-                <div key={inc.step} className="prot-incident-step-card">
-                  <div className="inc-step-top">
-                    <span className="inc-step-pill">{inc.step}</span>
-                    {idx < incidentSteps.length - 1 && (
-                      <ArrowRight size={15} className="inc-step-arrow" />
-                    )}
-                  </div>
-                  <h4>{inc.title}</h4>
-                  <p>{inc.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* =========================================================
           07. FAQ ESPECÍFICO DA PROTEÇÃO VEICULAR
@@ -829,7 +940,7 @@ export default function ProtectionPage() {
                   <div>
                     <h4 className="support-title">Quer cotar para sua moto?</h4>
                     <p className="support-desc">
-                      Fale diretamente no WhatsApp (+55 83 9944-6461) com um consultor da proteção veicular para tirar dúvidas e simular seu plano.
+                      Fale diretamente no WhatsApp com um consultor da proteção veicular para tirar dúvidas e simular seu plano.
                     </p>
                   </div>
                 </div>
@@ -906,7 +1017,7 @@ export default function ProtectionPage() {
           </h2>
 
           <p className="final-cta-lead">
-            Fale agora pelo WhatsApp (+55 83 9944-6461) diretamente com um consultor da proteção veicular para conhecer coberturas, benefícios e valores para a sua moto.
+            Fale agora pelo WhatsApp diretamente com um consultor da proteção veicular para conhecer coberturas, benefícios e valores para a sua moto.
           </p>
 
           <div className="final-cta-actions">

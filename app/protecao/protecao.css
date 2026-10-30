@@ -345,6 +345,8 @@
   background: rgba(140, 229, 27, 0.14);
   border: 1px solid rgba(140, 229, 27, 0.35);
   color: #8ce51b;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Inner Card */
@@ -372,8 +374,15 @@
   gap: 7px;
   font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: rgba(255, 255, 255, 0.78);
+  min-width: 0;
+}
+
+.prot-vehicle-tag span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .prot-bike-lime {
@@ -387,6 +396,8 @@
   overflow: hidden;
   background: #ffffff;
   border: 1.5px solid #8ce51b;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .prot-plate-badge .plate-band {
@@ -395,6 +406,7 @@
   font-size: 8px;
   font-weight: 900;
   padding: 3px 5px;
+  white-space: nowrap;
 }
 
 .prot-plate-badge strong {
@@ -404,6 +416,7 @@
   font-weight: 900;
   padding: 2px 7px;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 /* 2x2 Coverage Pills Grid */
@@ -546,7 +559,8 @@
    ========================================================= */
 .prot-steps-section {
   position: relative;
-  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .prot-section-head {
@@ -589,26 +603,30 @@
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   gap: clamp(28px, 4.5vw, 56px);
-  align-items: start;
+  align-items: stretch;
+  position: relative;
 }
 
 .prot-steps-sticky-col {
-  position: sticky;
-  top: 108px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  position: relative;
+  height: 100%;
 }
 
 .prot-dossier-card {
+  position: sticky;
+  top: 112px;
+  z-index: 10;
   padding: 26px 24px;
   border-radius: 26px;
   background: #ffffff;
-  border: 1.5px solid rgba(6, 40, 75, 0.1);
-  box-shadow: 0 24px 60px -16px rgba(6, 40, 75, 0.12);
+  border: 1.5px solid rgba(140, 229, 27, 0.45);
+  box-shadow:
+    0 24px 60px -16px rgba(6, 40, 75, 0.14),
+    0 0 0 3px rgba(140, 229, 27, 0.12);
   display: flex;
   flex-direction: column;
   gap: 18px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .prot-dossier-top {
@@ -896,8 +914,23 @@
    03. SPOTLIGHT COVERAGES SECTION
    ========================================================= */
 .prot-coverages-section {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(180deg, #03172d 0%, #06284b 100%);
   color: #ffffff;
+}
+
+.prot-coverages-ambient-glow {
+  position: absolute;
+  width: 680px;
+  height: 680px;
+  top: -180px;
+  left: 15%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(140, 229, 27, 0.11) 0%, transparent 68%);
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .prot-spotlight-grid {
@@ -906,17 +939,49 @@
   gap: 18px;
 }
 
+.prot-cov-motion-wrap {
+  height: 100%;
+  display: flex;
+}
+
 .prot-coverage-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
   padding: 26px 24px;
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(6, 30, 58, 0.68);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, 0.45);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .prot-coverage-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(140, 229, 27, 0.45);
+  border-color: rgba(140, 229, 27, 0.55);
+  background: rgba(8, 37, 70, 0.82);
+  box-shadow:
+    0 26px 55px -16px rgba(0, 0, 0, 0.65),
+    0 0 28px rgba(140, 229, 27, 0.14);
+}
+
+.prot-cov-laser-line {
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #8ce51b, transparent);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.prot-coverage-card:hover .prot-cov-laser-line {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .prot-cov-top {
@@ -933,6 +998,13 @@
   padding: 3px 8px;
   border-radius: 7px;
   background: rgba(140, 229, 27, 0.14);
+  border: 1px solid rgba(140, 229, 27, 0.25);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.prot-coverage-card:hover .prot-cov-num {
+  background: rgba(140, 229, 27, 0.24);
+  transform: scale(1.05);
 }
 
 .prot-cov-badge {
@@ -949,9 +1021,19 @@
   height: 36px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: #8ce51b;
   display: grid;
   place-items: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.prot-coverage-card:hover .prot-cov-icon {
+  background: #8ce51b;
+  color: #06284b;
+  border-color: #8ce51b;
+  transform: scale(1.1) rotate(-6deg);
+  box-shadow: 0 0 18px rgba(140, 229, 27, 0.45);
 }
 
 .prot-cov-title {
@@ -959,6 +1041,11 @@
   font-size: 19px;
   font-weight: 800;
   color: #ffffff;
+  transition: color 0.25s ease;
+}
+
+.prot-coverage-card:hover .prot-cov-title {
+  color: #b8f550;
 }
 
 .prot-cov-desc {
@@ -993,8 +1080,16 @@
   padding: 22px 20px;
   border-radius: 20px;
   background: #ffffff;
-  border: 1px solid rgba(6, 40, 75, 0.09);
+  border: 1.5px solid rgba(6, 40, 75, 0.09);
   box-shadow: 0 12px 30px -14px rgba(6, 40, 75, 0.08);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.prot-factor-card:hover {
+  border-color: #8ce51b;
+  box-shadow:
+    0 22px 45px -16px rgba(6, 40, 75, 0.14),
+    0 0 0 3px rgba(140, 229, 27, 0.14);
 }
 
 .prot-factor-code {
@@ -1395,3 +1490,210 @@
   }
 }
 
+
+/* =========================================================
+   MOBILE-ONLY CENTERING (HERO, SECTIONS HEADERS & CHECKLIST)
+   ========================================================= */
+@media (max-width: 768px) {
+  /* Cockpit Card Mobile UI Polish */
+  .prot-cockpit-card {
+    padding: 16px 14px;
+    border-radius: 20px;
+  }
+
+  .prot-cockpit-top {
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .prot-cockpit-status {
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .prot-status-title {
+    font-size: 10.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .prot-status-sub {
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .prot-optional-pill {
+    font-size: 8.5px;
+    padding: 3px 8px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .prot-cockpit-inner {
+    padding: 14px 12px;
+  }
+
+  .prot-inner-head {
+    gap: 8px;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+  }
+
+  .prot-vehicle-tag {
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    min-width: 0;
+  }
+
+  .prot-vehicle-tag span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .prot-plate-badge {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .prot-plate-badge .plate-band {
+    font-size: 7.5px;
+    padding: 2px 4px;
+  }
+
+  .prot-plate-badge strong {
+    font-size: 10px;
+    padding: 2px 5px;
+    white-space: nowrap;
+  }
+
+  /* 01. Hero Mobile Centering */
+  .prot-hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .prot-hero-badge {
+    align-self: center;
+    margin: 0 auto 20px;
+  }
+
+  .prot-hero-title {
+    text-align: center;
+  }
+
+  .prot-hero-lead {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .prot-hero-pills {
+    justify-content: center;
+  }
+
+  .prot-hero-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .prot-hero-stats {
+    margin: 0 auto;
+  }
+
+  /* 02. Section Headers (Steps 01, Coverages 02) Mobile Centering */
+  .prot-section-head {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .prot-section-head > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .prot-section-title {
+    text-align: center;
+  }
+
+  .prot-section-desc {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 580px;
+  }
+
+  /* 03. Pricing Factors Header (03 Cotação) Mobile Centering */
+  .prot-factors-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .prot-factors-header .prot-section-title {
+    text-align: center;
+  }
+
+  .prot-factors-header .prot-section-desc {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 580px;
+  }
+
+  /* 04. Checklist Header (Checklist Box) Mobile Centering */
+  .prot-checklist-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .prot-checklist-head > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .prot-checklist-eyebrow {
+    justify-content: center;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .prot-checklist-head h3 {
+    text-align: center;
+  }
+
+  .prot-checklist-head p {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .prot-checklist-meter {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}

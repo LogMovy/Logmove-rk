@@ -167,7 +167,9 @@ function PremiumField({
   const isFilled = value.trim().length > 0
 
   return (
-    <div
+    <motion.div
+      whileHover={{ y: -2 }}
+      transition={{ type: 'spring', stiffness: 420, damping: 22 }}
       className={`reg-premium-field ${focused ? 'is-focused' : ''} ${isFilled ? 'is-filled' : ''} ${
         fullWidth ? 'col-span-full' : ''
       }`}
@@ -206,7 +208,7 @@ function PremiumField({
           )
         )}
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -362,23 +364,42 @@ export default function RegistrationFlow() {
 
       <div className="registration-shell">
         {/* LEFT COLUMN: STICKY TELEMETRY, BRAND HEADLINE & 3D INTERACTIVE HUB */}
-        <div className="registration-intro">
-          <div className="registration-eyebrow">
+        <motion.div
+          className="registration-intro"
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <motion.div
+            className="registration-eyebrow"
+            initial={{ opacity: 0, y: 14, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ scale: 1.03, y: -2 }}
+          >
             <span className="eyebrow-pulse-dot" />
             <span>CADASTRO DE PARCEIRO LOGMOVY</span>
-          </div>
+          </motion.div>
 
-          <h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 22, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          >
             Seu próximo
             <br />
-            passo <em>começa</em>
+            passo <em className="reg-em-animated">começa</em>
             <br />
-            <em>por aqui.</em>
-          </h2>
+            <em className="reg-em-animated">por aqui.</em>
+          </motion.h2>
 
-          <p>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+          >
             Preencha seus dados em poucos minutos, configure seus repasses via PIX e escolha quando quer estar na rua.
-          </p>
+          </motion.p>
 
           {/* Interactive 3D Three.js Telemetry Core */}
           <Registration3DScene
@@ -389,7 +410,14 @@ export default function RegistrationFlow() {
           />
 
           {/* Live Dynamic Partner Pass Preview Card (Desktop) */}
-          <div className="reg-live-pass-card reg-desktop-only-block">
+          <motion.div
+            className="reg-live-pass-card reg-desktop-only-block reg-pass-card-motion"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -4, scale: 1.015 }}
+          >
+            <div className="cockpit-border-beam" />
             <div className="pass-card-header">
               <div className="pass-badge-left">
                 <Bike size={15} className="pass-bike-icon" />
@@ -414,16 +442,25 @@ export default function RegistrationFlow() {
               </div>
 
               {/* Mini Mercosul License Plate Live Preview */}
-              <div className={`mercosul-plate-mini ${isMercosulPlate ? 'is-valid' : ''}`}>
+              <motion.div
+                whileHover={{ scale: 1.05, rotate: -1 }}
+                className={`mercosul-plate-mini ${isMercosulPlate ? 'is-valid' : ''}`}
+              >
                 <div className="plate-top-band">
                   <span>BRASIL</span>
                 </div>
                 <div className="plate-code">{data.plate || 'ABC-1D23'}</div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="registration-assurance reg-desktop-only-flex">
+          <motion.div
+            className="registration-assurance reg-desktop-only-flex"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -2 }}
+          >
             <div className="assurance-icon-box">
               <ShieldCheck size={17} />
             </div>
@@ -431,11 +468,16 @@ export default function RegistrationFlow() {
               <strong>Ambiente criptografado ponta a ponta</strong>
               <span>Seus dados são usados exclusivamente para análise e repasses.</span>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* RIGHT COLUMN: DYNAMIC MULTI-STEP INTERACTIVE COCKPIT CARD */}
-        <div className="registration-card">
+        <motion.div
+          className="registration-card"
+          initial={{ opacity: 0, y: 28, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+        >
           {/* Top Ambient Glow Line */}
           <div
             className="reg-card-top-progress-glow"
@@ -525,7 +567,13 @@ export default function RegistrationFlow() {
                 </div>
 
                 {/* Current Step Header */}
-                <div className="registration-progress-head">
+                <motion.div
+                  key={`head-${step}`}
+                  className="registration-progress-head"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                >
                   <div>
                     <div className="reg-head-eyebrow">
                       <span>ETAPA {stepMeta[step].num} DE 04</span>
@@ -535,8 +583,16 @@ export default function RegistrationFlow() {
                     <h3>{stepMeta[step].title}</h3>
                     <p className="reg-head-sub">{stepMeta[step].subtitle}</p>
                   </div>
-                  <span className="registration-step-icon">{stepMeta[step].num}</span>
-                </div>
+                  <motion.span
+                    key={`badge-${step}`}
+                    initial={{ scale: 0.85, rotate: -8 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: 'spring', stiffness: 420, damping: 18 }}
+                    className="registration-step-icon"
+                  >
+                    {stepMeta[step].num}
+                  </motion.span>
+                </motion.div>
 
                 {/* Segmented Progress Bar */}
                 <div className="registration-progress" aria-label={`Etapa ${step + 1} de 4`}>
@@ -1027,17 +1083,30 @@ export default function RegistrationFlow() {
 
                   <div className="registration-actions">
                     {step > 0 && (
-                      <button type="button" className="registration-back" onClick={prev}>
+                      <motion.button
+                        type="button"
+                        className="registration-back"
+                        onClick={prev}
+                        whileHover={{ x: -3, scale: 1.02 }}
+                        whileTap={{ scale: 0.97 }}
+                      >
                         <ArrowLeft size={16} />
                         <span>Voltar</span>
-                      </button>
+                      </motion.button>
                     )}
-                    <button type="submit" className="registration-next">
+                    <motion.button
+                      type="submit"
+                      className="registration-next reg-next-shimmer-btn"
+                      whileHover={{ y: -2, scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+                    >
                       <span>{step === 3 ? 'Finalizar cadastro' : 'Continuar'}</span>
                       <span className="reg-next-icon-bubble">
                         {step === 3 ? <Check size={16} strokeWidth={3} /> : <ArrowRight size={16} />}
                       </span>
-                    </button>
+                      <span className="btn-shimmer" />
+                    </motion.button>
                   </div>
                 </form>
 
@@ -1050,7 +1119,7 @@ export default function RegistrationFlow() {
               </div>
             )}
           </AnimatePresence>
-        </div>
+        </motion.div>
 
         {/* MOBILE BOTTOM STACK: PARTNER PASS & ASSURANCE BELOW FORM */}
         <div className="reg-mobile-bottom-widgets">

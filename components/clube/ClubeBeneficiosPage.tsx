@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion } from 'motion/react'
+import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
 import {
   Sparkles,
   ArrowUpRight,
@@ -201,7 +201,7 @@ const clubFaqs = [
   ],
   [
     'Como faço para consultar as oficinas parceiras e os descontos disponíveis?',
-    'Basta clicar no botão de atendimento desta página para falar no WhatsApp (+55 83 9944-6461) com um consultor dedicado. Ele explicará como funciona a adesão junto à VM Brasil e quais oficinas parceiras atendem na sua região.',
+    'Basta clicar no botão de atendimento desta página para falar no WhatsApp com um consultor dedicado. Ele explicará como funciona a adesão junto à VM Brasil e quais oficinas parceiras atendem na sua região.',
   ],
   [
     'Posso conhecer o site oficial da parceira VM Brasil antes de falar com o consultor?',
@@ -212,6 +212,29 @@ const clubFaqs = [
 export default function ClubeBeneficiosPage() {
   const [activeStage, setActiveStage] = useState<number>(1)
   const [openFaq, setOpenFaq] = useState<number | null>(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const triggerY = window.innerHeight * 0.36
+      let closestStage = 1
+      let minDistance = Infinity
+      for (const st of clubStepsData) {
+        const el = document.getElementById(`club-step-card-${st.num}`)
+        if (!el) continue
+        const rect = el.getBoundingClientRect()
+        const cardCenter = rect.top + rect.height / 2
+        const dist = Math.abs(cardCenter - triggerY)
+        if (dist < minDistance) {
+          minDistance = dist
+          closestStage = st.num
+        }
+      }
+      setActiveStage((prev) => (prev !== closestStage ? closestStage : prev))
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <div className="prot-page-wrapper club-page-wrapper">
@@ -532,15 +555,24 @@ export default function ClubeBeneficiosPage() {
                       <span className="prot-dossier-tag">{currentStep.tag}</span>
                     </div>
 
-                    <div className="prot-dossier-hero">
-                      <div className="prot-dossier-icon-sphere">
-                        <CurrentIcon size={24} />
-                      </div>
-                      <div>
-                        <h4>{currentStep.title}</h4>
-                        <p>{currentStep.lead}</p>
-                      </div>
-                    </div>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentStep.num}
+                        className="prot-dossier-hero"
+                        initial={{ opacity: 0, y: 8, filter: 'blur(3px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, y: -8, filter: 'blur(3px)' }}
+                        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <div className="prot-dossier-icon-sphere">
+                          <CurrentIcon size={24} />
+                        </div>
+                        <div>
+                          <h4>{currentStep.title}</h4>
+                          <p>{currentStep.lead}</p>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
 
                     <div className="prot-dossier-progress-bar">
                       {clubStepsData.map((s) => (
@@ -750,7 +782,7 @@ export default function ClubeBeneficiosPage() {
                   <div>
                     <h4 className="support-title">Quer ativar ou consultar benefícios?</h4>
                     <p className="support-desc">
-                      Fale diretamente no WhatsApp (+55 83 9944-6461) com um consultor dedicado para conhecer os descontos e planos da VM Brasil.
+                      Fale diretamente no WhatsApp com um consultor dedicado para conhecer os descontos e planos da VM Brasil.
                     </p>
                   </div>
                 </div>
@@ -827,7 +859,7 @@ export default function ClubeBeneficiosPage() {
           </h2>
 
           <p className="final-cta-lead">
-            Fale agora pelo WhatsApp (+55 83 9944-6461) com um consultor para conhecer todos os benefícios, oficinas parceiras e condições especiais da VM Brasil.
+            Fale agora pelo WhatsApp com um consultor para conhecer todos os benefícios, oficinas parceiras e condições especiais da VM Brasil.
           </p>
 
           <div className="final-cta-actions">
