@@ -26,6 +26,8 @@ import {
   PackageCheck,
   BarChart3,
   Lock,
+  AlertCircle,
+  Loader2,
 } from 'lucide-react'
 import BlurText from '@/components/reactbits/BlurText'
 import ShinyText from '@/components/reactbits/ShinyText'
@@ -35,6 +37,17 @@ import Squares from '@/components/Squares'
 import DeliveryMotion from '@/components/DeliveryMotion'
 import NetworkMotion from '@/components/NetworkMotion'
 import PremiumSelect, { SelectOption } from '@/components/PremiumSelect'
+import {
+  CompanyApiError,
+  CompanySession,
+  CompanySummaryResponse,
+  fetchCompanySummary,
+  loadCompanySession,
+  submitCompanyAcceptContact,
+  submitCompanyStep1,
+  submitCompanyStep2,
+  submitCompanyStep3,
+} from '@/lib/companyApi'
 
 const segmentOptions: SelectOption[] = [
   {
@@ -437,6 +450,18 @@ export default function EmpresasPage() {
   const [observacoes, setObservacoes] = useState('')
   const [aceiteContato, setAceiteContato] = useState(true)
   const [submittedProtocol, setSubmittedProtocol] = useState<string | null>(null)
+  const [companySession, setCompanySession] = useState<CompanySession | null>(null)
+  const [companySummary, setCompanySummary] = useState<CompanySummaryResponse | null>(null)
+  const [loadingSubmit, setLoadingSubmit] = useState(false)
+  const [apiError, setApiError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
+
+  useEffect(() => {
+    const saved = loadCompanySession()
+    if (saved) {
+      setCompanySession(saved)
+    }
+  }, [])
 
   const completionScore = useMemo(() => {
     let filled = 0
@@ -461,10 +486,61 @@ export default function EmpresasPage() {
     )
   }
 
-  const handleCompanySubmit = (e: React.FormEvent) => {
+  const handleCompanySubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const randomCode = Math.floor(100000 + Math.random() * 900000)
-    setSubmittedProtocol(`B2B-${randomCode}`)
+    if (loadingSubmit) return
+
+    setApiError(null)
+    setFieldErrors({})
+    setLoadingSubmit(true)
+
+    try {
+      // Bloco 01: Identificação da Empresa (POST /api/v1/companies/step-1 ou /{id}/step-1)
+      const session = await submitCompanyStep1(
+        {
+          nomeFantasia,
+          cnpj,
+          razaoSocial,
+          cidadeUf,
+          segmento,
+        },
+        companySession
+      )
+      setCompanySession(session)
+
+      // Bloco 02: Responsável pela Operação (POST /api/v1/companies/{id}/step-2)
+      await submitCompanyStep2(session, {
+        responsavel,
+        cargo,
+        whatsapp,
+        email,
+      })
+
+      // Bloco 03: Perfil Logístico & Demanda (POST /api/v1/companies/{id}/step-3)
+      await submitCompanyStep3(session, {
+        volumeDiario,
+        modalidade,
+        turnosPico,
+        observacoes,
+      })
+
+      // Revisão (GET): Confirmação dos 3 blocos via GET /api/v1/companies/{id}
+      const summary = await fetchCompanySummary(session)
+      setCompanySummary(summary)
+
+      // Consentimento Final LGPD (POST): POST /api/v1/companies/{id}/accept-contact
+      const finalized = await submitCompanyAcceptContact(session, aceiteContato, '1.0')
+      setSubmittedProtocol(finalized.protocol)
+    } catch (err) {
+      if (err instanceof CompanyApiError) {
+        setApiError(err.message)
+        setFieldErrors(err.fieldErrors || {})
+      } else {
+        setApiError('Ocorreu um erro inesperado ao comunicar com a API corporativa.')
+      }
+    } finally {
+      setLoadingSubmit(false)
+    }
   }
 
   return (
@@ -1006,22 +1082,28 @@ export default function EmpresasPage() {
                     <div>
                       <span>EMPRESA / CNPJ</span>
                       <strong>
-                        {nomeFantasia} ({cnpj})
+                        {companySummary?.company.nomeFantasia || nomeFantasia} (
+                        {companySummary?.company.cnpj || cnpj})
                       </strong>
                     </div>
                     <div>
                       <span>SEGMENTO</span>
-                      <strong>{segmento}</strong>
+                      <strong>{companySummary?.company.segmento || segmento}</strong>
                     </div>
                     <div>
                       <span>DEMANDA & FORMATO</span>
                       <strong>
-                        {volumeDiario} · {modalidade}
+                        {companySummary?.logistics?.volumeDiario || volumeDiario} ·{' '}
+                        {companySummary?.logistics?.modalidade || modalidade}
                       </strong>
                     </div>
                     <div>
                       <span>TURNOS DE PICO</span>
-                      <strong>{turnosPico.join(', ') || 'Horário comercial'}</strong>
+                      <strong>
+                        {(companySummary?.logistics?.turnosPico?.length
+                          ? companySummary.logistics.turnosPico.join(', ')
+                          : turnosPico.join(', ')) || 'Horário comercial'}
+                      </strong>
                     </div>
                   </div>
 
@@ -1283,16 +1365,45 @@ export default function EmpresasPage() {
                     </span>
                   </label>
 
+                  {apiError && (
+                    <div
+                      role="alert"
+                      className="reg-days-summary-bar is-error"
+                      style={{ marginTop: '8px', marginBottom: '12px' }}
+                    >
+                      <AlertCircle size={16} />
+                      <div>
+                        <strong>{apiError}</strong>
+                        {Object.keys(fieldErrors).length > 0 && (
+                          <ul style={{ margin: '6px 0 0 18px', padding: 0, fontSize: '0.85rem' }}>
+                            {Object.entries(fieldErrors).map(([field, msg]) => (
+                              <li key={field}>{msg}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                   <motion.button
                     type="submit"
+                    disabled={loadingSubmit}
                     className="emp-submit-btn"
                     whileHover={{ scale: 1.015, y: -2 }}
                     whileTap={{ scale: 0.985 }}
                     transition={{ type: 'spring', stiffness: 450, damping: 22 }}
                   >
-                    <span>Solicitar contato comercial para minha empresa</span>
+                    <span>
+                      {loadingSubmit
+                        ? 'Enviando dados da sua empresa...'
+                        : 'Solicitar contato comercial para minha empresa'}
+                    </span>
                     <span className="emp-submit-bubble">
-                      <ArrowUpRight size={18} />
+                      {loadingSubmit ? (
+                        <Loader2 size={18} className="animate-spin" />
+                      ) : (
+                        <ArrowUpRight size={18} />
+                      )}
                     </span>
                   </motion.button>
                 </motion.form>

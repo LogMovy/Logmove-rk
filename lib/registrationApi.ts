@@ -1,5 +1,4 @@
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL?.replace(/\/+$/, '') || 'https://logmovy.kodyvera.com/CadastroMotoboys'
+export const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL ?? '').replace(/\/+$/, '')
 
 const SESSION_STORAGE_KEY = 'logmovy_registration_session_v1'
 
@@ -75,7 +74,7 @@ async function requestJson<T>(path: string, init: RequestInit = {}): Promise<T> 
     })
   } catch {
     throw new RegistrationApiError(
-      `Não foi possível conectar ao servidor da LogMovy (${API_BASE_URL}). Verifique sua conexão e tente novamente.`,
+      'Não foi possível conectar ao servidor da LogMovy. Verifique sua conexão e tente novamente.',
       0,
       'NETWORK_ERROR'
     )
