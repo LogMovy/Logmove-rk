@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import {
   ArrowLeft,
@@ -26,10 +26,23 @@ import {
   FileText,
   BadgeCheck,
   AlertCircle,
+  Loader2,
 } from 'lucide-react'
 import Registration3DScene from '@/components/Registration3DScene'
 import NetworkMotion from '@/components/NetworkMotion'
 import PremiumSelect, { SelectOption } from '@/components/PremiumSelect'
+import {
+  RegistrationApiError,
+  RegistrationSession,
+  RegistrationSummaryResponse,
+  clearRegistrationSession,
+  fetchRegistrationSummary,
+  loadRegistrationSession,
+  submitAcceptTerms,
+  submitStep1,
+  submitStep2,
+  submitStep3,
+} from '@/lib/registrationApi'
 
 const daysList = [
   { id: 'Segunda-feira', short: 'SEG', label: 'Segunda-feira', tag: 'Alta demanda' },
@@ -250,6 +263,19 @@ export default function RegistrationFlow() {
   const [submitted, setSubmitted] = useState(false)
   const [daysError, setDaysError] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [session, setSession] = useState<RegistrationSession | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [apiError, setApiError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
+  const [protocol, setProtocol] = useState<string | null>(null)
+  const [reviewSummary, setReviewSummary] = useState<RegistrationSummaryResponse | null>(null)
+
+  useEffect(() => {
+    const saved = loadRegistrationSession()
+    if (saved) {
+      setSession(saved)
+    }
+  }, [])
 
   // Format and update field
   const update = (name: TextField, rawValue: string) => {
@@ -259,6 +285,14 @@ export default function RegistrationFlow() {
     if (name === 'mei') value = maskCNPJ(rawValue)
     if (name === 'plate') value = maskPlate(rawValue)
     if (name === 'cnh') value = rawValue.replace(/\D/g, '').slice(0, 11)
+
+    setApiError(null)
+    setFieldErrors((prev) => {
+      if (!prev[name]) return prev
+      const copy = { ...prev }
+      delete copy[name]
+      return copy
+    })
 
     setData((current) => {
       const nextState = { ...current, [name]: value }
@@ -327,28 +361,99 @@ export default function RegistrationFlow() {
   }, [data, submitted])
 
   const goToStep = (targetStep: number) => {
-    if (targetStep < step) {
+    if (targetStep < step && !loading) {
+      setApiError(null)
+      setFieldErrors({})
       setDirection(-1)
       setStep(targetStep)
     }
   }
 
-  const next = (event: React.FormEvent<HTMLFormElement>) => {
+  const next = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (loading) return
+
+    setApiError(null)
+    setFieldErrors({})
+
     if (step === 2 && data.days.length === 0) {
       setDaysError(true)
       return
     }
-    if (step < 3) {
-      setDirection(1)
-      setStep((current) => current + 1)
-    } else {
-      setSubmitted(true)
+
+    setLoading(true)
+    try {
+      if (step === 0) {
+        const nextSession = await submitStep1(
+          {
+            name: data.name,
+            cpf: data.cpf,
+            birthDate: data.birthDate,
+            email: data.email,
+            phone: data.phone,
+            password: data.password,
+            plate: data.plate,
+            mei: data.mei,
+            cnh: data.cnh,
+          },
+          session
+        )
+        setSession(nextSession)
+        setDirection(1)
+        setStep(1)
+      } else if (step === 1) {
+        if (!session) {
+          setStep(0)
+          throw new RegistrationApiError('Sessão expirada. Confirme os dados da Etapa 01.', 401)
+        }
+        await submitStep2(session, {
+          bank: data.bank,
+          agency: data.agency,
+          account: data.account,
+          accountType: data.accountType,
+          holderCpf: data.holderCpf,
+          pixType: data.pixType,
+          pixKey: data.pixKey,
+        })
+        setDirection(1)
+        setStep(2)
+      } else if (step === 2) {
+        if (!session) {
+          setStep(0)
+          throw new RegistrationApiError('Sessão expirada. Confirme os dados da Etapa 01.', 401)
+        }
+        await submitStep3(session, { days: data.days })
+        // Na transição para a Etapa 04 (Revisão), busca o resumo confirmado via GET na API
+        const summary = await fetchRegistrationSummary(session)
+        setReviewSummary(summary)
+        setDirection(1)
+        setStep(3)
+      } else if (step === 3) {
+        if (!session) {
+          setStep(0)
+          throw new RegistrationApiError('Sessão expirada. Confirme os dados da Etapa 01.', 401)
+        }
+        const finalized = await submitAcceptTerms(session, data.acceptedTerms, '1.1')
+        setProtocol(finalized.protocol)
+        setSession(null)
+        setSubmitted(true)
+      }
+    } catch (err) {
+      if (err instanceof RegistrationApiError) {
+        setApiError(err.message)
+        setFieldErrors(err.fieldErrors || {})
+      } else {
+        setApiError('Ocorreu um erro inesperado ao comunicar com a API.')
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
   const prev = () => {
-    if (step > 0) {
+    if (step > 0 && !loading) {
+      setApiError(null)
+      setFieldErrors({})
       setDirection(-1)
       setStep((current) => current - 1)
     }
@@ -498,7 +603,9 @@ export default function RegistrationFlow() {
                 <div className="success-emblem-ring">
                   <CheckCircle2 size={38} />
                 </div>
-                <span className="success-kicker-pill">PROTOCOLO #LMV-{Math.floor(100000 + Math.random() * 900000)}</span>
+                <span className="success-kicker-pill">
+                  PROTOCOLO #{protocol || `LMV-${Math.floor(100000 + Math.random() * 900000)}`}
+                </span>
                 <h3>Cadastro enviado com sucesso!</h3>
                 <p>
                   Parabéns, <strong>{data.name.split(' ')[0] || 'Parceiro'}</strong>! Suas informações foram
@@ -509,15 +616,15 @@ export default function RegistrationFlow() {
                 <div className="success-summary-box">
                   <div className="summary-item">
                     <span>Veículo / Placa</span>
-                    <strong>{data.plate || 'Informado'}</strong>
+                    <strong>{reviewSummary?.profile.plate || data.plate || 'Informado'}</strong>
                   </div>
                   <div className="summary-item">
-                    <span>Chave PIX ({data.pixType})</span>
-                    <strong>{data.pixKey || 'Configurada'}</strong>
+                    <span>Chave PIX ({reviewSummary?.banking?.pixType || data.pixType})</span>
+                    <strong>{reviewSummary?.banking?.pixKey || data.pixKey || 'Configurada'}</strong>
                   </div>
                   <div className="summary-item">
                     <span>Disponibilidade</span>
-                    <strong>{data.days.length} dias selecionados</strong>
+                    <strong>{reviewSummary?.schedule.totalDays ?? data.days.length} dias selecionados</strong>
                   </div>
                 </div>
 
@@ -525,6 +632,12 @@ export default function RegistrationFlow() {
                   type="button"
                   className="reg-btn-reset"
                   onClick={() => {
+                    clearRegistrationSession()
+                    setSession(null)
+                    setProtocol(null)
+                    setReviewSummary(null)
+                    setApiError(null)
+                    setFieldErrors({})
                     setData(initialData)
                     setStep(0)
                     setSubmitted(false)
@@ -949,20 +1062,22 @@ export default function RegistrationFlow() {
                         transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                         className="registration-terms"
                       >
-                        {/* Quick Review Grid before Accepting Terms */}
+                        {/* Quick Review Grid before Accepting Terms (Confirmado via GET /api/v1/registrations/{id}) */}
                         <div className="reg-review-grid">
                           <div className="review-mini-card">
                             <span>CONDUTOR & MOTO</span>
-                            <strong>{data.name || 'Não informado'}</strong>
+                            <strong>{reviewSummary?.profile.name || data.name || 'Não informado'}</strong>
                             <small>
-                              CPF: {data.cpf || '—'} · Placa: {data.plate || '—'}
+                              CPF: {reviewSummary?.profile.cpf || data.cpf || '—'} · Placa:{' '}
+                              {reviewSummary?.profile.plate || data.plate || '—'}
                             </small>
                           </div>
                           <div className="review-mini-card">
-                            <span> CONTA & CHAVE PIX</span>
-                            <strong>{data.bank || 'Banco informado'}</strong>
+                            <span>CONTA & CHAVE PIX</span>
+                            <strong>{reviewSummary?.banking?.bank || data.bank || 'Banco informado'}</strong>
                             <small>
-                              PIX ({data.pixType}): {data.pixKey || '—'}
+                              PIX ({reviewSummary?.banking?.pixType || data.pixType}):{' '}
+                              {reviewSummary?.banking?.pixKey || data.pixKey || '—'}
                             </small>
                           </div>
                         </div>
@@ -1081,12 +1196,33 @@ export default function RegistrationFlow() {
                     )}
                   </AnimatePresence>
 
+                  {apiError && (
+                    <div
+                      role="alert"
+                      className="reg-days-summary-bar is-error"
+                      style={{ marginTop: '14px', marginBottom: '4px' }}
+                    >
+                      <AlertCircle size={16} />
+                      <div>
+                        <strong>{apiError}</strong>
+                        {Object.keys(fieldErrors).length > 0 && (
+                          <ul style={{ margin: '6px 0 0 18px', padding: 0, fontSize: '0.85rem' }}>
+                            {Object.entries(fieldErrors).map(([field, msg]) => (
+                              <li key={field}>{msg}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="registration-actions">
                     {step > 0 && (
                       <motion.button
                         type="button"
                         className="registration-back"
                         onClick={prev}
+                        disabled={loading}
                         whileHover={{ x: -3, scale: 1.02 }}
                         whileTap={{ scale: 0.97 }}
                       >
@@ -1096,14 +1232,27 @@ export default function RegistrationFlow() {
                     )}
                     <motion.button
                       type="submit"
+                      disabled={loading}
                       className="registration-next reg-next-shimmer-btn"
                       whileHover={{ y: -2, scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 18 }}
                     >
-                      <span>{step === 3 ? 'Finalizar cadastro' : 'Continuar'}</span>
+                      <span>
+                        {loading
+                          ? 'Salvando...'
+                          : step === 3
+                            ? 'Finalizar cadastro'
+                            : 'Continuar'}
+                      </span>
                       <span className="reg-next-icon-bubble">
-                        {step === 3 ? <Check size={16} strokeWidth={3} /> : <ArrowRight size={16} />}
+                        {loading ? (
+                          <Loader2 size={16} className="animate-spin" />
+                        ) : step === 3 ? (
+                          <Check size={16} strokeWidth={3} />
+                        ) : (
+                          <ArrowRight size={16} />
+                        )}
                       </span>
                       <span className="btn-shimmer" />
                     </motion.button>
