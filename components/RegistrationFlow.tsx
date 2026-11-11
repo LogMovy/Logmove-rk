@@ -1086,7 +1086,7 @@ export default function RegistrationFlow() {
                           <div className="terms-doc-header">
                             <span className="terms-doc-badge">CONTRATO SaaS + MARKETPLACE · v1.1</span>
                             <h4>Contrato de Adesão e Licença de Uso da Plataforma LogMovy</h4>
-                            <small>Profissional Parceiro / Motofretista · Foro de Campina Grande/PB</small>
+                            <small>Profissional Parceiro / Motofretista · CNPJ: 70.062.513/0001-02 · Foro de Campina Grande/PB</small>
                           </div>
 
                           <div className="terms-highlight-box">
@@ -1104,7 +1104,7 @@ export default function RegistrationFlow() {
 
                           <h5>1. Objeto, Escopo e Natureza SaaS / Marketplace</h5>
                           <p>
-                            Este contrato disciplina o cadastro e a licença de uso da plataforma <strong>LogMovy</strong>, em modalidade Software as a Service (SaaS), bem como o acesso a funcionalidades de marketplace destinadas a aproximar Empresas Parceiras e Profissionais Parceiros para oportunidades específicas de motofrete.
+                            Este contrato disciplina o cadastro e a licença de uso da plataforma <strong>LogMovy</strong> (inscrita no CNPJ sob o nº <strong>70.062.513/0001-02</strong>), em modalidade Software as a Service (SaaS), bem como o acesso a funcionalidades de marketplace destinadas a aproximar Empresas Parceiras e Profissionais Parceiros para oportunidades específicas de motofrete.
                           </p>
                           <p>
                             A LogMovy fornece infraestrutura tecnológica e ambiente digital de conexão e gestão de oportunidades. O serviço não constitui fornecimento de mão de obra, agência de trabalho temporário, vínculo empregatício automático ou terceirização operacional gerenciada.
